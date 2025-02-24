@@ -1,0 +1,18 @@
+.form-wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.form-control,
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__year-dropdown-container {
+  width: 100%;
+  padding: 5px;
+}
+
+button.react-datepicker__navigation {
+  background: #007bff;
+}

@@ -1,0 +1,112 @@
+/* Toàn bộ container form */
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  padding: 20px;
+}
+
+/* Card (form chính) */
+.register-card {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 15px;
+  padding: 40px;
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Tiêu đề form */
+.register-card h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Form labels */
+.register-card label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+/* Form inputs */
+.register-card .form-control {
+  height: 50px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: none;
+  transition: border-color 0.3s ease-in-out;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  font-size: 16px;
+}
+
+.register-card .form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Dropdown styling */
+.register-card .form-select {
+  height: 50px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: none;
+  transition: border-color 0.3s ease-in-out;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  font-size: 16px;
+}
+
+.register-card .form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Submit button */
+button[type="submit"] {
+  height: 50px;
+  background: #007bff;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background 0.3s ease-in-out;
+  width: 100%;
+}
+
+button[type="submit"]:hover {
+  background: #0056b3;
+  cursor: pointer;
+}
+
+/* Alerts (thông báo lỗi hoặc thành công) */
+.alert {
+  font-size: 14px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .register-card {
+    padding: 30px;
+  }
+
+  .register-card h2 {
+    font-size: 24px;
+  }
+
+  button[type="submit"] {
+    font-size: 16px;
+  }
+}
