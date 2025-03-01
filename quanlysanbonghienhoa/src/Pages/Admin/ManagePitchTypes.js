@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Form, Table, Spinner, Alert, Image } from "react-bootstrap";
+import { Button, Modal, Form, Table, Spinner, Alert } from "react-bootstrap";
 import { PitchTypeAPI } from "../../API";
 import "../../CSS/Admin/ManagePitchTypeAdmin.css";
 
@@ -33,7 +33,7 @@ const ManagePitchType = () => {
     if (name === "images") {
       const newImages = files ? Array.from(files) : [];
       setFormData({ ...formData, images: newImages });
-      setUploadedImages(newImages.map(file => URL.createObjectURL(file)));
+      setUploadedImages(newImages.map(file => file.name));
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -66,9 +66,11 @@ const ManagePitchType = () => {
       name: pitchType.name,
       price: pitchType.price,
       limitPerson: pitchType.limitPerson,
-      images: [],
+      images: [], // 🛑 Không gán images ở đây để giữ hình ảnh cũ
     });
-    setUploadedImages(pitchType.images || []);
+
+    // 🛠 Hiển thị ảnh cũ khi sửa
+    setUploadedImages(pitchType.images.map(img => img.url) || []);
     setShowModal(true);
   };
 
@@ -85,6 +87,17 @@ const ManagePitchType = () => {
       }
     }
   };
+
+  const handleRemoveImage = (index) => {
+    const newImages = [...formData.images];
+    newImages.splice(index, 1); // Xóa file khỏi danh sách
+    setFormData({ ...formData, images: newImages });
+
+    const newUploadedImages = [...uploadedImages];
+    newUploadedImages.splice(index, 1); // Xóa tên file khỏi danh sách hiển thị
+    setUploadedImages(newUploadedImages);
+  };
+
 
   return (
     <div className="container mt-4">
@@ -103,7 +116,6 @@ const ManagePitchType = () => {
             <th>Tên</th>
             <th>Giá</th>
             <th>Số lượng người tối đa</th>
-            {/* <th>Hình ảnh</th> */}
             <th>Hành động</th>
           </tr>
         </thead>
@@ -114,17 +126,6 @@ const ManagePitchType = () => {
               <td>{pitchType.name}</td>
               <td>{pitchType.price}</td>
               <td>{pitchType.limitPerson}</td>
-              {/* <td>
-                {pitchType.images && pitchType.images.length > 0 ? (
-                  <div className="image-container">
-                    {pitchType.images.map((img, i) => (
-                      <Image key={i} src={img.url} thumbnail width={50} height={50} className="me-1" />
-                    ))}
-                  </div>
-                ) : (
-                  <span>Không có ảnh</span>
-                )}
-              </td> */}
               <td>
                 <Button variant="warning" size="sm" onClick={() => handleEdit(pitchType)}>
                   Sửa
@@ -186,13 +187,21 @@ const ManagePitchType = () => {
                 multiple
                 accept="image/*"
               />
-              <div className="mt-3">
+              <div className="mt-3 uploaded-images-container">
                 {uploadedImages.map((img, index) => (
-                  <Image key={index} src={img} thumbnail width={50} height={50} className="me-1" />
+                  <div key={index} className="uploaded-image-item">
+                    <i className="bi bi-image"></i> {img}
+                    <button
+                      type="button"
+                      className="btn btn-sm ms-2"
+                      onClick={() => handleRemoveImage(index)}
+                    >
+                      ❌
+                    </button>
+                  </div>
                 ))}
               </div>
             </Form.Group>
-
             <Button variant="primary" type="submit" disabled={loading}>
               {loading ? "Đang lưu..." : "Lưu"}
             </Button>
