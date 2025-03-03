@@ -1,4 +1,6 @@
-﻿using QuanLySanBong.Entities.Customer.Model;
+﻿using QuanLySanBong.Entities.Bill.Model;
+using QuanLySanBong.Entities.Customer.Model;
+using QuanLySanBong.Entities.Enums;
 using QuanLySanBong.Entities.Pitch.Model;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,19 +21,18 @@ namespace QuanLySanBong.Entities.Booking.Model
         public virtual PitchModel Pitch { get; set; }
 
         public DateTime BookingDate { get; set; }
+        public int Duration { get; set; } // Thời gian đặt sân (số phút hoặc số giờ)
 
         public PaymentStatusEnum PaymentStatus { get; set; }
 
         public bool IsReceived { get; set; }
 
-        public DateTime CreateAt { get; set; } = DateTime.Now;
-        public DateTime UpdateAt { get; set; } = DateTime.Now;
-    }
+        public DateTime CreateAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdateAt { get; set; } = DateTime.UtcNow;
 
-    // Enum cho trạng thái thanh toán
-    public enum PaymentStatusEnum
-    {
-        ChuaThanhToan, // 0
-        DaThanhToan    // 1
+        public void UpdateTimestamp()
+        {
+            UpdateAt = DateTime.UtcNow;
+        }
     }
 }

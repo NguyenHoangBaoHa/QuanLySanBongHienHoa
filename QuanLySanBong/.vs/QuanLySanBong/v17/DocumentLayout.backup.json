@@ -3,24 +3,20 @@
   "WorkspaceRootPath": "E:\\TestCode\\QuanLySanBong\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\staff\\model\\staffmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\staff\\model\\staffmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\bill\\dto\\billdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\bill\\dto\\billdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\customer\\model\\customermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\customer\\model\\customermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\bill\\model\\billmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\bill\\model\\billmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\account\\model\\accountmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\account\\model\\accountmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\booking\\dto\\bookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\booking\\dto\\bookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\booking\\model\\bookingmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\booking\\model\\bookingmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\pitchtype\\model\\pitchtypemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\pitchtype\\model\\pitchtypemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\enums\\paymentstatusenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\enums\\paymentstatusenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,75 +26,62 @@
       "DocumentGroups": [
         {
           "DockedWidth": 232,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BillDto.cs",
+              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\Bill\\Dto\\BillDto.cs",
+              "RelativeDocumentMoniker": "Entities\\Bill\\Dto\\BillDto.cs",
+              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\Bill\\Dto\\BillDto.cs",
+              "RelativeToolTip": "Entities\\Bill\\Dto\\BillDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-03T17:14:30.808Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BookingDto.cs",
+              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\Booking\\Dto\\BookingDto.cs",
+              "RelativeDocumentMoniker": "Entities\\Booking\\Dto\\BookingDto.cs",
+              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\Booking\\Dto\\BookingDto.cs",
+              "RelativeToolTip": "Entities\\Booking\\Dto\\BookingDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-03T16:58:10.064Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "StaffModel.cs",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\Staff\\Model\\StaffModel.cs",
-              "RelativeDocumentMoniker": "Entities\\Staff\\Model\\StaffModel.cs",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\Staff\\Model\\StaffModel.cs",
-              "RelativeToolTip": "Entities\\Staff\\Model\\StaffModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T12:53:16.119Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CustomerModel.cs",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\Customer\\Model\\CustomerModel.cs",
-              "RelativeDocumentMoniker": "Entities\\Customer\\Model\\CustomerModel.cs",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\Customer\\Model\\CustomerModel.cs",
-              "RelativeToolTip": "Entities\\Customer\\Model\\CustomerModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAFAAAAAAAAAA==",
+              "Title": "BillModel.cs",
+              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\Bill\\Model\\BillModel.cs",
+              "RelativeDocumentMoniker": "Entities\\Bill\\Model\\BillModel.cs",
+              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\Bill\\Model\\BillModel.cs",
+              "RelativeToolTip": "Entities\\Bill\\Model\\BillModel.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAAA0AAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T12:52:47.244Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AccountModel.cs",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\Account\\Model\\AccountModel.cs",
-              "RelativeDocumentMoniker": "Entities\\Account\\Model\\AccountModel.cs",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\Account\\Model\\AccountModel.cs",
-              "RelativeToolTip": "Entities\\Account\\Model\\AccountModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T12:52:30.131Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PitchTypeModel.cs",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\PitchType\\Model\\PitchTypeModel.cs",
-              "RelativeDocumentMoniker": "Entities\\PitchType\\Model\\PitchTypeModel.cs",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\PitchType\\Model\\PitchTypeModel.cs",
-              "RelativeToolTip": "Entities\\PitchType\\Model\\PitchTypeModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T10:48:16.272Z",
+              "WhenOpened": "2025-03-03T13:01:39.484Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "BookingModel.cs",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\Booking\\Model\\BookingModel.cs",
-              "RelativeDocumentMoniker": "Entities\\Booking\\Model\\BookingModel.cs",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\Booking\\Model\\BookingModel.cs",
-              "RelativeToolTip": "Entities\\Booking\\Model\\BookingModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAA+AAAAAAAAAA==",
+              "Title": "PaymentStatusEnum.cs",
+              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\Enums\\PaymentStatusEnum.cs",
+              "RelativeDocumentMoniker": "Entities\\Enums\\PaymentStatusEnum.cs",
+              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\Enums\\PaymentStatusEnum.cs",
+              "RelativeToolTip": "Entities\\Enums\\PaymentStatusEnum.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T10:40:32.915Z",
+              "WhenOpened": "2025-03-03T16:46:39.313Z",
               "EditorCaption": ""
             }
           ]
