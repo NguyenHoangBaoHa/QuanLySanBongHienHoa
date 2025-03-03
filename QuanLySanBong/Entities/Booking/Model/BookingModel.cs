@@ -20,11 +20,18 @@ namespace QuanLySanBong.Entities.Booking.Model
 
         public DateTime BookingDate { get; set; }
 
-        public string PaymentStatus { get; set; }
+        public PaymentStatusEnum PaymentStatus { get; set; }
 
         public bool IsReceived { get; set; }
 
-        public DateTime CreateAt { get; set; }
-        public DateTime UpdateAt { get; set; }
+        public DateTime CreateAt { get; set; } = DateTime.Now;
+        public DateTime UpdateAt { get; set; } = DateTime.Now;
+    }
+
+    // Enum cho trạng thái thanh toán
+    public enum PaymentStatusEnum
+    {
+        ChuaThanhToan, // 0
+        DaThanhToan    // 1
     }
 }

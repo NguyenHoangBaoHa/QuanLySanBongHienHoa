@@ -14,8 +14,6 @@ namespace QuanLySanBong.Entities.Pitch.Model
         [MaxLength(100)]
         public string Name { get; set; }
 
-        public string Status { get; set; } = "Trống";
-
         public int? IdPitchType { get; set; }
 
         [ForeignKey("IdPitchType")]

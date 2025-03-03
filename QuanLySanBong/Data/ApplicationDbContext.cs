@@ -107,10 +107,6 @@ namespace QuanLySanBong.Data
                       .IsRequired()
                       .HasMaxLength(100);
 
-                entity.Property(p => p.Status)
-                      .IsRequired()
-                      .HasDefaultValue("Trống");
-
                 entity.Property(p => p.CreateAt)
                       .IsRequired()
                       .HasDefaultValueSql("GETUTCDATE()");

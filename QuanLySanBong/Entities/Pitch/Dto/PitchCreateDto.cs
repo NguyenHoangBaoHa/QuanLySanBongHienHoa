@@ -7,7 +7,6 @@ namespace QuanLySanBong.Entities.Pitch.Dto
         [Required]
         public string Name { get; set; }
         public int? IdPitchType { get; set; }
-        public string Status { get; set; }
     }
 
     public class PitchUpdateDto
