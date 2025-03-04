@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using QuanLySanBong.Entities.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace QuanLySanBong.Entities.Booking.Dto
 {
@@ -9,7 +10,8 @@ namespace QuanLySanBong.Entities.Booking.Dto
         public string PitchName { get; set; }
         public string PitchTypeName { get; set; }
         public DateTime BookingDate { get; set; }
-        public string PaymentStatus { get; set; }
+        public int Duration { get; set; } // Thời gian đặt sân
+        public PaymentStatusEnum PaymentStatus { get; set; }
         public bool IsReceived { get; set; }
     }
 

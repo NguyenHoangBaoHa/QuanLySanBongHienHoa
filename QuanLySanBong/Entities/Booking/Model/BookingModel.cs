@@ -27,6 +27,8 @@ namespace QuanLySanBong.Entities.Booking.Model
 
         public bool IsReceived { get; set; }
 
+        public virtual BillModel Bill { get; set; }
+
         public DateTime CreateAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdateAt { get; set; } = DateTime.UtcNow;
 

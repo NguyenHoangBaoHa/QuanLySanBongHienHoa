@@ -16,6 +16,7 @@ namespace QuanLySanBong.Entities.Bill.Model
         public virtual BookingModel Booking { get; set; }
 
         public decimal BasePrice { get; set; }
+        public decimal Discount { get; set; } = 0;
         public decimal TotalPrice { get; set; }
 
         [Required]
@@ -32,5 +33,17 @@ namespace QuanLySanBong.Entities.Bill.Model
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+        //Cập nhật TotalPrice
+        public void CalculateTotalPrice()
+        {
+            TotalPrice = BasePrice - Discount;
+        }
+
+        //Cập nhật tự động khi có thay đổi
+        public void UpdateTimestamp()
+        {
+            UpdatedAt = DateTime.UtcNow;
+        }
     }
 }

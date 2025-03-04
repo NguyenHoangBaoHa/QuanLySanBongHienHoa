@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using QuanLySanBong.Entities.Account.Model;
+using QuanLySanBong.Entities.Bill.Model;
 using QuanLySanBong.Entities.Booking.Model;
 using QuanLySanBong.Entities.Customer.Model;
 using QuanLySanBong.Entities.Pitch.Model;
@@ -24,6 +25,7 @@ namespace QuanLySanBong.Data
         public DbSet<PitchModel> Pitches { get; set; }
 
         public DbSet<BookingModel> Bookings { get; set; }
+        public DbSet<BillModel> Bills { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -163,9 +165,12 @@ namespace QuanLySanBong.Data
                 entity.Property(b => b.BookingDate)
                       .IsRequired();
 
+                entity.Property(b => b.Duration)
+                      .IsRequired();
+
                 entity.Property(b => b.PaymentStatus)
                       .IsRequired()
-                      .HasMaxLength(50);
+                      .HasConversion<int>(); // Lưu Enum dưới dạng số nguyên để tối ưu
 
                 entity.Property(b => b.IsReceived)
                       .IsRequired()
@@ -191,6 +196,57 @@ namespace QuanLySanBong.Data
                       .HasForeignKey(b => b.IdPitch)
                       .OnDelete(DeleteBehavior.Restrict); // Không xóa Pitch khi xóa Booking
             });
+            modelBuilder.Entity<BillModel>(entity =>
+            {
+                entity.ToTable("Bill");
+                entity.HasKey(b => b.Id);
+
+                entity.Property(b => b.BasePrice)
+                      .IsRequired()
+                      .HasColumnType("decimal(18,2)");
+
+                entity.Property(b => b.Discount)
+                      .IsRequired()
+                      .HasColumnType("decimal(18,2)")
+                      .HasDefaultValue(0);
+
+                entity.Property(b => b.TotalPrice)
+                      .IsRequired()
+                      .HasColumnType("decimal(18,2)");
+
+                entity.Property(b => b.PaymentMethod)
+                      .IsRequired()
+                      .HasConversion<int>(); // Lưu Enum dưới dạng số nguyên để tối ưu
+
+                entity.Property(b => b.PaymentStatus)
+                      .IsRequired()
+                      .HasConversion<int>(); // Lưu Enum dưới dạng số nguyên để tối ưu
+
+                entity.Property(b => b.PaidAt)
+                      .IsRequired(false); // Cho phép null nếu chưa thanh toán
+
+                entity.Property(b => b.CreatedAt)
+                      .IsRequired()
+                      .HasDefaultValueSql("GETUTCDATE()");
+
+                entity.Property(b => b.UpdatedAt)
+                      .IsRequired()
+                      .HasDefaultValueSql("GETUTCDATE()");
+
+                // Quan hệ với Booking (1-1)
+                entity.HasOne(b => b.Booking)
+                      .WithOne(bk => bk.Bill)
+                      .HasForeignKey<BillModel>(b => b.IdBooking)
+                      .OnDelete(DeleteBehavior.Cascade); // Xóa Bill khi Booking bị xóa
+
+                // Quan hệ với Account (Nhân viên hoặc khách hàng thanh toán)
+                entity.HasOne(b => b.PaidBy)
+                      .WithMany()
+                      .HasForeignKey(b => b.IdPaidBy)
+                      .OnDelete(DeleteBehavior.SetNull); // Nếu người thanh toán bị xóa, giữ lại Bill
+            });
+
+
         }
     }
 }
