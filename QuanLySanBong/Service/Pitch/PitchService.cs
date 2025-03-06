@@ -26,7 +26,20 @@ namespace QuanLySanBong.Service.Pitch
                 Console.WriteLine($"Pitch ID: {pitch.Id}, Name: {pitch.Name}, PitchType: {(pitch.PitchType?.Name ?? "NULL")}");
             }
 
-            var result =  _mapper.Map<List<PitchDto>>(pitches);
+            var result = pitches.Select(p => new PitchDto
+            {
+                Id = p.Id,
+                Name = p.Name,
+                PitchTypeName = p.PitchType?.Name ?? string.Empty,
+                LimitPerson = p.PitchType?.LimitPerson ?? 0,
+                Price = p.PitchType?.Price ?? 0,
+                ImagePath = (p.PitchType != null && p.PitchType.Images.Any())
+                ? p.PitchType.Images.First().ImagePath
+                : "default_image.png", // Giá trị mặc định nếu không có ảnh
+                CreateAt = p.CreateAt,
+                UpdateAt = p.UpdateAt
+            }).ToList();
+
             return result;
         }
 
@@ -38,12 +51,25 @@ namespace QuanLySanBong.Service.Pitch
                 return null;
             }
 
-            return _mapper.Map<PitchDto>(pitch);
+            return new PitchDto
+            {
+                Id = pitch.Id,
+                Name = pitch.Name,
+                PitchTypeName = pitch.PitchType?.Name ?? string.Empty,
+                LimitPerson = pitch.PitchType?.LimitPerson ?? 0,
+                Price = pitch.PitchType?.Price ?? 0,
+                ImagePath = pitch.PitchType?.Images?.FirstOrDefault()?.ImagePath,
+                CreateAt = pitch.CreateAt,
+                UpdateAt = pitch.UpdateAt
+            };
         }
 
         public async Task<PitchModel> AddAsync(PitchCreateDto pitchDto)
         {
             var pitch = _mapper.Map<PitchModel>(pitchDto);
+            pitch.CreateAt = DateTime.UtcNow;
+            pitch.UpdateAt = DateTime.UtcNow;
+
             await _unitOfWork.Pitches.AddAsync(pitch);
             return pitch;
         }

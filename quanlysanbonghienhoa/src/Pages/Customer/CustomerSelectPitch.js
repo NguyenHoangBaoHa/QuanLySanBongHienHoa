@@ -43,15 +43,17 @@ const CustomerSelectPitch = () => {
         {pitches.map((pitch) => (
           <Col key={pitch.id} md={4} className="mb-4">
             <Card>
-              {pitch.image && (
-                <Card.Img variant="top" src={pitch.image} alt={pitch.name} />
+              {pitch.imagePath ? (
+                <Card.Img variant="top" src={pitch.imagePath} alt={pitch.name} />
+              ) : (
+                <Card.Img variant="top" src="/default-image.jpg" alt="Hình ảnh mặc định" />
               )}
               <Card.Body>
                 <Card.Title>{pitch.name}</Card.Title>
                 <Card.Text>
-                  <strong>Loại sân:</strong> {pitch.pitchTypeName || "N/A"} <br />
-                  <strong>Sức chứa:</strong> {pitch.limitPerson || "N/A"} người <br />
-                  <strong>Giá:</strong> {pitch?.price ? pitch.price.toLocaleString() : "N/A"} VND
+                  <strong>Loại sân:</strong> {pitch.pitchTypeName || "Không xác định"} <br />
+                  <strong>Sức chứa:</strong> {pitch.limitPerson ? pitch.limitPerson : "N/A"} người <br />
+                  <strong>Giá:</strong> {pitch.price ? pitch.price.toLocaleString() : "N/A"} VND
                 </Card.Text>
                 <Button
                   variant="primary"
