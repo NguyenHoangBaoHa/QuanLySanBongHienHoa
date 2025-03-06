@@ -3,16 +3,19 @@
   "WorkspaceRootPath": "E:\\TestCode\\QuanLySanBong\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\booking\\dto\\bookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\booking\\dto\\bookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\service\\pitch\\pitchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:service\\pitch\\pitchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\booking\\dto\\bookingcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\booking\\dto\\bookingcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\booking\\dto\\bookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\booking\\dto\\bookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,21 +25,20 @@
       "DocumentGroups": [
         {
           "DockedWidth": 232,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "PitchService.cs",
               "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Service\\Pitch\\PitchService.cs",
               "RelativeDocumentMoniker": "Service\\Pitch\\PitchService.cs",
               "ToolTip": "E:\\TestCode\\QuanLySanBong\\Service\\Pitch\\PitchService.cs",
               "RelativeToolTip": "Service\\Pitch\\PitchService.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAkwC8AAABDAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAkwBsAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-06T10:05:25.926Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -44,19 +46,30 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "Microsoft.Common.CurrentVersion.targets",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ViewState": "AgIAAMAUAAAAAAAAAAAiwMkUAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-03-06T13:32:18.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "BookingDto.cs",
               "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\Booking\\Dto\\BookingDto.cs",
               "RelativeDocumentMoniker": "Entities\\Booking\\Dto\\BookingDto.cs",
               "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\Booking\\Dto\\BookingDto.cs",
               "RelativeToolTip": "Entities\\Booking\\Dto\\BookingDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAoAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-06T10:18:19.052Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "BookingCreateDto.cs",
               "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\Booking\\Dto\\BookingCreateDto.cs",
               "RelativeDocumentMoniker": "Entities\\Booking\\Dto\\BookingCreateDto.cs",

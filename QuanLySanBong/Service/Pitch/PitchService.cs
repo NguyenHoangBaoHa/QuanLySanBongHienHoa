@@ -17,13 +17,12 @@ namespace QuanLySanBong.Service.Pitch
         }
 
         public async Task<List<PitchDto>> GetAllAsync()
-        
         {
             var pitches = await _unitOfWork.Pitches.GetAllAsync();
 
             foreach (var pitch in pitches)
             {
-                Console.WriteLine($"Pitch ID: {pitch.Id}, Name: {pitch.Name}, PitchType: {(pitch.PitchType?.Name ?? "NULL")}");
+                Console.WriteLine($"Pitch ID: {pitch.Id}, Name: {pitch.Name}, PitchType: {(pitch.PitchType?.Name ?? "NULL")}, ImageCount: {pitch.PitchType?.Images.Count ?? 0}");
             }
 
             var result = pitches.Select(p => new PitchDto
@@ -34,8 +33,8 @@ namespace QuanLySanBong.Service.Pitch
                 LimitPerson = p.PitchType?.LimitPerson ?? 0,
                 Price = p.PitchType?.Price ?? 0,
                 ImagePath = (p.PitchType != null && p.PitchType.Images.Any())
-                ? p.PitchType.Images.First().ImagePath
-                : "default_image.png", // Giá trị mặc định nếu không có ảnh
+                    ? p.PitchType.Images.First().ImagePath
+                    : "default_image.png",
                 CreateAt = p.CreateAt,
                 UpdateAt = p.UpdateAt
             }).ToList();
