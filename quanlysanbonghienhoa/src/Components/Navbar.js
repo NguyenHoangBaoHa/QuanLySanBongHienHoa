@@ -57,16 +57,14 @@ const NavigationBar = () => {
               </NavDropdown>
             )}
 
-            {/* {auth.isLoggedIn && auth.role === "Customer" && (
+            {auth.isLoggedIn && auth.role === "Customer" && (
               <NavDropdown title="Khách Hàng" id="customer-dropdown">
-                <NavDropdown.Item as={Link} to="/my-bookings">
-                  Lịch sử đặt sân
+                <NavDropdown.Item as={Link} to="/customer/booking">
+                  Đặt sân
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/profile">
-                  Hồ sơ
-                </NavDropdown.Item>
+                
               </NavDropdown>
-            )} */}
+            )}
           </Nav>
 
           {/* Hiển thị nút Đăng Nhập/Đăng Xuất */}

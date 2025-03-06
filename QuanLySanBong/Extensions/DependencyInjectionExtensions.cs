@@ -37,6 +37,7 @@ namespace QuanLySanBong.Extensions
 
             services.AddScoped<IPitchRepository, PitchRepository>();
             services.AddScoped<IPitchService, PitchService>();
+            services.AddLogging();
 
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IBookingService, BookingService>();

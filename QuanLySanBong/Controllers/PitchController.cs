@@ -11,22 +11,26 @@ namespace QuanLySanBong.Controllers
     public class PitchController : ControllerBase
     {
         private readonly IPitchService _service;
+        private readonly ILogger<PitchController> _logger;
 
-        public PitchController(IPitchService service)
+        public PitchController(IPitchService service, ILogger<PitchController> logger)
         {
             _service = service;
+            _logger = logger;
         }
 
-        // GET: api/Pitch
+        // ✅ [MỞ QUYỀN] Cho phép tất cả người dùng xem danh sách sân
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var pitches = await _service.GetAllAsync();
             return Ok(pitches);
         }
 
-        // GET: api/Pitch/{id}
+        // ✅ [MỞ QUYỀN] Cho phép tất cả người dùng xem chi tiết sân
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var pitch = await _service.GetByIdAsync(id);
@@ -37,10 +41,16 @@ namespace QuanLySanBong.Controllers
             return Ok(pitch);
         }
 
-        // POST: api/Pitch
+        // ✅ [GIỮ QUYỀN] Chỉ Admin & Staff mới có thể tạo sân
         [HttpPost]
-        public async Task<IActionResult> Add(PitchCreateDto model)
+        [Authorize(Roles = "Admin,Staff")]
+        public async Task<IActionResult> Add([FromBody] PitchCreateDto model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = "Dữ liệu đầu vào không hợp lệ", errors = ModelState });
+            }
+
             try
             {
                 var pitch = await _service.AddAsync(model);
@@ -48,14 +58,21 @@ namespace QuanLySanBong.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                _logger.LogError($"Lỗi khi thêm sân: {ex.Message}");
+                return BadRequest(new { message = "Lỗi khi thêm sân", error = ex.Message });
             }
         }
 
-        // PUT: api/Pitch/{id}
+        // ✅ [GIỮ QUYỀN] Chỉ Admin & Staff mới có thể cập nhật sân
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, PitchUpdateDto model)
+        [Authorize(Roles = "Admin,Staff")]
+        public async Task<IActionResult> Update(int id, [FromBody] PitchUpdateDto model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = "Dữ liệu đầu vào không hợp lệ", errors = ModelState });
+            }
+
             try
             {
                 await _service.UpdateAsync(id, model);
@@ -65,14 +82,16 @@ namespace QuanLySanBong.Controllers
             {
                 return NotFound(new { message = $"Không tìm thấy sân có ID: {id}" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                _logger.LogError($"Lỗi khi cập nhật sân {id}: {ex.Message}");
+                return BadRequest(new { message = "Lỗi khi cập nhật sân", error = ex.Message });
             }
         }
 
-        // DELETE: api/Pitch/{id}
+        // ✅ [GIỮ QUYỀN] Chỉ Admin & Staff mới có thể xóa sân
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin,Staff")]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -86,7 +105,8 @@ namespace QuanLySanBong.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                _logger.LogError($"Lỗi khi xóa sân {id}: {ex.Message}");
+                return BadRequest(new { message = "Lỗi khi xóa sân", error = ex.Message });
             }
         }
     }

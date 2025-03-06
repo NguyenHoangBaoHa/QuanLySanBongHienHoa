@@ -26,11 +26,11 @@ namespace QuanLySanBong.Extensions
                 options.AddPolicy("AllowSpecificOrigin",
                     builder =>
                     {
-                        builder
+                        builder.WithOrigins("http://localhost:3000")
                             .AllowAnyHeader()
                             .AllowAnyMethod()
-                            .AllowCredentials()
-                            .SetIsOriginAllowed(hosts => true);
+                            .AllowCredentials();
+                            //.SetIsOriginAllowed(hosts => true);
                     });
             });
 

@@ -12,8 +12,8 @@ namespace QuanLySanBong.Repository.Booking
         {
             _context = context;
         }
-
-        public async Task<List<BookingModel>> GetAllAsync()
+        //Lấy danh sách Booking theo Id (Admin, Staff)
+        public async Task<IEnumerable<BookingModel>> GetAllBookingAsync()
         {
             return await _context.Bookings
                 .Include(b => b.Customer)
@@ -22,7 +22,8 @@ namespace QuanLySanBong.Repository.Booking
                 .ToListAsync();
         }
 
-        public async Task<BookingModel> GetByIdAsync(int id)
+        //Lấy Booking theo Id
+        public async Task<BookingModel> GetBookingByIdAsync(int id)
         {
             return await _context.Bookings
                 .Include(b => b.Customer)
@@ -31,19 +32,40 @@ namespace QuanLySanBong.Repository.Booking
                 .FirstOrDefaultAsync(b => b.Id == id);
         }
 
-        public async Task UpdateReceivedStatusAsync(int id, bool isReceived)
+        //Lấy danh sách Booking của chính Customer
+        public async Task<IEnumerable<BookingModel>> GetBookingsByCustomerIdAsync(int customerId)
         {
-            var booking = await _context.Bookings.FindAsync(id);
-            if (booking == null)
-            {
-                throw new KeyNotFoundException("Booking not found.");
-            }
+            return await _context.Bookings
+                .Where(b => b.IdCustomer == customerId)
+                .Include(b => b.Pitch)
+                .ThenInclude(p => p.PitchType)
+                .ToListAsync();
+        }
 
-            booking.IsReceived = isReceived;
-            booking.UpdateAt = DateTime.UtcNow;
+        //Lấy Booking của một sân theo tuần
+        public async Task<IEnumerable<BookingModel>> GetBookingsByPitchAndDateRangeAsync(int pitchId, DateTime startDate, DateTime endDate)
+        {
+            return await _context.Bookings
+                .Where(b => b.IdPitch == pitchId && b.BookingDate >= startDate && b.BookingDate <= endDate)
+                .ToListAsync();
+        }
 
+        //Thêm Booking mới
+        public async Task AddBookingAsync(BookingModel booking)
+        {
+            await _context.Bookings.AddAsync(booking);
+        }
+
+        //Cập nhật Booking
+        public void UpdateBooking(BookingModel booking)
+        {
             _context.Bookings.Update(booking);
-            await _context.SaveChangesAsync();
+        }
+
+        //Xóa Booking
+        public void DeleteBooking(BookingModel booking)
+        {
+            _context.Bookings.Remove(booking);
         }
     }
 }

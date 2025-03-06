@@ -13,6 +13,7 @@ import RevenueReport from "./Pages/Admin/RevenueReport";
 import CreateStaff from "./Pages/Admin/CreateStaff";
 import ManagePitchesStaff from "./Pages/Staff/ManagePitchesStaff";
 import ManageBookingsStaff from "./Pages/Staff/ManageBookingsStaff";
+import CustomerSelectPitch from "./Pages/Customer/CustomerSelectPitch";
 
 const ProtectedRoute = ({ role, children }) => {
   const token = localStorage.getItem("token");
@@ -92,6 +93,16 @@ const App = () => {
             </ProtectedRoute>
           }
         ></Route>
+
+        {/* Role Customer */}
+        <Route
+          path="/customer/booking"
+          element={
+            <ProtectedRoute role="Customer">
+              <CustomerSelectPitch />
+            </ProtectedRoute>
+          }>
+        </Route>
       </Routes>
     </AuthProvider>
   );

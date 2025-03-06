@@ -1,0 +1,57 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (1).jpg",
+      "PackagePath": "staticwebassets\\images\\sân 5 (1).jpg"
+    },
+    {
+      "Id": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (2).jpg",
+      "PackagePath": "staticwebassets\\images\\sân 5 (2).jpg"
+    },
+    {
+      "Id": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(1).webp",
+      "PackagePath": "staticwebassets\\images\\sân 7(1).webp"
+    },
+    {
+      "Id": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(2).jpg",
+      "PackagePath": "staticwebassets\\images\\sân 7(2).jpg"
+    },
+    {
+      "Id": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(3).jpg",
+      "PackagePath": "staticwebassets\\images\\sân 7(3).jpg"
+    },
+    {
+      "Id": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(4).jpg",
+      "PackagePath": "staticwebassets\\images\\sân 7(4).jpg"
+    },
+    {
+      "Id": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 9(1).jpg",
+      "PackagePath": "staticwebassets\\images\\sân 9(1).jpg"
+    },
+    {
+      "Id": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 9(2).jpg",
+      "PackagePath": "staticwebassets\\images\\sân 9(2).jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.QuanLySanBong.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.QuanLySanBong.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.QuanLySanBong.props",
+      "PackagePath": "build\\QuanLySanBong.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.QuanLySanBong.props",
+      "PackagePath": "buildMultiTargeting\\QuanLySanBong.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.QuanLySanBong.props",
+      "PackagePath": "buildTransitive\\QuanLySanBong.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

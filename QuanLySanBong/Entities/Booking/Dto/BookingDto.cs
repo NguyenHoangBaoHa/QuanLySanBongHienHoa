@@ -13,6 +13,8 @@ namespace QuanLySanBong.Entities.Booking.Dto
         public int Duration { get; set; } // Thời gian đặt sân
         public PaymentStatusEnum PaymentStatus { get; set; }
         public bool IsReceived { get; set; }
+
+        public string BookingDateFormatted => BookingDate.ToString("dd/MM/yyyy HH:mm");
     }
 
     public class BookingUpdateStatusDto

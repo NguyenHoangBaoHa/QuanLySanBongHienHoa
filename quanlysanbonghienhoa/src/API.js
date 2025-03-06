@@ -14,19 +14,19 @@ api.interceptors.request.use((config) => {
 }, (error) => Promise.reject(error));
 
 // Kiểm tra role người dùng (Admin)
-const isAdmin = () => {
-  try {
-    const token = localStorage.getItem('token');
-    if (!token) return false;
+// const isAdmin = () => {
+//   try {
+//     const token = localStorage.getItem('token');
+//     if (!token) return false;
 
-    const payload = jwtDecode(token); // Decode token payload
-    const role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-    return role === 'Admin';
-  } catch (error) {
-    console.error('Error decoding token:', error);
-    return false;
-  }
-};
+//     const payload = jwtDecode(token); // Decode token payload
+//     const role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+//     return role === 'Admin';
+//   } catch (error) {
+//     console.error('Error decoding token:', error);
+//     return false;
+//   }
+// };
 
 const createPitchTypeFormData = (data) => {
   const formData = new FormData();
@@ -200,7 +200,7 @@ const PitchAPI = {
 };
 
 const BookingAPI = {
-  // Lấy danh sách booking
+  // 📌 Lấy danh sách Booking (Admin & Staff)
   GetAllBookings: async () => {
     try {
       const response = await api.get('/Booking');
@@ -211,22 +211,84 @@ const BookingAPI = {
     }
   },
 
-  // Xác nhận nhận sân (chỉ Staff)
+  // 📌 Lấy danh sách Booking của chính khách hàng (Customer)
+  GetBookingsByCustomer: async () => {
+    try {
+      const response = await api.get('/Booking/my-bookings');
+      return response.data;
+    } catch (err) {
+      console.error('Lỗi khi lấy danh sách booking của khách hàng: ', err);
+      throw err.response?.data || new Error('Không thể lấy danh sách booking của bạn.');
+    }
+  },
+
+  // 📌 Lấy chi tiết một Booking theo ID
+  GetBookingById: async (id) => {
+    try {
+      const response = await api.get(`/Booking/${id}`);
+      return response.data;
+    } catch (err) {
+      console.error('Lỗi khi lấy chi tiết booking: ', err);
+      throw err.response?.data || new Error('Không thể lấy thông tin booking.');
+    }
+  },
+
+  // 📌 Lấy lịch đặt sân theo tuần (Customer)
+  GetBookingScheduleByPitch: async (pitchId, weekStartDate) => {
+    try {
+      const response = await api.get(`/Booking/schedule/${pitchId}`, {
+        params: { weekStartDate },
+      });
+      return response.data;
+    } catch (err) {
+      console.error('Lỗi khi lấy lịch đặt sân: ', err);
+      throw err.response?.data || new Error('Không thể lấy lịch đặt sân.');
+    }
+  },
+
+  // 📌 Tạo mới một Booking (Customer)
+  CreateBooking: async (bookingData) => {
+    try {
+      const response = await api.post('/Booking', bookingData);
+      return response.data;
+    } catch (err) {
+      console.error('Lỗi khi tạo booking: ', err);
+      throw err.response?.data || new Error('Không thể tạo booking.');
+    }
+  },
+
+  // 📌 Xác nhận "Nhận sân" (chỉ Staff)
   ConfirmReceived: async (id) => {
     try {
-      const token = localStorage.getItem('token');
-      const role = JSON.parse(atob(token.split('.')[1]))["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-      if (role !== 'Staff') {
-        throw new Error('Không có quyền: Chỉ tài khoản Staff mới có thể xác nhận nhận sân.');
-      }
-
-      const response = await api.patch(`/Booking/${id}/ConfirmReceived`);
+      const response = await api.patch(`/Booking/${id}/confirm-received`);
       return response.data;
     } catch (err) {
       console.error('Lỗi khi xác nhận nhận sân: ', err);
       throw err.response?.data || new Error('Không thể xác nhận nhận sân.');
     }
   },
+
+  // 📌 Hủy Booking (Customer)
+  CancelBooking: async (id) => {
+    try {
+      const response = await api.delete(`/Booking/${id}`);
+      return response.data;
+    } catch (err) {
+      console.error('Lỗi khi hủy booking: ', err);
+      throw err.response?.data || new Error('Không thể hủy booking.');
+    }
+  },
+
+  // 📌 Cập nhật trạng thái thanh toán (Admin & Staff)
+  UpdatePaymentStatus: async (id, paymentStatus) => {
+    try {
+      const response = await api.patch(`/Booking/${id}/update-payment`, { paymentStatus });
+      return response.data;
+    } catch (err) {
+      console.error('Lỗi khi cập nhật trạng thái thanh toán: ', err);
+      throw err.response?.data || new Error('Không thể cập nhật trạng thái thanh toán.');
+    }
+  }
 };
 
 
