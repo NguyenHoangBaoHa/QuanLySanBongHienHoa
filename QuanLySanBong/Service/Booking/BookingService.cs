@@ -40,6 +40,11 @@ namespace QuanLySanBong.Service.Booking
         // 📌 Lấy danh sách Booking của một sân theo tuần
         public async Task<IEnumerable<BookingDto>> GetBookingsForPitchByWeekAsync(int pitchId, DateTime startDate)
         {
+            if(startDate < DateTime.Today)
+            {
+                throw new ArgumentException("Ngày bắt đầu không thể là ngày trong quá khứ.");
+            }
+
             DateTime endDate = startDate.AddDays(6); // Lấy từ ngày bắt đầu đến hết tuần (7 ngày)
             var bookings = await _unitOfWork.Bookings.GetBookingsByPitchAndDateRangeAsync(pitchId, startDate, endDate);
             return _mapper.Map<IEnumerable<BookingDto>>(bookings);

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Data.SqlClient;
 using QuanLySanBong.Entities.Pitch.Dto;
 using QuanLySanBong.Entities.Pitch.Model;
 using QuanLySanBong.UnitOfWork;
@@ -18,26 +19,17 @@ namespace QuanLySanBong.Service.Pitch
 
         public async Task<List<PitchDto>> GetAllAsync()
         {
-            var pitches = await _unitOfWork.Pitches.GetAllAsync();
-
-            foreach (var pitch in pitches)
+            var result = await _unitOfWork.ExecuteStoredProcedureAsync("GetAllPitches", reader => new PitchDto
             {
-                Console.WriteLine($"Pitch ID: {pitch.Id}, Name: {pitch.Name}, PitchType: {(pitch.PitchType?.Name ?? "NULL")}, ImageCount: {pitch.PitchType?.Images.Count ?? 0}");
-            }
-
-            var result = pitches.Select(p => new PitchDto
-            {
-                Id = p.Id,
-                Name = p.Name,
-                PitchTypeName = p.PitchType?.Name ?? string.Empty,
-                LimitPerson = p.PitchType?.LimitPerson ?? 0,
-                Price = p.PitchType?.Price ?? 0,
-                ImagePath = (p.PitchType != null && p.PitchType.Images.Any())
-                    ? p.PitchType.Images.OrderBy(img => img.Id).First().ImagePath // Sửa đổi để lấy hình ảnh đầu tiên theo Id
-                    : "default_image.png",
-                CreateAt = p.CreateAt,
-                UpdateAt = p.UpdateAt
-            }).ToList();
+                Id = reader.GetInt32(0),
+                Name = reader.GetString(1),
+                PitchTypeName = reader.IsDBNull(2) ? string.Empty : reader.GetString(2),
+                Price = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3),
+                LimitPerson = reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
+                ImagePath = reader.IsDBNull(5) ? "default_image.png" : reader.GetString(5),
+                CreateAt = reader.GetDateTime(6),
+                UpdateAt = reader.GetDateTime(7)
+            });
 
             return result;
         }

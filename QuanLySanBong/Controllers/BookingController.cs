@@ -43,15 +43,24 @@ namespace QuanLySanBong.Controllers
         [Authorize(Roles = "Customer")]
         public async Task<IActionResult> GetBookingsByCustomer()
         {
-            var customerId = int.Parse(User.FindFirst("Id")?.Value);
-            var booking = await _service.GetBookingsByCustomerIdAsync(customerId);
-            return Ok(booking);
+            if (User.Identity?.IsAuthenticated != true)
+                return Unauthorized();
+
+            var customerIdClaim = User.FindFirst("Id")?.Value;
+            if (string.IsNullOrEmpty(customerIdClaim) || !int.TryParse(customerIdClaim, out int customerId))
+                return Unauthorized("Không tìm thấy thông tin khách hàng.");
+
+            var bookings = await _service.GetBookingByIdAsync(customerId);
+            return Ok(bookings);
         }
 
         // 📌 Lấy lịch đặt sân theo tuần
         [HttpGet("pitch/{pitchId}/week")]
         public async Task<IActionResult> GetPitchScheduleByWeek(int pitchId, [FromQuery] DateTime startDate)
         {
+            if (startDate < DateTime.Today)
+                return BadRequest("Ngày bắt đầu không thể là ngày trong quá khứ.");
+
             var bookings = await _service.GetBookingsForPitchByWeekAsync(pitchId, startDate);
             return Ok(bookings);
         }
@@ -61,6 +70,9 @@ namespace QuanLySanBong.Controllers
         [Authorize(Roles = "Customer")]
         public async Task<IActionResult> CreateBooking([FromBody] BookingCreateDto bookingDto)
         {
+            if (bookingDto == null || bookingDto.IdPitch <= 0 || bookingDto.BookingDate < DateTime.Now)
+                return BadRequest("Dữ liệu đặt sân không hợp lệ.");
+
             var booking = await _service.CreateBookingAsync(bookingDto);
             return CreatedAtAction(nameof(GetBookingById), new {id = booking.Id}, booking);
         }

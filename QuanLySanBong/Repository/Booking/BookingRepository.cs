@@ -39,6 +39,8 @@ namespace QuanLySanBong.Repository.Booking
                 .Where(b => b.IdCustomer == customerId)
                 .Include(b => b.Pitch)
                 .ThenInclude(p => p.PitchType)
+                .OrderByDescending(b => b.BookingDate)
+                .AsNoTracking()
                 .ToListAsync();
         }
 

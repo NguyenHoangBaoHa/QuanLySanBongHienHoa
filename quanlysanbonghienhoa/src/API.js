@@ -1,144 +1,100 @@
-import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'https://localhost:8007/api',
+  baseURL: "https://localhost:8007/api",
 });
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+// Middleware tự động gắn token vào request
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Hàm xử lý lỗi chung
+const handleApiError = (error) => {
+  console.error("API Error:", error);
+  if (error.response) {
+    const { status, data } = error.response;
+    if (status === 401) {
+      alert("Phiên đăng nhập hết hạn, vui lòng đăng nhập lại.");
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+    }
+    throw data || new Error("Có lỗi xảy ra!");
   }
-  return config;
-}, (error) => Promise.reject(error));
-
-// Kiểm tra role người dùng (Admin)
-// const isAdmin = () => {
-//   try {
-//     const token = localStorage.getItem('token');
-//     if (!token) return false;
-
-//     const payload = jwtDecode(token); // Decode token payload
-//     const role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-//     return role === 'Admin';
-//   } catch (error) {
-//     console.error('Error decoding token:', error);
-//     return false;
-//   }
-// };
-
-const createPitchTypeFormData = (data) => {
-  const formData = new FormData();
-  formData.append('name', data.name);
-  formData.append('price', data.price);
-  formData.append('limitPerson', data.limitPerson);
-  if (data.image && data.image.length > 0) {
-    data.image.forEach((image) => formData.append("imageFiles", image));
-  }
-  return formData;
+  throw new Error("Không thể kết nối đến server.");
 };
 
 const AccountAPI = {
   login: async (email, password) => {
     try {
-      const response = await api.post('/Account/login', { email, password });
+      const response = await api.post("/Account/login", { email, password });
       const { token, role, username } = response.data;
-
-      // Lưu thông tin vào localStorage
-      localStorage.setItem('token', token);
-      localStorage.setItem('role', role);
-      localStorage.setItem('username', username);
-
-      console.log("Username: ", username + "\nToken: ", token + "\nRole: ", role);
-
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", role);
+      localStorage.setItem("username", username);
       return response.data;
     } catch (error) {
-      console.error('Login failed:', error);
-      throw error.response?.data || new Error('Login failed');
+      throw handleApiError(error);
     }
   },
 
   createStaff: async (staffData) => {
     try {
-      const response = await api.post('/Account/create-staff', staffData);
+      const response = await api.post("/Account/create-staff", staffData);
       return response.data;
     } catch (error) {
-      console.error('Failed to create staff:', error);
-      throw error.response?.data || new Error('Failed to create staff');
+      throw handleApiError(error);
     }
   },
 
   registerCustomer: async (customerData) => {
     try {
-      const response = await api.post('/Account/register-customer', customerData);
+      const response = await api.post("/Account/register-customer", customerData);
       return response.data;
     } catch (error) {
-      console.error('Failed to register customer:', error);
-      throw error.response?.data || new Error('Failed to register customer');
+      throw handleApiError(error);
     }
   },
 };
 
-// PitchTypeAPI with fields: Name, Price, LimitPerson, Image
+// ==================== Pitch Type API ====================
 const PitchTypeAPI = {
   GetAll: async () => {
     try {
-      const response = await api.get('/PitchType');
-      return response.data.map(pt => ({
-        ...pt,
-        images: pt.images ? pt.images.map(img => ({ url: `${img}` })) : []
-      }));
+      const response = await api.get("/PitchType");
+      return response.data;
     } catch (error) {
-      console.error('Error fetching pitch types:', error);
-      throw error.response?.data || new Error('Unable to fetch pitch types.');
+      throw handleApiError(error);
     }
   },
 
   CreatePitchType: async (data) => {
     try {
       const formData = new FormData();
-      formData.append('name', data.name);
-      formData.append('price', data.price);
-      formData.append('limitPerson', data.limitPerson);
+      formData.append("name", data.name);
+      formData.append("price", data.price);
+      formData.append("limitPerson", data.limitPerson);
 
       if (data.images && data.images.length > 0) {
         data.images.forEach((image) => {
-          formData.append('imageFile', image);
+          formData.append("imageFile", image);
         });
       }
 
-      const response = await api.post('/PitchType', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error creating pitch type:', error);
-      throw error.response?.data || new Error('Unable to create pitch type.');
-    }
-  },
-
-  UpdatePitchType: async (id, data) => {
-    try {
-      const formData = new FormData();
-      formData.append('name', data.name);
-      formData.append('price', data.price);
-      formData.append('limitPerson', data.limitPerson);
-
-      if (data.images && data.images.length > 0) {
-        data.images.forEach((image) => {
-          formData.append('imageFile', image);
-        });
-      }
-
-      const response = await api.put(`/PitchType/${id}`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const response = await api.post("/PitchType", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       return response.data;
     } catch (error) {
-      console.error('Error updating pitch type:', error);
-      throw error.response?.data || new Error('Unable to update pitch type.');
+      throw handleApiError(error);
     }
   },
 
@@ -147,149 +103,116 @@ const PitchTypeAPI = {
       await api.delete(`/PitchType/${id}`);
       return { success: true };
     } catch (error) {
-      console.error('Error deleting pitch type:', error);
-      throw error.response?.data || new Error('Unable to delete pitch type.');
+      throw handleApiError(error);
     }
   },
 };
 
+// ==================== Pitch API ====================
 const PitchAPI = {
-  // Lấy danh sách sân
   GetAllPitches: async () => {
     try {
-      const response = await api.get('/Pitch');
+      const response = await api.get("/Pitch");
       return response.data;
-    } catch (err) {
-      console.error('Lỗi khi lấy danh sách sân: ', err);
-      throw err.response?.data || new Error('Không thể lấy danh sách sân.');
+    } catch (error) {
+      throw handleApiError(error);
     }
   },
 
-  // Thêm mới sân
   CreatePitch: async (data) => {
     try {
-      const response = await api.post('/Pitch', data);
+      const response = await api.post("/Pitch", data, {
+        headers: { "Content-Type": "application/json" },
+      });
       return response.data;
     } catch (error) {
-      console.error('Lỗi khi thêm sân:', error);
-      throw error.response?.data || new Error('Không thể thêm sân.');
+      throw handleApiError(error);
     }
   },
 
-  // Cập nhật sân
-  UpdatePitch: async (id, data) => {
-    try {
-      const response = await api.put(`/Pitch/${id}`, data);
-      return response.data;
-    } catch (error) {
-      console.error('Lỗi khi cập nhật sân:', error);
-      throw error.response?.data || new Error('Không thể cập nhật sân.');
-    }
-  },
-
-  // Xóa sân
   DeletePitch: async (id) => {
     try {
       await api.delete(`/Pitch/${id}`);
       return { success: true };
     } catch (error) {
-      console.error('Lỗi khi xóa sân:', error);
-      throw error.response?.data || new Error('Không thể xóa sân.');
+      throw handleApiError(error);
     }
   },
 };
 
+// ==================== Booking API ====================
 const BookingAPI = {
-  // 📌 Lấy danh sách Booking (Admin & Staff)
   GetAllBookings: async () => {
     try {
-      const response = await api.get('/Booking');
+      const response = await api.get("/Booking");
       return response.data;
-    } catch (err) {
-      console.error('Lỗi khi lấy danh sách booking: ', err);
-      throw err.response?.data || new Error('Không thể lấy danh sách booking.');
+    } catch (error) {
+      throw handleApiError(error);
     }
   },
 
-  // 📌 Lấy danh sách Booking của chính khách hàng (Customer)
-  GetBookingsByCustomer: async () => {
+  // ✅ Cập nhật đúng API lấy lịch theo tuần (đã sửa)
+  GetSchedule: async (pitchId, startDate) => {
     try {
-      const response = await api.get('/Booking/my-bookings');
-      return response.data;
-    } catch (err) {
-      console.error('Lỗi khi lấy danh sách booking của khách hàng: ', err);
-      throw err.response?.data || new Error('Không thể lấy danh sách booking của bạn.');
-    }
-  },
-
-  // 📌 Lấy chi tiết một Booking theo ID
-  GetBookingById: async (id) => {
-    try {
-      const response = await api.get(`/Booking/${id}`);
-      return response.data;
-    } catch (err) {
-      console.error('Lỗi khi lấy chi tiết booking: ', err);
-      throw err.response?.data || new Error('Không thể lấy thông tin booking.');
-    }
-  },
-
-  // 📌 Lấy lịch đặt sân theo tuần (Customer)
-  GetBookingScheduleByPitch: async (pitchId, weekStartDate) => {
-    try {
-      const response = await api.get(`/Booking/schedule/${pitchId}`, {
-        params: { weekStartDate },
+      const response = await api.get(`/booking/pitch/${pitchId}/week`, {
+        params: { startDate },
       });
       return response.data;
-    } catch (err) {
-      console.error('Lỗi khi lấy lịch đặt sân: ', err);
-      throw err.response?.data || new Error('Không thể lấy lịch đặt sân.');
+    } catch (error) {
+      throw handleApiError(error);
     }
   },
 
-  // 📌 Tạo mới một Booking (Customer)
+  GetBookingsByCustomer: async () => {
+    try {
+      const response = await api.get("/Booking/my-bookings");
+      return response.data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
+  },
+
   CreateBooking: async (bookingData) => {
     try {
-      const response = await api.post('/Booking', bookingData);
+      const response = await api.post("/Booking", bookingData, {
+        headers: { "Content-Type": "application/json" },
+      });
       return response.data;
-    } catch (err) {
-      console.error('Lỗi khi tạo booking: ', err);
-      throw err.response?.data || new Error('Không thể tạo booking.');
+    } catch (error) {
+      throw handleApiError(error);
     }
   },
 
-  // 📌 Xác nhận "Nhận sân" (chỉ Staff)
   ConfirmReceived: async (id) => {
     try {
       const response = await api.patch(`/Booking/${id}/confirm-received`);
       return response.data;
-    } catch (err) {
-      console.error('Lỗi khi xác nhận nhận sân: ', err);
-      throw err.response?.data || new Error('Không thể xác nhận nhận sân.');
+    } catch (error) {
+      throw handleApiError(error);
     }
   },
 
-  // 📌 Hủy Booking (Customer)
   CancelBooking: async (id) => {
     try {
       const response = await api.delete(`/Booking/${id}`);
       return response.data;
-    } catch (err) {
-      console.error('Lỗi khi hủy booking: ', err);
-      throw err.response?.data || new Error('Không thể hủy booking.');
+    } catch (error) {
+      throw handleApiError(error);
     }
   },
 
-  // 📌 Cập nhật trạng thái thanh toán (Admin & Staff)
   UpdatePaymentStatus: async (id, paymentStatus) => {
     try {
-      const response = await api.patch(`/Booking/${id}/update-payment`, { paymentStatus });
+      const response = await api.patch(
+        `/Booking/${id}/update-payment`,
+        { paymentStatus },
+        { headers: { "Content-Type": "application/json" } }
+      );
       return response.data;
-    } catch (err) {
-      console.error('Lỗi khi cập nhật trạng thái thanh toán: ', err);
-      throw err.response?.data || new Error('Không thể cập nhật trạng thái thanh toán.');
+    } catch (error) {
+      throw handleApiError(error);
     }
-  }
+  },
 };
-
 
 export { AccountAPI, PitchTypeAPI, PitchAPI, BookingAPI };

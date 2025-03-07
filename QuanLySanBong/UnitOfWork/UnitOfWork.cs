@@ -1,20 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using QuanLySanBong.Data;
 using QuanLySanBong.Repository.Account;
 using QuanLySanBong.Repository.Booking;
 using QuanLySanBong.Repository.Pitch;
 using QuanLySanBong.Repository.PitchType;
 using QuanLySanBong.Repository.Staff;
+using System.Data;
 
 namespace QuanLySanBong.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
+        private readonly string _connectionString;
 
-        public UnitOfWork(ApplicationDbContext context)
+        public UnitOfWork(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _connectionString = configuration.GetConnectionString("DefaultConnection"); // Lấy từ appsettings.json
 
             Accounts = new AccountRepository(_context);
 
@@ -62,6 +67,31 @@ namespace QuanLySanBong.UnitOfWork
         public void Dispose()
         {
             _context.Dispose();
+        }
+
+        // 📌 Thêm phương thức để thực thi Stored Procedure
+        public async Task<List<T>> ExecuteStoredProcedureAsync<T>(string storedProcedureName, Func<SqlDataReader, T> mapFunction)
+        {
+            var results = new List<T>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                using (var command = new SqlCommand(storedProcedureName, connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            results.Add(mapFunction(reader));
+                        }
+                    }
+                }
+            }
+
+            return results;
         }
     }
 }

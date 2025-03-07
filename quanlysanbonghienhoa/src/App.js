@@ -14,6 +14,9 @@ import CreateStaff from "./Pages/Admin/CreateStaff";
 import ManagePitchesStaff from "./Pages/Staff/ManagePitchesStaff";
 import ManageBookingsStaff from "./Pages/Staff/ManageBookingsStaff";
 import CustomerSelectPitch from "./Pages/Customer/CustomerSelectPitch";
+import CustomerSchedule from "./Pages/Customer/CustomerSchedule";
+import CustomerSelectTime from "./Pages/Customer/CustomerSelectTime";
+import PitchDetail from "./Pages/Customer/PitchDetail";
 
 const ProtectedRoute = ({ role, children }) => {
   const token = localStorage.getItem("token");
@@ -83,8 +86,7 @@ const App = () => {
               <ManagePitchesStaff />
             </ProtectedRoute>
           }
-        >
-        </Route>
+        />
         <Route
           path="/manage-bookings-staff"
           element={
@@ -92,7 +94,7 @@ const App = () => {
               <ManageBookingsStaff />
             </ProtectedRoute>
           }
-        ></Route>
+        />
 
         {/* Role Customer */}
         <Route
@@ -101,8 +103,34 @@ const App = () => {
             <ProtectedRoute role="Customer">
               <CustomerSelectPitch />
             </ProtectedRoute>
-          }>
-        </Route>
+          }
+        />
+        <Route
+          path="/customer/booking/schedule/:pitchId/:pitchType"
+          element={
+            <ProtectedRoute role="Customer">
+              <CustomerSchedule />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/customer/booking/:pitchId/:pitchType/:date"
+          element={
+            <ProtectedRoute role="Customer">
+              <CustomerSelectTime />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/customer/pitch/:pitchId"
+          element={
+            <ProtectedRoute role="Customer">
+              <PitchDetail />
+            </ProtectedRoute>
+          }
+        />
+
       </Routes>
     </AuthProvider>
   );

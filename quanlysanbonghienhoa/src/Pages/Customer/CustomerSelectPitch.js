@@ -6,6 +6,7 @@ import { PitchAPI } from "../../API";
 const CustomerSelectPitch = () => {
   const [pitches, setPitches] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,16 +14,16 @@ const CustomerSelectPitch = () => {
   }, []);
 
   const fetchPitches = async () => {
-    try {
-      const data = await PitchAPI.GetAllPitches();
-      console.log("Danh sách sân: ", data); // Thêm log để kiểm tra dữ liệu trả về từ API
-      setPitches(data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Lỗi khi tải danh sách sân: ", error);
-      setLoading(false);
-    }
-  };
+  try {
+    const data = await PitchAPI.GetAllPitches();
+    setPitches(data);
+  } catch (error) {
+    console.error("Lỗi khi tải danh sách sân: ", error);
+    setError("Không thể tải danh sách sân. Vui lòng thử lại!");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleSelectPitch = (pitchId, pitchType) => {
     navigate(`/customer/booking/schedule/${pitchId}/${pitchType}`);
@@ -35,6 +36,15 @@ const CustomerSelectPitch = () => {
       </Container>
     );
   }
+
+  if (error) {
+    return (
+      <Container className="text-center mt-5">
+        <p className="text-danger">{error}</p>
+      </Container>
+    );
+  }
+  
 
   return (
     <Container className="mt-4">

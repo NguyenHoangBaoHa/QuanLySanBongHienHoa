@@ -3,24 +3,16 @@
   "WorkspaceRootPath": "E:\\TestCode\\QuanLySanBong\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\service\\pitch\\pitchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:service\\pitch\\pitchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\pitchtype\\dto\\pitchtypeimagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\pitchtype\\dto\\pitchtypeimagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\service\\booking\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:service\\booking\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\pitchtype\\model\\pitchtypeimagemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\pitchtype\\model\\pitchtypeimagemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\pitchtype\\dto\\pitchtypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\pitchtype\\dto\\pitchtypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\pitchtype\\model\\pitchtypemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\pitchtype\\model\\pitchtypemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\repository\\booking\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:repository\\booking\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,76 +22,49 @@
       "DocumentGroups": [
         {
           "DockedWidth": 232,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PitchService.cs",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Service\\Pitch\\PitchService.cs",
-              "RelativeDocumentMoniker": "Service\\Pitch\\PitchService.cs",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Service\\Pitch\\PitchService.cs",
-              "RelativeToolTip": "Service\\Pitch\\PitchService.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAkwCoAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T10:05:25.926Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PitchTypeDto.cs",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\PitchType\\Dto\\PitchTypeDto.cs",
-              "RelativeDocumentMoniker": "Entities\\PitchType\\Dto\\PitchTypeDto.cs",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\PitchType\\Dto\\PitchTypeDto.cs",
-              "RelativeToolTip": "Entities\\PitchType\\Dto\\PitchTypeDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "BookingRepository.cs",
+              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Repository\\Booking\\BookingRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\Booking\\BookingRepository.cs",
+              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Repository\\Booking\\BookingRepository.cs",
+              "RelativeToolTip": "Repository\\Booking\\BookingRepository.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwCoAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T04:06:58.769Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PitchTypeModel.cs",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\PitchType\\Model\\PitchTypeModel.cs",
-              "RelativeDocumentMoniker": "Entities\\PitchType\\Model\\PitchTypeModel.cs",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\PitchType\\Model\\PitchTypeModel.cs",
-              "RelativeToolTip": "Entities\\PitchType\\Model\\PitchTypeModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T04:06:57.407Z",
+              "WhenOpened": "2025-03-07T17:12:53.976Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "PitchTypeImageDto.cs",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\PitchType\\Dto\\PitchTypeImageDto.cs",
-              "RelativeDocumentMoniker": "Entities\\PitchType\\Dto\\PitchTypeImageDto.cs",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\PitchType\\Dto\\PitchTypeImageDto.cs",
-              "RelativeToolTip": "Entities\\PitchType\\Dto\\PitchTypeImageDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
+              "Title": "BookingService.cs",
+              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Service\\Booking\\BookingService.cs",
+              "RelativeDocumentMoniker": "Service\\Booking\\BookingService.cs",
+              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Service\\Booking\\BookingService.cs",
+              "RelativeToolTip": "Service\\Booking\\BookingService.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowCwAAABdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T03:53:38.402Z",
+              "WhenOpened": "2025-03-07T11:37:36.302Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PitchTypeImageModel.cs",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\PitchType\\Model\\PitchTypeImageModel.cs",
-              "RelativeDocumentMoniker": "Entities\\PitchType\\Model\\PitchTypeImageModel.cs",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\PitchType\\Model\\PitchTypeImageModel.cs",
-              "RelativeToolTip": "Entities\\PitchType\\Model\\PitchTypeImageModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "BookingController.cs",
+              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Controllers\\BookingController.cs",
+              "RelativeDocumentMoniker": "Controllers\\BookingController.cs",
+              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Controllers\\BookingController.cs",
+              "RelativeToolTip": "Controllers\\BookingController.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowDUAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T03:52:58.478Z",
+              "WhenOpened": "2025-03-07T11:39:27.977Z",
               "EditorCaption": ""
             }
           ]

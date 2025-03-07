@@ -1,4 +1,5 @@
-﻿using QuanLySanBong.Repository.Account;
+﻿using Microsoft.Data.SqlClient;
+using QuanLySanBong.Repository.Account;
 using QuanLySanBong.Repository.Booking;
 using QuanLySanBong.Repository.Pitch;
 using QuanLySanBong.Repository.PitchType;
@@ -21,5 +22,8 @@ namespace QuanLySanBong.UnitOfWork
         IBookingRepository Bookings { get; }
 
         Task<int> CompleteAsync();
+
+        // 📌 Thêm phương thức để gọi Stored Procedure
+        Task<List<T>> ExecuteStoredProcedureAsync<T>(string storedProcedureName, Func<SqlDataReader, T> mapFunction);
     }
 }
