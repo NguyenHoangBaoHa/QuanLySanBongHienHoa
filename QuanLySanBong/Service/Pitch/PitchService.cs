@@ -33,7 +33,7 @@ namespace QuanLySanBong.Service.Pitch
                 LimitPerson = p.PitchType?.LimitPerson ?? 0,
                 Price = p.PitchType?.Price ?? 0,
                 ImagePath = (p.PitchType != null && p.PitchType.Images.Any())
-                    ? p.PitchType.Images.First().ImagePath
+                    ? p.PitchType.Images.OrderBy(img => img.Id).First().ImagePath // Sửa đổi để lấy hình ảnh đầu tiên theo Id
                     : "default_image.png",
                 CreateAt = p.CreateAt,
                 UpdateAt = p.UpdateAt
