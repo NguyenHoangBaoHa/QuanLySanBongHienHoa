@@ -3,24 +3,8 @@
   "WorkspaceRootPath": "E:\\TestCode\\QuanLySanBong\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\service\\booking\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:service\\booking\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\repository\\booking\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:repository\\booking\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,66 +23,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Properties\\launchSettings.json",
-              "RelativeToolTip": "Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-07T17:58:47.086Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-07T17:58:29.755Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "BookingRepository.cs",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Repository\\Booking\\BookingRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\Booking\\BookingRepository.cs",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Repository\\Booking\\BookingRepository.cs",
-              "RelativeToolTip": "Repository\\Booking\\BookingRepository.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwCoAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T17:12:53.976Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "BookingService.cs",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Service\\Booking\\BookingService.cs",
-              "RelativeDocumentMoniker": "Service\\Booking\\BookingService.cs",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Service\\Booking\\BookingService.cs",
-              "RelativeToolTip": "Service\\Booking\\BookingService.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAowCwAAABdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T11:37:36.302Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "BookingController.cs",
               "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Controllers\\BookingController.cs",
               "RelativeDocumentMoniker": "Controllers\\BookingController.cs",
               "ToolTip": "E:\\TestCode\\QuanLySanBong\\Controllers\\BookingController.cs",
               "RelativeToolTip": "Controllers\\BookingController.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAowDUAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAcwGQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T11:39:27.977Z",
+              "WhenOpened": "2025-03-16T11:00:18.224Z",
               "EditorCaption": ""
             }
           ]

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using QuanLySanBong.Entities.Booking.Dto;
 using QuanLySanBong.Service.Booking;
+using System.Security.Claims;
 
 namespace QuanLySanBong.Controllers
 {
@@ -50,7 +52,7 @@ namespace QuanLySanBong.Controllers
             if (string.IsNullOrEmpty(customerIdClaim) || !int.TryParse(customerIdClaim, out int customerId))
                 return Unauthorized("Không tìm thấy thông tin khách hàng.");
 
-            var bookings = await _service.GetBookingByIdAsync(customerId);
+            var bookings = await _service.GetBookingsByCustomerIdAsync(customerId);
             return Ok(bookings);
         }
 
@@ -61,20 +63,41 @@ namespace QuanLySanBong.Controllers
             if (startDate < DateTime.Today)
                 return BadRequest("Ngày bắt đầu không thể là ngày trong quá khứ.");
 
-            var bookings = await _service.GetBookingsForPitchByWeekAsync(pitchId, startDate);
-            return Ok(bookings);
+            try
+            {
+                var bookings = await _service.GetBookingsForPitchByWeekAsync(pitchId, startDate);
+                return Ok(bookings);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         // 📌 Tạo Booking mới
-        [HttpPost]
+        [HttpPost("create")]
         [Authorize(Roles = "Customer")]
         public async Task<IActionResult> CreateBooking([FromBody] BookingCreateDto bookingDto)
         {
-            if (bookingDto == null || bookingDto.IdPitch <= 0 || bookingDto.BookingDate < DateTime.Now)
-                return BadRequest("Dữ liệu đặt sân không hợp lệ.");
+            if (!ModelState.IsValid)
+            {
+                Console.WriteLine("❌ ModelState Invalid:");
+                foreach (var key in ModelState.Keys)
+                {
+                    foreach (var error in ModelState[key].Errors)
+                    {
+                        Console.WriteLine($"🔴 {key}: {error.ErrorMessage}");
+                    }
+                }
+                return BadRequest(ModelState);
+            }
 
-            var booking = await _service.CreateBookingAsync(bookingDto);
-            return CreatedAtAction(nameof(GetBookingById), new {id = booking.Id}, booking);
+            var customerIdClaim = User.FindFirst("IdCustomer")?.Value;
+            if (string.IsNullOrEmpty(customerIdClaim) || !int.TryParse(customerIdClaim, out int customerId))
+                return Unauthorized("Không tìm thấy thông tin khách hàng.");
+
+            var result = await _service.CreateBookingAsync(customerId, bookingDto);
+            return Ok(result);
         }
 
         // 📌 Staff cập nhật trạng thái nhận sân

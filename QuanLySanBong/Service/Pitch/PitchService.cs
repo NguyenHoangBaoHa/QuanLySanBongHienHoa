@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.Data.SqlClient;
 using QuanLySanBong.Entities.Pitch.Dto;
 using QuanLySanBong.Entities.Pitch.Model;
 using QuanLySanBong.UnitOfWork;
@@ -19,41 +18,48 @@ namespace QuanLySanBong.Service.Pitch
 
         public async Task<List<PitchDto>> GetAllAsync()
         {
-            var result = await _unitOfWork.ExecuteStoredProcedureAsync("GetAllPitches", reader => new PitchDto
+            var pitches = await _unitOfWork.Pitches.GetAllAsync();
+            var pitchDtos = pitches.Select(pitch => new PitchDto
             {
-                Id = reader.GetInt32(0),
-                Name = reader.GetString(1),
-                PitchTypeName = reader.IsDBNull(2) ? string.Empty : reader.GetString(2),
-                Price = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3),
-                LimitPerson = reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
-                ImagePath = reader.IsDBNull(5) ? "default_image.png" : reader.GetString(5),
-                CreateAt = reader.GetDateTime(6),
-                UpdateAt = reader.GetDateTime(7)
-            });
+                Id = pitch.Id,
+                Name = pitch.Name,
+                IdPitchType = pitch.PitchType?.Id ?? 0,
+                PitchTypeName = pitch.PitchType?.Name ?? string.Empty,
+                Price = pitch.PitchType?.Price ?? 0,
+                LimitPerson = pitch.PitchType?.LimitPerson ?? 0,
+                ImagePath = pitch.PitchType?.Images.FirstOrDefault()?.ImagePath ?? "default_image.png",
+                CreateAt = pitch.CreateAt,
+                UpdateAt = pitch.UpdateAt
+            }).ToList();
 
-            return result;
+            return pitchDtos;
         }
+
 
         public async Task<PitchDto> GetByIdAsync(int id)
         {
             var pitch = await _unitOfWork.Pitches.GetByIdAsync(id);
-            if (pitch == null)
-            {
-                return null;
-            }
+            if (pitch == null) return null;
+
+            var pitchType = await _unitOfWork.PitchTypes.GetByIdAsync(pitch.IdPitchType ?? 0);
+            var images = await _unitOfWork.PitchTypeImages.GetByPitchTypeIdAsync(pitch.IdPitchType ?? 0);
 
             return new PitchDto
             {
                 Id = pitch.Id,
                 Name = pitch.Name,
-                PitchTypeName = pitch.PitchType?.Name ?? string.Empty,
-                LimitPerson = pitch.PitchType?.LimitPerson ?? 0,
-                Price = pitch.PitchType?.Price ?? 0,
-                ImagePath = pitch.PitchType?.Images?.FirstOrDefault()?.ImagePath,
+                IdPitchType = pitchType?.Id ?? 0,
+                PitchTypeName = pitchType?.Name ?? string.Empty,
+                Price = pitchType?.Price ?? 0,
+                LimitPerson = pitchType?.LimitPerson ?? 0,
+                ListImagePath = images?.Select(img => img.ImagePath).ToList() ?? new List<string>(),
+                // ✅ Trả về danh sách ảnh
                 CreateAt = pitch.CreateAt,
                 UpdateAt = pitch.UpdateAt
             };
         }
+
+
 
         public async Task<PitchModel> AddAsync(PitchCreateDto pitchDto)
         {

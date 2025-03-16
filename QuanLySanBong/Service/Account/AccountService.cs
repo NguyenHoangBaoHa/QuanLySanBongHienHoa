@@ -29,6 +29,8 @@ namespace QuanLySanBong.Service.Account
                 return null;
             }
 
+            Console.WriteLine($"DEBUG: AccountService - acc.IdCustomer = {acc.IdCustomer}");
+
             var token = _tokenService.CreateToken(acc, _config);
 
             return new LoginModel()
@@ -36,6 +38,7 @@ namespace QuanLySanBong.Service.Account
                 Username = acc.Email,
                 Token = token,
                 Role = acc.Role,
+                IdCustomer = acc.IdCustomer
             };
         }
 

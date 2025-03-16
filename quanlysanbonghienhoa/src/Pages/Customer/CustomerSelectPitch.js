@@ -10,23 +10,28 @@ const CustomerSelectPitch = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchPitches = async () => {
+      try {
+        const data = await PitchAPI.GetAllPitches();
+        console.log("📌 Dữ liệu sân bóng từ API: ", data);
+        setPitches(data);
+      } catch (error) {
+        console.error("Lỗi khi tải danh sách sân: ", error);
+        setError("Không thể tải danh sách sân. Vui lòng thử lại!");
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchPitches();
   }, []);
 
-  const fetchPitches = async () => {
-  try {
-    const data = await PitchAPI.GetAllPitches();
-    setPitches(data);
-  } catch (error) {
-    console.error("Lỗi khi tải danh sách sân: ", error);
-    setError("Không thể tải danh sách sân. Vui lòng thử lại!");
-  } finally {
-    setLoading(false);
-  }
-};
-
-  const handleSelectPitch = (pitchId, pitchType) => {
-    navigate(`/customer/booking/schedule/${pitchId}/${pitchType}`);
+  const handleSelectPitch = (pitch) => {
+    if (!pitch.idPitchType) {
+      console.error("Lỗi: Không tìm thấy pitchTypeId", pitch);
+      alert("Lỗi: Không tìm thấy loại sân của sân bóng này!");
+      return;
+    }
+    navigate(`/customer/booking/schedule/${pitch.id}/${pitch.pitchTypeName}`);
   };
 
   if (loading) {
@@ -44,7 +49,7 @@ const CustomerSelectPitch = () => {
       </Container>
     );
   }
-  
+
 
   return (
     <Container className="mt-4">
@@ -69,7 +74,7 @@ const CustomerSelectPitch = () => {
                   </Card.Text>
                   <Button
                     variant="primary"
-                    onClick={() => handleSelectPitch(pitch.id, pitch.pitchTypeName)}
+                    onClick={() => handleSelectPitch(pitch)} // ✅ Sửa pitchTypeName → pitchTypeId
                   >
                     Chọn Sân
                   </Button>

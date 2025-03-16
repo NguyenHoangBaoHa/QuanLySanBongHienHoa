@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using QuanLySanBong.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -30,7 +28,6 @@ namespace QuanLySanBong.Extensions
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowCredentials();
-                            //.SetIsOriginAllowed(hosts => true);
                     });
             });
 
@@ -39,21 +36,28 @@ namespace QuanLySanBong.Extensions
             services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
 
             // AUTHENTICATION
+            // Đọc thời gian sống của token từ `appsettings.json`
+            var tokenLifetime = config.GetValue<int>("Jwt:TokenLifetime");
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
+                    .AddJwtBearer(options =>
                     {
-                        ValidateIssuer = true, // Xác thực issuer
-                        ValidateAudience = true, // Xác thực audience
-                        ValidateLifetime = true, // Xác thực thời gian sống của token
-                        ValidateIssuerSigningKey = true, // Xác thực khóa ký
-                        ValidIssuer = config["Jwt:Issuer"], // Issuer hợp lệ
-                        ValidAudience = config["Jwt:Issuer"], // Audience hợp lệ
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"])),
-                        RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role" // Xác định nơi chứa role
-                    };
-                });
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = config["Jwt:Issuer"],
+                            ValidAudience = config["Jwt:Issuer"],
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"])),
+                            ClockSkew = TimeSpan.Zero,
+                            LifetimeValidator = (before, expires, token, parameters) =>
+                            {
+                                return expires > DateTime.UtcNow.AddSeconds(tokenLifetime); // Kiểm tra xem token có còn hợp lệ không
+                            }
+                        };
+                    });
 
             return services;
         }

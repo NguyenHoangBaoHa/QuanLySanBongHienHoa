@@ -49,6 +49,8 @@ namespace QuanLySanBong.Repository.Booking
         {
             return await _context.Bookings
                 .Where(b => b.IdPitch == pitchId && b.BookingDate >= startDate && b.BookingDate <= endDate)
+                .Include(b => b.Pitch)
+                .ThenInclude(p => p.PitchType)
                 .ToListAsync();
         }
 
@@ -68,6 +70,16 @@ namespace QuanLySanBong.Repository.Booking
         public void DeleteBooking(BookingModel booking)
         {
             _context.Bookings.Remove(booking);
+        }
+
+        // Kiểm tra khung giờ có trùng không
+        public async Task<bool> IsTimeSlotAvailable(int pitchId, DateTime bookingDate, int duration)
+        {
+            DateTime bookingEndTime = bookingDate.AddMinutes(duration);
+            return !await _context.Bookings.AnyAsync(b =>
+                b.IdPitch == pitchId &&
+                ((b.BookingDate <= bookingDate && b.BookingDate.AddMinutes(b.Duration) > bookingDate) ||
+                 (b.BookingDate < bookingEndTime && b.BookingDate.AddMinutes(b.Duration) >= bookingEndTime)));
         }
     }
 }

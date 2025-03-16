@@ -18,8 +18,9 @@ namespace QuanLySanBong.Repository.PitchType
         public async Task<IEnumerable<PitchTypeImageModel>> GetByPitchTypeIdAsync(int pitchTypeId)
         {
             return await _context.PitchTypeImages
-                                 .Where(i => i.PitchTypeId == pitchTypeId)
-                                 .ToListAsync();
+                .Where(i => i.PitchTypeId == pitchTypeId)
+                //.Select(i => i.ImagePath)
+                .ToListAsync();
         }
 
         public void RemoveRange(IEnumerable<PitchTypeImageModel> images)

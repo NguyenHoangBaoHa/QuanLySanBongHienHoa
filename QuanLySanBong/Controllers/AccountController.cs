@@ -30,14 +30,18 @@ namespace QuanLySanBong.Controllers
 
             var loginModel = await _service.Login(loginDto);
 
-            if (string.IsNullOrEmpty(loginModel.Token))
+            if (loginModel == null || string.IsNullOrEmpty(loginModel.Token))
                 return Unauthorized("Sai email hoặc mật khẩu.");
+
+            // Kiểm tra giá trị trước khi trả về
+            Console.WriteLine($"DEBUG: Login - Username: {loginModel.Username}, IdCustomer: {loginModel.IdCustomer}");
 
             return Ok(new
             {
                 Username = loginModel.Username,
                 Token = loginModel.Token,
-                Role = loginModel.Role
+                Role = loginModel.Role,
+                IdCustomer = loginModel.IdCustomer
             });
         }
 

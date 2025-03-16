@@ -14,7 +14,6 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Kiểm tra email hợp lệ hoặc là tài khoản admin
     const isValidEmail = email.includes("@") || email === "admin";
     if (!isValidEmail) {
       setError("Email phải có định dạng hợp lệ hoặc là tài khoản admin.");
@@ -22,16 +21,21 @@ const Login = () => {
     }
 
     try {
-      // Gọi API để kiểm tra tài khoản và mật khẩu
       const response = await AccountAPI.login(email, password);
 
-      // Lưu thông tin vào localStorage
+      // 🔹 Lưu customerId nếu đăng nhập là Customer
+      if (response.role === 'Customer' && response.customerId) {
+        localStorage.setItem('customerId', response.customerId);
+        console.log("✅ customerId đã lưu:", response.customerId);
+      }
+
+      // 🔹 Lưu thông tin chung
       localStorage.setItem('username', response.username);
       localStorage.setItem('token', response.token);
       localStorage.setItem('role', response.role);
       login(response.role);
 
-      // Điều hướng theo role
+      // 🔹 Điều hướng theo vai trò
       switch (response.role) {
         case 'Admin':
           navigate('/manage-pitches-admin');
@@ -40,7 +44,7 @@ const Login = () => {
           navigate('/manage-pitches-staff');
           break;
         case 'Customer':
-          navigate('/my-bookings');
+          navigate('/customer/booking');
           break;
         default:
           navigate('/');

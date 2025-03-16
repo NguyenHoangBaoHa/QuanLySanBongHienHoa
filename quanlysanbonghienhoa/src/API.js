@@ -4,7 +4,6 @@ const api = axios.create({
   baseURL: "https://localhost:8007/api",
 });
 
-// Middleware tự động gắn token vào request
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -18,27 +17,34 @@ api.interceptors.request.use(
 
 // Hàm xử lý lỗi chung
 const handleApiError = (error) => {
-  console.error("API Error:", error);
   if (error.response) {
-    const { status, data } = error.response;
-    if (status === 401) {
-      alert("Phiên đăng nhập hết hạn, vui lòng đăng nhập lại.");
-      localStorage.removeItem("token");
-      window.location.href = "/login";
-    }
-    throw data || new Error("Có lỗi xảy ra!");
+    // Lỗi từ server, chẳng hạn như 400, 500
+    return error.response.data || "Server Error";
+  } else if (error.request) {
+    // Không nhận được phản hồi từ server
+    return "No response from server.";
+  } else {
+    // Lỗi trong quá trình thiết lập yêu cầu
+    return error.message || "Unknown error occurred.";
   }
-  throw new Error("Không thể kết nối đến server.");
 };
 
 const AccountAPI = {
   login: async (email, password) => {
     try {
       const response = await api.post("/Account/login", { email, password });
-      const { token, role, username } = response.data;
+      const { token, role, username, idCustomer } = response.data;
+
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
       localStorage.setItem("username", username);
+
+      // 🔹 Kiểm tra và lưu IdCustomer nếu có
+      if (role === "Customer") {
+        localStorage.setItem("customerId", idCustomer?.toString() || "");
+        console.log("✅ Đã lưu customerId:", idCustomer);
+      }
+
       return response.data;
     } catch (error) {
       throw handleApiError(error);
@@ -61,7 +67,7 @@ const AccountAPI = {
     } catch (error) {
       throw handleApiError(error);
     }
-  },
+  }
 };
 
 // ==================== Pitch Type API ====================
@@ -113,6 +119,17 @@ const PitchAPI = {
   GetAllPitches: async () => {
     try {
       const response = await api.get("/Pitch");
+      console.log("✅ API GetAllPitches Response:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("❌ Lỗi khi gọi API GetAllPitches:", error);
+      throw handleApiError(error);
+    }
+  },
+
+  GetPitchDetail: async (pitchId) => {
+    try {
+      const response = await api.get(`/Pitch/${pitchId}`);
       return response.data;
     } catch (error) {
       throw handleApiError(error);
@@ -142,19 +159,18 @@ const PitchAPI = {
 
 // ==================== Booking API ====================
 const BookingAPI = {
-  GetAllBookings: async () => {
+  GetAllBookings: async (params) => {
     try {
-      const response = await api.get("/Booking");
+      const response = await api.get("/Booking", { params });
       return response.data;
     } catch (error) {
       throw handleApiError(error);
     }
   },
 
-  // ✅ Cập nhật đúng API lấy lịch theo tuần (đã sửa)
-  GetSchedule: async (pitchId, startDate) => {
+  GetScheduleByWeek: async (pitchId, startDate) => {
     try {
-      const response = await api.get(`/booking/pitch/${pitchId}/week`, {
+      const response = await api.get(`/Booking/pitch/${pitchId}/week`, {
         params: { startDate },
       });
       return response.data;
@@ -174,12 +190,31 @@ const BookingAPI = {
 
   CreateBooking: async (bookingData) => {
     try {
-      const response = await api.post("/Booking", bookingData, {
-        headers: { "Content-Type": "application/json" },
+      const token = localStorage.getItem("token");
+      const IdCustomer = localStorage.getItem("customerId");
+
+      if (!token || !IdCustomer) {
+        throw new Error("Token or Customer ID is missing");
+      }
+
+      const response = await api.post("/Booking/create", {
+        ...bookingData,
+        IdCustomer: Number(IdCustomer),
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
       });
+
+      if (!response.data) {
+        throw new Error("No data returned from server.");
+      }
+
       return response.data;
     } catch (error) {
-      throw handleApiError(error);
+      console.error("API call failed:", error);
+      throw error; // Re-throw to propagate error to the component
     }
   },
 

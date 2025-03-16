@@ -97,10 +97,10 @@ namespace QuanLySanBong.Controllers
             if (pitchType == null) return NotFound();
 
             var images = await _unitOfWork.PitchTypeImages.GetByPitchTypeIdAsync(id);
-            foreach (var img in images)
-            {
-                _unitOfWork.PitchTypeImages.Remove(img);
-            }
+            //foreach (var img in images)
+            //{
+            //    _unitOfWork.PitchTypeImages.Remove(img);
+            //}
             _unitOfWork.PitchTypes.DeleteAsync(pitchType);
             await _unitOfWork.CompleteAsync();
             return NoContent();

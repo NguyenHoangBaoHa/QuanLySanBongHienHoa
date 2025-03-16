@@ -59,22 +59,6 @@
   },
   {
     "ContainingType": "QuanLySanBong.Controllers.BookingController",
-    "Method": "CreateBooking",
-    "RelativePath": "api/Booking",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "bookingDto",
-        "Type": "QuanLySanBong.Entities.Booking.Dto.BookingCreateDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "QuanLySanBong.Controllers.BookingController",
     "Method": "GetBookingById",
     "RelativePath": "api/Booking/{id}",
     "HttpMethod": "GET",
@@ -121,6 +105,22 @@
       {
         "Name": "isReceived",
         "Type": "System.Boolean",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuanLySanBong.Controllers.BookingController",
+    "Method": "CreateBooking",
+    "RelativePath": "api/Booking/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bookingDto",
+        "Type": "QuanLySanBong.Entities.Booking.Dto.BookingCreateDto",
         "IsRequired": true
       }
     ],

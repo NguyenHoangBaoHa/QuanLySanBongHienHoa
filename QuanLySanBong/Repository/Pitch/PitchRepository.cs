@@ -15,15 +15,11 @@ namespace QuanLySanBong.Repository.Pitch
 
         public async Task<List<PitchModel>> GetAllAsync()
         {
-            var pitches =  await _context.Pitches
+            var pitches = await _context.Pitches
                 .Include(p => p.PitchType)
+                .Include(p => p.PitchType.Images)
                 .AsNoTracking()
                 .ToListAsync();
-
-            foreach (var pitch in pitches)
-            {
-                Console.WriteLine($"Pitch ID: {pitch.Id}, Name: {pitch.Name}, PitchType: {(pitch.PitchType != null ? pitch.PitchType.Name : "NULL")}");
-            }
 
             return pitches;
         }
@@ -32,6 +28,7 @@ namespace QuanLySanBong.Repository.Pitch
         {
             return await _context.Pitches
                 .Include(p => p.PitchType)
+                .Include(p => p.PitchType.Images)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 

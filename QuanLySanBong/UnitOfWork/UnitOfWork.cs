@@ -70,7 +70,10 @@ namespace QuanLySanBong.UnitOfWork
         }
 
         // 📌 Thêm phương thức để thực thi Stored Procedure
-        public async Task<List<T>> ExecuteStoredProcedureAsync<T>(string storedProcedureName, Func<SqlDataReader, T> mapFunction)
+        public async Task<List<T>> ExecuteStoredProcedureAsync<T>(
+            string storedProcedureName,
+            object parameters,  // Thêm tham số
+            Func<SqlDataReader, T> mapFunction)
         {
             var results = new List<T>();
 
@@ -80,6 +83,16 @@ namespace QuanLySanBong.UnitOfWork
                 using (var command = new SqlCommand(storedProcedureName, connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
+
+                    // 🔥 Thêm tham số vào Stored Procedure
+                    if (parameters != null)
+                    {
+                        foreach (var prop in parameters.GetType().GetProperties())
+                        {
+                            var value = prop.GetValue(parameters);
+                            command.Parameters.AddWithValue($"@{prop.Name}", value ?? DBNull.Value);
+                        }
+                    }
 
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -93,5 +106,6 @@ namespace QuanLySanBong.UnitOfWork
 
             return results;
         }
+
     }
 }

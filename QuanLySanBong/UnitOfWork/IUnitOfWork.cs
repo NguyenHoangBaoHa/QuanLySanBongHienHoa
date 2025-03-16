@@ -24,6 +24,6 @@ namespace QuanLySanBong.UnitOfWork
         Task<int> CompleteAsync();
 
         // 📌 Thêm phương thức để gọi Stored Procedure
-        Task<List<T>> ExecuteStoredProcedureAsync<T>(string storedProcedureName, Func<SqlDataReader, T> mapFunction);
+        Task<List<T>> ExecuteStoredProcedureAsync<T>(string storedProcedureName, object parameters, Func<SqlDataReader, T> mapFunction);
     }
 }

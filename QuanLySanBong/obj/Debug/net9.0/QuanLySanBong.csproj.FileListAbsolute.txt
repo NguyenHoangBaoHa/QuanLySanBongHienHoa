@@ -163,3 +163,4 @@ E:\TestCode\QuanLySanBong\obj\Debug\net9.0\refint\QuanLySanBong.dll
 E:\TestCode\QuanLySanBong\obj\Debug\net9.0\QuanLySanBong.pdb
 E:\TestCode\QuanLySanBong\obj\Debug\net9.0\QuanLySanBong.genruntimeconfig.cache
 E:\TestCode\QuanLySanBong\obj\Debug\net9.0\ref\QuanLySanBong.dll
+E:\TestCode\QuanLySanBong\bin\Debug\net9.0\Newtonsoft.Json.dll

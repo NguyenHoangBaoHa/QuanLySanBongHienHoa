@@ -6,6 +6,9 @@ namespace QuanLySanBong.Entities.Booking.Dto
     public class BookingCreateDto
     {
         [Required]
+        public int CustomerId { get; set; }
+
+        [Required]
         public int IdPitch { get; set; } // Sân mà khách đặt
 
         [Required]

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using QuanLySanBong.Entities.Booking.Dto;
 using QuanLySanBong.Entities.Booking.Model;
+using QuanLySanBong.Entities.Enums;
+using QuanLySanBong.Entities.Pitch.Dto;
 using QuanLySanBong.UnitOfWork;
 
 namespace QuanLySanBong.Service.Booking
@@ -38,24 +40,61 @@ namespace QuanLySanBong.Service.Booking
         }
 
         // 📌 Lấy danh sách Booking của một sân theo tuần
-        public async Task<IEnumerable<BookingDto>> GetBookingsForPitchByWeekAsync(int pitchId, DateTime startDate)
+        public async Task<object> GetBookingsForPitchByWeekAsync(int pitchId, DateTime startDate)
         {
-            if(startDate < DateTime.Today)
-            {
-                throw new ArgumentException("Ngày bắt đầu không thể là ngày trong quá khứ.");
-            }
+            DateTime endDate = startDate.AddDays(6);
 
-            DateTime endDate = startDate.AddDays(6); // Lấy từ ngày bắt đầu đến hết tuần (7 ngày)
             var bookings = await _unitOfWork.Bookings.GetBookingsByPitchAndDateRangeAsync(pitchId, startDate, endDate);
-            return _mapper.Map<IEnumerable<BookingDto>>(bookings);
+
+            var pitch = await _unitOfWork.Pitches.GetByIdAsync(pitchId);
+            if (pitch == null) throw new Exception("Không tìm thấy sân.");
+
+            return new
+            {
+                Pitch = _mapper.Map<PitchDto>(pitch),
+                Booking = _mapper.Map<IEnumerable<BookingDto>>(bookings)
+            };
         }
 
         // 📌 Thêm Booking mới
-        public async Task<BookingDto> CreateBookingAsync(BookingCreateDto bookingDto)
+        public async Task<BookingDto> CreateBookingAsync(int customerId, BookingCreateDto bookingDto)
         {
-            var booking = _mapper.Map<BookingModel>(bookingDto);
+            var customerExists = await _unitOfWork.Accounts.GetById(customerId);
+            if(customerExists == null)
+            {
+                throw new Exception($"Khách hàng với Id {customerId} không tồn tại.");
+            }
+
+            // Kiểm tra sân có tồn tại không
+            var pitch = await _unitOfWork.Pitches.GetByIdAsync(bookingDto.IdPitch);
+            if (pitch == null)
+                throw new KeyNotFoundException("Không tìm thấy sân.");
+
+            // Kiểm tra ngày đặt sân không được ở quá khứ
+            if (bookingDto.BookingDate < DateTime.UtcNow)
+                throw new Exception("Ngày đặt sân không hợp lệ.");
+
+            // Kiểm tra trùng khung giờ đặt sân
+            bool isAvailable = await _unitOfWork.Bookings.IsTimeSlotAvailable(bookingDto.IdPitch, bookingDto.BookingDate, bookingDto.Duration);
+            if (!isAvailable)
+                throw new Exception("Khung giờ này đã có người đặt. Vui lòng chọn khung giờ khác.");
+
+            // Tạo Booking mới
+            var booking = new BookingModel
+            {
+                IdCustomer = customerId,
+                IdPitch = bookingDto.IdPitch,
+                BookingDate = bookingDto.BookingDate,
+                Duration = bookingDto.Duration,
+                PaymentStatus = PaymentStatusEnum.ChuaThanhToan, // Mặc định chưa thanh toán
+                IsReceived = false,
+                CreateAt = DateTime.UtcNow,
+                UpdateAt = DateTime.UtcNow
+            };
+
             await _unitOfWork.Bookings.AddBookingAsync(booking);
             await _unitOfWork.CompleteAsync();
+
             return _mapper.Map<BookingDto>(booking);
         }
 
