@@ -60,7 +60,7 @@ namespace QuanLySanBong.Service.Booking
         public async Task<BookingDto> CreateBookingAsync(int customerId, BookingCreateDto bookingDto)
         {
             var customerExists = await _unitOfWork.Accounts.GetById(customerId);
-            if(customerExists == null)
+            if (customerExists == null)
             {
                 throw new Exception($"Khách hàng với Id {customerId} không tồn tại.");
             }
@@ -95,7 +95,7 @@ namespace QuanLySanBong.Service.Booking
             await _unitOfWork.Bookings.AddBookingAsync(booking);
             await _unitOfWork.CompleteAsync();
 
-            return _mapper.Map<BookingDto>(booking);
+            return _mapper.Map<BookingDto>(booking); // Trả về BookingDto sau khi tạo
         }
 
         // 📌 Cập nhật trạng thái nhận sân của Staff

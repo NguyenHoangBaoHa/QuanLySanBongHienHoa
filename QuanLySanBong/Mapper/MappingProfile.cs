@@ -31,16 +31,30 @@ namespace QuanLySanBong.Mapper
             CreateMap<PitchCreateDto, PitchModel>();
             CreateMap<PitchUpdateDto, PitchModel>();
 
+            // Ánh xạ từ BookingCreateDto sang BookingModel
+            CreateMap<BookingCreateDto, BookingModel>()
+                .ForMember(dest => dest.IdCustomer, opt => opt.MapFrom(src => src.CustomerId)) // CustomerId -> IdCustomer
+                .ForMember(dest => dest.IdPitch, opt => opt.MapFrom(src => src.IdPitch)) // IdPitch
+                .ForMember(dest => dest.BookingDate, opt => opt.MapFrom(src => src.BookingDate)) // BookingDate
+                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration)) // Duration
+                .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.PaymentStatus)) // PaymentStatus (đã có enum)
+                .ForMember(dest => dest.IsReceived, opt => opt.MapFrom(src => false)) // Đặt mặc định IsReceived là false khi tạo mới
+                .ForMember(dest => dest.CreateAt, opt => opt.MapFrom(src => DateTime.UtcNow)) // Tạo thời gian tạo
+                .ForMember(dest => dest.UpdateAt, opt => opt.MapFrom(src => DateTime.UtcNow)); // Tạo thời gian cập nhật
+
+            // Ánh xạ từ BookingModel sang BookingDto (để trả về cho frontend)
             CreateMap<BookingModel, BookingDto>()
                 .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Customer != null ? src.Customer.DisplayName : string.Empty))
                 .ForMember(dest => dest.PitchName, opt => opt.MapFrom(src => src.Pitch != null ? src.Pitch.Name : string.Empty))
                 .ForMember(dest => dest.PitchTypeName, opt => opt.MapFrom(src => src.Pitch != null && src.Pitch.PitchType != null ? src.Pitch.PitchType.Name : string.Empty))
-                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration)) // Ánh xạ Duration
+                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration))
                 .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.PaymentStatus.ToString())); // Chuyển Enum thành chuỗi
 
+            // Ánh xạ từ BookingUpdateStatusDto sang BookingModel khi cập nhật trạng thái
             CreateMap<BookingUpdateStatusDto, BookingModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.IsReceived, opt => opt.MapFrom(src => src.IsReceived));
+
 
 
             CreateMap<BillModel, BillDto>()

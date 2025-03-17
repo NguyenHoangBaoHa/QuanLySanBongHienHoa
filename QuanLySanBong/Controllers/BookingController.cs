@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using QuanLySanBong.Entities.Booking.Dto;
@@ -74,31 +75,26 @@ namespace QuanLySanBong.Controllers
             }
         }
 
-        // 📌 Tạo Booking mới
-        [HttpPost("create")]
-        [Authorize(Roles = "Customer")]
+        [HttpPost("CreateBooking")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Customer")]
         public async Task<IActionResult> CreateBooking([FromBody] BookingCreateDto bookingDto)
         {
-            if (!ModelState.IsValid)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Check User ID từ Token
+            var idCustomer = User.FindFirstValue("IdCustomer"); // Check IdCustomer từ Token
+
+            Console.WriteLine($"📌 User ID từ Token: {userId}");
+            Console.WriteLine($"📌 IdCustomer từ Token: {idCustomer}");
+
+            if (string.IsNullOrEmpty(idCustomer) || idCustomer == "0")
             {
-                Console.WriteLine("❌ ModelState Invalid:");
-                foreach (var key in ModelState.Keys)
-                {
-                    foreach (var error in ModelState[key].Errors)
-                    {
-                        Console.WriteLine($"🔴 {key}: {error.ErrorMessage}");
-                    }
-                }
-                return BadRequest(ModelState);
+                return Unauthorized("⚠️ Không tìm thấy IdCustomer trong token!");
             }
 
-            var customerIdClaim = User.FindFirst("IdCustomer")?.Value;
-            if (string.IsNullOrEmpty(customerIdClaim) || !int.TryParse(customerIdClaim, out int customerId))
-                return Unauthorized("Không tìm thấy thông tin khách hàng.");
-
+            var customerId = int.Parse(idCustomer); // Lấy customerId từ token
             var result = await _service.CreateBookingAsync(customerId, bookingDto);
             return Ok(result);
         }
+
 
         // 📌 Staff cập nhật trạng thái nhận sân
         [HttpPut("{id}/receive")]

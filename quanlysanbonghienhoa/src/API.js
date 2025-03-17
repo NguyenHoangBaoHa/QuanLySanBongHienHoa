@@ -190,14 +190,20 @@ const BookingAPI = {
 
   CreateBooking: async (bookingData) => {
     try {
-      const token = localStorage.getItem("token");
       const IdCustomer = localStorage.getItem("customerId");
+      const token = localStorage.getItem("token");
 
-      if (!token || !IdCustomer) {
-        throw new Error("Token or Customer ID is missing");
+      if (!token) {
+        throw new Error("❌ Không tìm thấy token trong localStorage.");
+      }
+      if (!IdCustomer) {
+        throw new Error("❌ Không tìm thấy IdCustomer trong localStorage.");
       }
 
-      const response = await api.post("/Booking/create", {
+      console.log("Dữ liệu gửi lên API:", { ...bookingData, IdCustomer: Number(IdCustomer) });
+      console.log("Token gửi lên:", token);
+
+      const response = await api.post("/Booking/CreateBooking", {
         ...bookingData,
         IdCustomer: Number(IdCustomer),
       }, {
@@ -207,14 +213,10 @@ const BookingAPI = {
         },
       });
 
-      if (!response.data) {
-        throw new Error("No data returned from server.");
-      }
-
       return response.data;
     } catch (error) {
-      console.error("API call failed:", error);
-      throw error; // Re-throw to propagate error to the component
+      console.error("❌ Lỗi khi gọi API CreateBooking:", error);
+      throw error;
     }
   },
 

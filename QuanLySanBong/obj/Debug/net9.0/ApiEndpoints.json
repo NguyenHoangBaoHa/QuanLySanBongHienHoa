@@ -113,7 +113,7 @@
   {
     "ContainingType": "QuanLySanBong.Controllers.BookingController",
     "Method": "CreateBooking",
-    "RelativePath": "api/Booking/create",
+    "RelativePath": "api/Booking/CreateBooking",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
