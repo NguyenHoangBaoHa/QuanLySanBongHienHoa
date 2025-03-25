@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using QuanLySanBong.Entities.Booking.Model;
+using QuanLySanBong.Entities.Enums;
 
 namespace QuanLySanBong.Entities.Pitch.Model
 {
@@ -18,11 +19,13 @@ namespace QuanLySanBong.Entities.Pitch.Model
 
         [ForeignKey("IdPitchType")]
         public virtual PitchTypeModel PitchType { get; set; }
+        public PitchStatusEnum Status { get; set; } = PitchStatusEnum.Available;
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime CreateAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdateAt { get; set; } = DateTime.UtcNow;
 
-        public virtual ICollection<BookingModel> Bookings { get; set; }
+        public virtual ICollection<BookingModel> Bookings { get; set; } = new List<BookingModel>();
     }
 
 }

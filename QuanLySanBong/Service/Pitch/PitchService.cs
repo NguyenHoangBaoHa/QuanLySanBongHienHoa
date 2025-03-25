@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using QuanLySanBong.Entities.Enums;
 using QuanLySanBong.Entities.Pitch.Dto;
 using QuanLySanBong.Entities.Pitch.Model;
 using QuanLySanBong.UnitOfWork;
@@ -19,80 +20,67 @@ namespace QuanLySanBong.Service.Pitch
         public async Task<List<PitchDto>> GetAllAsync()
         {
             var pitches = await _unitOfWork.Pitches.GetAllAsync();
-            var pitchDtos = pitches.Select(pitch => new PitchDto
-            {
-                Id = pitch.Id,
-                Name = pitch.Name,
-                IdPitchType = pitch.PitchType?.Id ?? 0,
-                PitchTypeName = pitch.PitchType?.Name ?? string.Empty,
-                Price = pitch.PitchType?.Price ?? 0,
-                LimitPerson = pitch.PitchType?.LimitPerson ?? 0,
-                ImagePath = pitch.PitchType?.Images.FirstOrDefault()?.ImagePath ?? "default_image.png",
-                CreateAt = pitch.CreateAt,
-                UpdateAt = pitch.UpdateAt
-            }).ToList();
-
-            return pitchDtos;
+            return _mapper.Map<List<PitchDto>>(pitches);
         }
 
 
         public async Task<PitchDto> GetByIdAsync(int id)
         {
             var pitch = await _unitOfWork.Pitches.GetByIdAsync(id);
-            if (pitch == null) return null;
+            if (pitch == null) throw new KeyNotFoundException("Không tìm thấy sân");
 
-            var pitchType = await _unitOfWork.PitchTypes.GetByIdAsync(pitch.IdPitchType ?? 0);
-            var images = await _unitOfWork.PitchTypeImages.GetByPitchTypeIdAsync(pitch.IdPitchType ?? 0);
-
-            return new PitchDto
-            {
-                Id = pitch.Id,
-                Name = pitch.Name,
-                IdPitchType = pitchType?.Id ?? 0,
-                PitchTypeName = pitchType?.Name ?? string.Empty,
-                Price = pitchType?.Price ?? 0,
-                LimitPerson = pitchType?.LimitPerson ?? 0,
-                ListImagePath = images?.Select(img => img.ImagePath).ToList() ?? new List<string>(),
-                // ✅ Trả về danh sách ảnh
-                CreateAt = pitch.CreateAt,
-                UpdateAt = pitch.UpdateAt
-            };
+            return _mapper.Map<PitchDto>(pitch);
         }
 
 
 
         public async Task<PitchModel> AddAsync(PitchCreateDto pitchDto)
         {
+            // Kiểm tra IdPitchType không null và tồn tại trong database
+            if (pitchDto.IdPitchType == null)
+            {
+                throw new ArgumentNullException("IdPitchType", "IdPitchType không được để trống.");
+            }
+
+            var pitchType = await _unitOfWork.PitchTypes.GetByIdAsync(pitchDto.IdPitchType.Value);
+            if (pitchType == null)
+            {
+                throw new KeyNotFoundException($"Loại sân với Id {pitchDto.IdPitchType.Value} không tồn tại.");
+            }
+
+            // Tạo mới Pitch và ánh xạ PitchType vào PitchModel
             var pitch = _mapper.Map<PitchModel>(pitchDto);
-            pitch.CreateAt = DateTime.UtcNow;
-            pitch.UpdateAt = DateTime.UtcNow;
+
+            // Thêm PitchType vào PitchModel (giải quyết null)
+            pitch.PitchType = pitchType;
 
             await _unitOfWork.Pitches.AddAsync(pitch);
+
             return pitch;
         }
 
         public async Task UpdateAsync(int id, PitchUpdateDto pitchDto)
         {
-            if(pitchDto.Status != "Trống" && pitchDto.Status != "Đã Đặt")
-            {
-                throw new ArgumentException("Trạng thái không hợp lệ. Chỉ chấp nhận 'Trống' hoặc 'Đã Đặt'.");
-            }
-
             var pitch = await _unitOfWork.Pitches.GetByIdAsync(id);
-            if(pitch == null)
-            {
-                throw new KeyNotFoundException("Pitch not found");
-            }
+            if (pitch == null) throw new KeyNotFoundException("Không tìm thấy sân.");
 
-            // Cập nhật dữ liệu từ DTO sang model
+            // Không cho phép cập nhật trực tiếp trạng thái thành Booked
+            if (pitchDto.Status == PitchStatusEnum.Booked)
+                throw new InvalidOperationException("Không thể cập nhật trực tiếp trạng thái 'Booked'.");
+
+            // Kiểm tra trạng thái bảo trì
+            if (pitch.Status == PitchStatusEnum.Maintenance && pitchDto.Status == PitchStatusEnum.Available)
+                throw new InvalidOperationException("Sân đang bảo trì, không thể mở lại.");
+
             _mapper.Map(pitchDto, pitch);
-            pitch.UpdateAt = DateTime.UtcNow;
-
             await _unitOfWork.Pitches.UpdateAsync(pitch);
         }
 
         public async Task DeleteAsync(int id)
         {
+            var pitch = await _unitOfWork.Pitches.GetByIdAsync(id);
+            if (pitch == null) throw new KeyNotFoundException("Không tìm thấy sân");
+
             await _unitOfWork.Pitches.DeleteAsync(id);
         }
     }

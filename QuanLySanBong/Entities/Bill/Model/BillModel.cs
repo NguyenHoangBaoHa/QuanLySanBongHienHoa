@@ -35,9 +35,16 @@ namespace QuanLySanBong.Entities.Bill.Model
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
         //Cập nhật TotalPrice
-        public void CalculateTotalPrice()
+        public void CalculateTotalPrice(DateTime bookingDate)
         {
-            TotalPrice = BasePrice - Discount;
+            decimal finalPrice = BasePrice;
+
+            if(bookingDate.Hour >= 18 && bookingDate.Hour <= 21)
+            {
+                finalPrice *= 1.2m; //Tăng 20%;
+            }
+
+            TotalPrice = finalPrice - Discount;
         }
 
         //Cập nhật tự động khi có thay đổi

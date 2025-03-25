@@ -33,12 +33,15 @@ namespace QuanLySanBong.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
-            var pitch = await _service.GetByIdAsync(id);
-            if (pitch == null)
+            try
+            {
+                var pitch = await _service.GetByIdAsync(id);
+                return Ok(pitch);
+            }
+            catch (KeyNotFoundException)
             {
                 return NotFound(new { message = $"Không tìm thấy sân có ID: {id}" });
             }
-            return Ok(pitch);
         }
 
         // ✅ [GIỮ QUYỀN] Chỉ Admin & Staff mới có thể tạo sân

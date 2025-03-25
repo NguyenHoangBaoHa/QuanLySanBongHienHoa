@@ -6,10 +6,28 @@ const ManagePitchesAdmin = () => {
   const [pitches, setPitches] = useState([]);
   const [pitchTypes, setPitchTypes] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({ id: null, name: '', idPitchType: '', status: 'Trống' });
+  const [formData, setFormData] = useState({
+    id: null,
+    name: '',
+    idPitchType: '',
+    status: 0, // Mặc định là Available
+  });
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  // Mapping trạng thái từ Enum
+  const pitchStatusEnum = {
+    0: 'Trống',
+    1: 'Đã Đặt',
+    2: 'Bảo Trì',
+  };
+
+  // Chỉ hiển thị trạng thái mà Admin/Staff có thể chỉnh sửa
+  const editableStatus = [
+    { value: 0, label: 'Trống' },
+    { value: 2, label: 'Bảo Trì' },
+  ];
 
   useEffect(() => {
     loadData();
@@ -33,12 +51,14 @@ const ManagePitchesAdmin = () => {
     if (pitch) {
       setIsEdit(true);
       setFormData({
-        ...pitch,
-        idPitchType: pitch.pitchType ? pitch.pitchType.id : ''
+        id: pitch.id,
+        name: pitch.name,
+        idPitchType: pitch.idPitchType || '',
+        status: pitch.status,
       });
     } else {
       setIsEdit(false);
-      setFormData({ id: null, name: '', idPitchType: '', status: 'Trống' });
+      setFormData({ id: null, name: '', idPitchType: '', status: 0 });
     }
     setShowModal(true);
   };
@@ -85,43 +105,40 @@ const ManagePitchesAdmin = () => {
     <div className="container mt-4">
       <h2>Quản Lý Sân</h2>
       {error && <Alert variant="danger">{error}</Alert>}
-      {loading && <Spinner animation="border" className="my-3" />}
-      <Button variant="primary" onClick={() => handleShow()} className="mb-3">
-        Thêm Sân Mới
-      </Button>
-      <Table striped bordered hover responsive className="text-center">
-        <thead className="table-dark">
+      <Button variant="primary" onClick={() => handleShow()}>Thêm Sân</Button>
+      <Table striped bordered hover className="mt-3">
+        <thead>
           <tr>
-            <th>STT</th>
             <th>Tên Sân</th>
             <th>Loại Sân</th>
             <th>Trạng Thái</th>
-            <th>Hoạt Động</th>
+            <th>Thao Tác</th>
           </tr>
         </thead>
         <tbody>
-          {pitches.map((pitch, index) => (
-            <tr key={pitch.id}>
-              <td>{index + 1}</td>
-              <td>{pitch.name}</td>
-              <td>{pitch.pitchTypeName || 'N/A'}</td>
-              <td>{pitch.status}</td>
-              <td>
-                <Button variant="warning" size="sm" onClick={() => handleShow(pitch)}>
-                  Sửa
-                </Button>{' '}
-                <Button variant="danger" size="sm" onClick={() => handleDelete(pitch.id)}>
-                  Xóa
-                </Button>
-              </td>
+          {loading ? (
+            <tr>
+              <td colSpan="4" className="text-center"><Spinner animation="border" /></td>
             </tr>
-          ))}
+          ) : (
+            pitches.map((pitch) => (
+              <tr key={pitch.id}>
+                <td>{pitch.name}</td>
+                <td>{pitchTypes.find(pt => pt.id === pitch.idPitchType)?.name}</td>
+                <td>{pitchStatusEnum[pitch.status]}</td>
+                <td>
+                  <Button variant="warning" onClick={() => handleShow(pitch)}>Sửa</Button>{' '}
+                  <Button variant="danger" onClick={() => handleDelete(pitch.id)}>Xóa</Button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </Table>
 
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{isEdit ? 'Cập Nhật Sân' : 'Thêm Sân Mới'}</Modal.Title>
+          <Modal.Title>{isEdit ? 'Sửa Sân' : 'Thêm Sân'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -129,7 +146,6 @@ const ManagePitchesAdmin = () => {
               <Form.Label>Tên Sân</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Nhập tên sân"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
@@ -138,14 +154,12 @@ const ManagePitchesAdmin = () => {
               <Form.Label>Loại Sân</Form.Label>
               <Form.Control
                 as="select"
-                value={formData.idPitchType || ''}
+                value={formData.idPitchType}
                 onChange={(e) => setFormData({ ...formData, idPitchType: e.target.value })}
               >
-                <option value="">-- Chọn loại sân --</option>
+                <option value="">Chọn Loại Sân</option>
                 {pitchTypes.map((type) => (
-                  <option key={type.id} value={type.id}>
-                    {type.name}
-                  </option>
+                  <option key={type.id} value={type.id}>{type.name}</option>
                 ))}
               </Form.Control>
             </Form.Group>
@@ -156,18 +170,19 @@ const ManagePitchesAdmin = () => {
                 value={formData.status}
                 onChange={(e) => setFormData({ ...formData, status: e.target.value })}
               >
-                <option value="Trống">Trống</option>
-                <option value="Đã Đặt">Đã Đặt</option>
+                {editableStatus.map((status) => (
+                  <option key={status.value} value={status.value}>
+                    {status.label}
+                  </option>
+                ))}
               </Form.Control>
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Đóng
-          </Button>
+          <Button variant="secondary" onClick={handleClose}>Hủy</Button>
           <Button variant="primary" onClick={handleSave}>
-            Lưu
+            {loading ? <Spinner animation="border" size="sm" /> : 'Lưu'}
           </Button>
         </Modal.Footer>
       </Modal>

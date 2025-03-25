@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Container, Badge } from 'react-bootstrap';
+import moment from 'moment';
 import { BookingAPI } from '../../API';
 
 const ManageBookingsAdmin = () => {
@@ -36,12 +37,12 @@ const ManageBookingsAdmin = () => {
           {bookings.map((booking, index) => (
             <tr key={booking.id}>
               <td>{index + 1}</td>
-              <td>{booking.customerName}</td>
-              <td>{booking.customerPhone}</td>
+              <td>{booking.displayName}</td>
+              <td>{booking.phoneNumber}</td>
               <td>
                 {booking.pitchName} - {booking.pitchTypeName}
               </td>
-              <td>{new Date(booking.bookingDate).toLocaleString()}</td>
+              <td>{moment(booking.bookingDate).format("DD/MM/YYYY HH:mm")}</td>
               <td>
                 <Badge bg={booking.paymentStatus === "Paid" ? "success" : "danger"}>
                   {booking.paymentStatus === "Paid" ? "Đã Thanh Toán" : "Chưa Thanh Toán"}

@@ -18,13 +18,10 @@ api.interceptors.request.use(
 // Hàm xử lý lỗi chung
 const handleApiError = (error) => {
   if (error.response) {
-    // Lỗi từ server, chẳng hạn như 400, 500
     return error.response.data || "Server Error";
   } else if (error.request) {
-    // Không nhận được phản hồi từ server
     return "No response from server.";
   } else {
-    // Lỗi trong quá trình thiết lập yêu cầu
     return error.message || "Unknown error occurred.";
   }
 };
@@ -39,10 +36,8 @@ const AccountAPI = {
       localStorage.setItem("role", role);
       localStorage.setItem("username", username);
 
-      // 🔹 Kiểm tra và lưu IdCustomer nếu có
       if (role === "Customer") {
         localStorage.setItem("customerId", idCustomer?.toString() || "");
-        console.log("✅ Đã lưu customerId:", idCustomer);
       }
 
       return response.data;
@@ -119,10 +114,8 @@ const PitchAPI = {
   GetAllPitches: async () => {
     try {
       const response = await api.get("/Pitch");
-      console.log("✅ API GetAllPitches Response:", response.data);
       return response.data;
     } catch (error) {
-      console.error("❌ Lỗi khi gọi API GetAllPitches:", error);
       throw handleApiError(error);
     }
   },
@@ -147,6 +140,19 @@ const PitchAPI = {
     }
   },
 
+  UpdatePitch: async (id, data) => {
+    try {
+      const response = await api.put(`/Pitch/${id}`, data, {
+        headers: { "Content-Type": "application/json" },
+      });
+      return response.data;
+    }
+    catch (error) {
+      console.error("Lỗi khi cập nhật sân:", error);
+      throw error;
+    }
+  },
+
   DeletePitch: async (id) => {
     try {
       await api.delete(`/Pitch/${id}`);
@@ -168,26 +174,6 @@ const BookingAPI = {
     }
   },
 
-  GetScheduleByWeek: async (pitchId, startDate) => {
-    try {
-      const response = await api.get(`/Booking/pitch/${pitchId}/week`, {
-        params: { startDate },
-      });
-      return response.data;
-    } catch (error) {
-      throw handleApiError(error);
-    }
-  },
-
-  GetBookingsByCustomer: async () => {
-    try {
-      const response = await api.get("/Booking/my-bookings");
-      return response.data;
-    } catch (error) {
-      throw handleApiError(error);
-    }
-  },
-
   CreateBooking: async (bookingData) => {
     try {
       const IdCustomer = localStorage.getItem("customerId");
@@ -200,10 +186,7 @@ const BookingAPI = {
         throw new Error("❌ Không tìm thấy IdCustomer trong localStorage.");
       }
 
-      console.log("Dữ liệu gửi lên API:", { ...bookingData, IdCustomer: Number(IdCustomer) });
-      console.log("Token gửi lên:", token);
-
-      const response = await api.post("/Booking/CreateBooking", {
+      const response = await api.post(`/Booking/CreateBooking`, {
         ...bookingData,
         IdCustomer: Number(IdCustomer),
       }, {
@@ -215,36 +198,13 @@ const BookingAPI = {
 
       return response.data;
     } catch (error) {
-      console.error("❌ Lỗi khi gọi API CreateBooking:", error);
-      throw error;
-    }
-  },
-
-  ConfirmReceived: async (id) => {
-    try {
-      const response = await api.patch(`/Booking/${id}/confirm-received`);
-      return response.data;
-    } catch (error) {
       throw handleApiError(error);
     }
   },
 
   CancelBooking: async (id) => {
     try {
-      const response = await api.delete(`/Booking/${id}`);
-      return response.data;
-    } catch (error) {
-      throw handleApiError(error);
-    }
-  },
-
-  UpdatePaymentStatus: async (id, paymentStatus) => {
-    try {
-      const response = await api.patch(
-        `/Booking/${id}/update-payment`,
-        { paymentStatus },
-        { headers: { "Content-Type": "application/json" } }
-      );
+      const response = await api.patch(`/Booking/${id}/cancel`);
       return response.data;
     } catch (error) {
       throw handleApiError(error);

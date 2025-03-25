@@ -89,7 +89,6 @@ const ManagePitchesStaff = () => {
             <th>STT</th>
             <th>Tên Sân</th>
             <th>Loại Sân</th>
-            <th>Trạng Thái</th>
             <th>Hoạt Động</th>
           </tr>
         </thead>
@@ -99,7 +98,6 @@ const ManagePitchesStaff = () => {
               <td>{index + 1}</td>
               <td>{pitch.name}</td>
               <td>{pitch.pitchTypeName || 'N/A'}</td>
-              <td>{pitch.status}</td>
               <td>
                 <Button variant="warning" size="sm" onClick={() => handleShow(pitch)}>
                   Sửa

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Table, Container, Badge, Form } from 'react-bootstrap';
+import moment from 'moment';
 import { BookingAPI } from "../../API";
 
 const ManageBookingsStaff = () => {
@@ -20,7 +21,7 @@ const ManageBookingsStaff = () => {
 
   const handleConfirmReceived = async (id) => {
     try {
-      await BookingAPI.ConfirmReceived(id);
+      await BookingAPI.ConfirmReceived(id, { isReceived: true }); // Gửi đúng request body
       setBookings(
         bookings.map((booking) =>
           booking.id === id ? { ...booking, isReceived: true } : booking
@@ -30,9 +31,8 @@ const ManageBookingsStaff = () => {
       console.error("Lỗi khi xác nhận nhận sân:", error);
     }
   };
-
+  
   return (
-
     <Container className="mt-4">
       <h2 className="mb-4">Quản Lý Đặt Sân (Staff)</h2>
       <Table striped bordered hover>
@@ -51,12 +51,12 @@ const ManageBookingsStaff = () => {
           {bookings.map((booking, index) => (
             <tr key={booking.id}>
               <td>{index + 1}</td>
-              <td>{booking.customerName}</td>
-              <td>{booking.customerPhone}</td>
+              <td>{booking.displayName}</td>
+              <td>{booking.phoneNumber}</td>
               <td>
                 {booking.pitchName} - {booking.pitchTypeName}
               </td>
-              <td>{new Date(booking.bookingDate).toLocaleString()}</td>
+              <td>{moment(booking.bookingDate).format("DD/MM/YYYY HH:mm")}</td>
               <td>
                 <Badge bg={booking.paymentStatus === "Paid" ? "success" : "danger"}>
                   {booking.paymentStatus === "Paid" ? "Đã Thanh Toán" : "Chưa Thanh Toán"}

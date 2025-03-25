@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using QuanLySanBong.Data;
 using QuanLySanBong.Repository.Account;
+using QuanLySanBong.Repository.Bill;
 using QuanLySanBong.Repository.Booking;
 using QuanLySanBong.Repository.Pitch;
 using QuanLySanBong.Repository.PitchType;
@@ -30,6 +31,8 @@ namespace QuanLySanBong.UnitOfWork
             Pitches = new PitchRepository(_context);
 
             Bookings = new BookingRepository(_context);
+            
+            Bills = new BillRepository(_context);
 
             Staffs = new StaffRepository(_context);
 
@@ -44,6 +47,8 @@ namespace QuanLySanBong.UnitOfWork
         public IPitchRepository Pitches { get; private set; }
 
         public IBookingRepository Bookings { get; private set; }
+
+        public IBillRepository Bills { get; private set; }
 
         public IStaffRepository Staffs { get; private set; }
 

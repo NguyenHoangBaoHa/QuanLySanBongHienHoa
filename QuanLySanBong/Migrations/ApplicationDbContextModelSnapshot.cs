@@ -67,7 +67,7 @@ namespace QuanLySanBong.Migrations
                         {
                             Id = 1,
                             Email = "admin",
-                            Password = "$2a$11$gLIbc6Iqxgzk3sQD1qMuR.Kh4Qh0Qt2A0HqrOlo.IVWRwuQ2i9.tS",
+                            Password = "$2a$11$Q3mBr7Af/EGN7nq6/qzEWeHo50XNwAtzCxrujtXRBF/R6cjvfVkNy",
                             Role = "Admin"
                         });
                 });
@@ -151,6 +151,9 @@ namespace QuanLySanBong.Migrations
                     b.Property<int>("IdPitch")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsCanceled")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsReceived")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -232,6 +235,9 @@ namespace QuanLySanBong.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdateAt")
                         .ValueGeneratedOnAdd()

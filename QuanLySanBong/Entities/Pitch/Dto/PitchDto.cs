@@ -1,4 +1,6 @@
-﻿namespace QuanLySanBong.Entities.Pitch.Dto
+﻿using QuanLySanBong.Entities.Enums;
+
+namespace QuanLySanBong.Entities.Pitch.Dto
 {
     public class PitchDto
     {
@@ -10,6 +12,7 @@
         public decimal Price { get; set; }
         public string ImagePath { get; set; }
         public List<string> ListImagePath { get; set; } = new List<string>();
+        public PitchStatusEnum Status { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime UpdateAt { get; set; }
     }

@@ -36,6 +36,9 @@ const NavigationBar = () => {
                 <NavDropdown.Item as={Link} to="/manage-bookings-admin">
                   Quản lý đặt sân
                 </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/list-bill-admin">
+                  Danh sách hóa đơn
+                </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/revenue-report-admin">
                   Báo cáo doanh thu
                 </NavDropdown.Item>
@@ -62,7 +65,9 @@ const NavigationBar = () => {
                 <NavDropdown.Item as={Link} to="/customer/booking">
                   Đặt sân
                 </NavDropdown.Item>
-                
+                <NavDropdown.Item as={Link} to="/customer/booking-history">
+                  Lịch sử đặt sân
+                </NavDropdown.Item>
               </NavDropdown>
             )}
           </Nav>

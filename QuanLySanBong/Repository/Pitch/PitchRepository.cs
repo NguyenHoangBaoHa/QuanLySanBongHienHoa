@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QuanLySanBong.Data;
+using QuanLySanBong.Entities.Enums;
 using QuanLySanBong.Entities.Pitch.Model;
 
 namespace QuanLySanBong.Repository.Pitch
@@ -17,7 +18,7 @@ namespace QuanLySanBong.Repository.Pitch
         {
             var pitches = await _context.Pitches
                 .Include(p => p.PitchType)
-                .Include(p => p.PitchType.Images)
+                .ThenInclude(pt => pt.Images)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -28,7 +29,7 @@ namespace QuanLySanBong.Repository.Pitch
         {
             return await _context.Pitches
                 .Include(p => p.PitchType)
-                .Include(p => p.PitchType.Images)
+                .ThenInclude(pt => pt.Images)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
@@ -47,11 +48,14 @@ namespace QuanLySanBong.Repository.Pitch
         public async Task DeleteAsync(int id)
         {
             var pitch = await _context.Pitches.FindAsync(id);
-            if (pitch != null)
-            {
-                _context.Pitches.Remove(pitch);
-                await _context.SaveChangesAsync();
-            }
+            if (pitch == null) return;
+
+            // Không cho phép xóa sân đã được đặt (Booked)
+            if (pitch.Status == PitchStatusEnum.Booked)
+                throw new InvalidOperationException("Không thể xóa sân đã được đặt.");
+
+            _context.Pitches.Remove(pitch);
+            await _context.SaveChangesAsync();
         }
     }
 }

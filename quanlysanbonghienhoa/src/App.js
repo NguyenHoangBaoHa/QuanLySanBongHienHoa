@@ -17,6 +17,8 @@ import CustomerSelectPitch from "./Pages/Customer/CustomerSelectPitch";
 import CustomerSchedule from "./Pages/Customer/CustomerSchedule";
 import CustomerBookingDetail from "./Pages/Customer/CustomerBookingDetail";
 import Bill from "./Pages/Customer/Bill";
+import BookingHistory from "./Pages/Customer/BookingHistory";
+import BillListAdmin from "./Pages/Admin/BillListAdmin";
 
 const ProtectedRoute = ({ role, children }) => {
   const token = localStorage.getItem("token");
@@ -66,6 +68,14 @@ const App = () => {
           element={
             <ProtectedRoute role="Admin">
               <RevenueReport />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/list-bill-admin"
+          element={
+            <ProtectedRoute role="Admin">
+              <BillListAdmin />
             </ProtectedRoute>
           }
         />
@@ -126,6 +136,14 @@ const App = () => {
           element={
             <ProtectedRoute role="Customer">
               <Bill />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/customer/booking-history"
+          element={
+            <ProtectedRoute role="Customer">
+              <BookingHistory />
             </ProtectedRoute>
           }
         />

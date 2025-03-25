@@ -1,11 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using QuanLySanBong.Entities.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace QuanLySanBong.Entities.Pitch.Dto
 {
     public class PitchCreateDto
     {
         [Required]
+        [MaxLength(100)]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "IdPitchType không được để trống.")]
         public int? IdPitchType { get; set; }
     }
 
@@ -15,10 +19,9 @@ namespace QuanLySanBong.Entities.Pitch.Dto
         [MaxLength(100)]
         public string Name { get; set; }
 
-        [Required]
-        [MaxLength(20)]
-        public string Status { get; set; }
-
+        [Required(ErrorMessage = "IdPitchType không được để trống.")]
         public int? IdPitchType { get; set; }
+
+        public PitchStatusEnum Status { get; set; }
     }
 }

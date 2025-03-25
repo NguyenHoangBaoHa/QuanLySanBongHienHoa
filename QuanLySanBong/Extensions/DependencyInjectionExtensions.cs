@@ -1,10 +1,12 @@
 ﻿using QuanLySanBong.Helpers;
 using QuanLySanBong.Repository.Account;
+using QuanLySanBong.Repository.Bill;
 using QuanLySanBong.Repository.Booking;
 using QuanLySanBong.Repository.Pitch;
 using QuanLySanBong.Repository.PitchType;
 using QuanLySanBong.Repository.Staff;
 using QuanLySanBong.Service.Account;
+using QuanLySanBong.Service.Bill;
 using QuanLySanBong.Service.Booking;
 using QuanLySanBong.Service.File;
 using QuanLySanBong.Service.Pitch;
@@ -41,6 +43,9 @@ namespace QuanLySanBong.Extensions
 
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IBookingService, BookingService>();
+
+            services.AddScoped<IBillRepository, BillRepository>();
+            services.AddScoped<IBillService, BillService>();
 
             return services;
         }

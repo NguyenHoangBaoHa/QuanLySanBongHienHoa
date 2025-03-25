@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using QuanLySanBong.Repository.Account;
+using QuanLySanBong.Repository.Bill;
 using QuanLySanBong.Repository.Booking;
 using QuanLySanBong.Repository.Pitch;
 using QuanLySanBong.Repository.PitchType;
@@ -21,9 +22,8 @@ namespace QuanLySanBong.UnitOfWork
 
         IBookingRepository Bookings { get; }
 
-        Task<int> CompleteAsync();
+        IBillRepository Bills { get; }
 
-        // 📌 Thêm phương thức để gọi Stored Procedure
-        Task<List<T>> ExecuteStoredProcedureAsync<T>(string storedProcedureName, object parameters, Func<SqlDataReader, T> mapFunction);
+        Task<int> CompleteAsync();
     }
 }

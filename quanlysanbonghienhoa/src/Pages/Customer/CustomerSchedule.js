@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Container, Table, Button, Form, Spinner, Alert } from "react-bootstrap";
+import { Container, Table, Form, Spinner, Alert } from "react-bootstrap";
 import moment from "moment";
 import { useParams, useNavigate } from "react-router-dom";
 import { PitchAPI, BookingAPI } from "../../API";
@@ -34,31 +34,18 @@ const CustomerSchedule = () => {
     try {
       setLoading(true);
       const response = await PitchAPI.GetAllPitches();
-      console.log("✅ Danh sách sân:", response);
 
       if (!Array.isArray(response)) {
         throw new Error("Dữ liệu sân không hợp lệ!");
       }
 
-      const fixedPitches = response.map(pitch => ({
-        ...pitch,
-        idPitchType: pitch.idPitchType || "",
-      }));
-
-      setPitches(fixedPitches);
-
+      setPitches(response);
       if (pitchId) {
-        const selected = fixedPitches.find(p => p.id === pitchId);
-        if (selected) {
-          setSelectedPitch(selected.id);
-          setSelectedPitchType(selected.idPitchType);
-        }
-      } else if (fixedPitches.length > 0) {
-        setSelectedPitch(fixedPitches[0].id);
-        setSelectedPitchType(fixedPitches[0].idPitchType);
+        setSelectedPitch(pitchId);
+      } else if (response.length > 0) {
+        setSelectedPitch(response[0].id);
       }
     } catch (error) {
-      console.error("❌ Lỗi khi tải danh sách sân:", error);
       setError("Không thể tải danh sách sân bóng.");
     } finally {
       setLoading(false);
@@ -73,15 +60,10 @@ const CustomerSchedule = () => {
       setError(null);
 
       const startDate = moment(weekStart).format("YYYY-MM-DD");
-
-      console.log(`📌 Gọi API lịch sân: pitchId = ${selectedPitch}, startDate = ${startDate}`);
-
       const data = await BookingAPI.GetScheduleByWeek(selectedPitch, startDate);
-      console.log("✅ API Trả về:", data);
 
       setSchedule(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error("❌ Lỗi khi lấy lịch sân:", error);
       setError("Không thể tải lịch đặt sân. Vui lòng thử lại!");
     } finally {
       setLoading(false);
@@ -99,17 +81,30 @@ const CustomerSchedule = () => {
   // 📌 Kiểm tra khung giờ đã đặt chưa
   const isBooked = (date, time) => {
     return schedule.some(b =>
-      moment(b.date).format("YYYY-MM-DD") === date && moment(b.time, "HH:mm").format("HH:mm") === time
+      moment(b.bookingDate).format("YYYY-MM-DD") === date && moment(b.bookingTime, "HH:mm").format("HH:mm") === time
     );
   };
 
-  // 📌 Xử lý khi nhấn nút "Đặt Sân"
-  const handleBookingClick = (date, time) => {
-    if (!selectedPitch || !selectedPitchType) {
-      alert("Vui lòng chọn sân trước khi đặt!");
+  // 📌 Kiểm tra khung giờ có thuộc quá khứ không
+  const isPastTime = (date, time) => {
+    const now = moment();
+    const selectedDateTime = moment(`${date} ${time}`, "YYYY-MM-DD HH:mm");
+    return selectedDateTime.isBefore(now); // Nếu trước hiện tại thì là quá khứ
+  };
+
+  // 📌 Xử lý khi nhấn vào khung giờ
+  const handleTimeSlotClick = (date, time, isBookedSlot, isPast) => {
+    if (isPast) {
+      alert("Bạn không thể đặt sân trong quá khứ!");
+      return;
+    }
+    
+    if (isBookedSlot) {
+      alert("Khung giờ này đã có người đặt. Vui lòng chọn khung giờ khác!");
       return;
     }
 
+    // Nếu khung giờ hợp lệ thì chuyển đến trang đặt sân
     navigate(`/customer/booking/detail/${selectedPitch}/${selectedPitchType}/${date}/${time}`);
   };
 
@@ -158,13 +153,16 @@ const CustomerSchedule = () => {
                 <td>{time}</td>
                 {[...Array(7)].map((_, i) => {
                   const date = moment(weekStart).add(i, "days").format("YYYY-MM-DD");
+                  const booked = isBooked(date, time);
+                  const past = isPastTime(date, time);
                   return (
-                    <td key={date} className={isBooked(date, time) ? "bg-danger text-white" : "bg-success text-white"}>
-                      {isBooked(date, time) ? "Đã đặt" : (
-                        <Button variant="primary" size="sm" onClick={() => handleBookingClick(date, time)}>
-                          Đặt Sân
-                        </Button>
-                      )}
+                    <td
+                      key={date}
+                      className={booked ? "bg-danger text-white" : past ? "bg-secondary text-white" : "bg-success text-white"}
+                      style={{ cursor: past ? "not-allowed" : "pointer" }}
+                      onClick={() => handleTimeSlotClick(date, time, booked, past)}
+                    >
+                      {booked ? "Đã đặt" : past ? "Quá khứ" : "Đặt Sân"}
                     </td>
                   );
                 })}

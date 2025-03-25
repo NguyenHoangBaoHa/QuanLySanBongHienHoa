@@ -1,8 +1,16 @@
 wwwroot\images\sân 5 (1).jpg
+wwwroot\images\sân 5 (1)_1.jpg
 wwwroot\images\sân 5 (2).jpg
+wwwroot\images\sân 5 (2)_1.jpg
 wwwroot\images\sân 7(1).webp
+wwwroot\images\sân 7(1)_1.webp
 wwwroot\images\sân 7(2).jpg
+wwwroot\images\sân 7(2)_1.jpg
 wwwroot\images\sân 7(3).jpg
+wwwroot\images\sân 7(3)_1.jpg
 wwwroot\images\sân 7(4).jpg
+wwwroot\images\sân 7(4)_1.jpg
 wwwroot\images\sân 9(1).jpg
+wwwroot\images\sân 9(1)_1.jpg
 wwwroot\images\sân 9(2).jpg
+wwwroot\images\sân 9(2)_1.jpg

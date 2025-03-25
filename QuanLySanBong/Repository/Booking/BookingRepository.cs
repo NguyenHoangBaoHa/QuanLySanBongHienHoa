@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QuanLySanBong.Data;
+using QuanLySanBong.Entities.Booking.Dto;
 using QuanLySanBong.Entities.Booking.Model;
 
 namespace QuanLySanBong.Repository.Booking
@@ -13,13 +14,27 @@ namespace QuanLySanBong.Repository.Booking
             _context = context;
         }
         //Lấy danh sách Booking theo Id (Admin, Staff)
-        public async Task<IEnumerable<BookingModel>> GetAllBookingAsync()
+        public async Task<IEnumerable<BookingDto>> GetAllBookingsAsync()
         {
-            return await _context.Bookings
-                .Include(b => b.Customer)
+            var bookings = await _context.Bookings
+                .Include(b => b.Customer) // 🛠 Gắn bảng Customer để lấy số điện thoại
                 .Include(b => b.Pitch)
                 .ThenInclude(p => p.PitchType)
+                .Select(b => new BookingDto
+                {
+                    Id = b.Id,
+                    DisplayName = b.Customer.DisplayName,  // 🛠 Lấy họ tên từ Customer
+                    PhoneNumber = b.Customer.PhoneNumber, // 🛠 Thêm SĐT từ Customer
+                    PitchName = b.Pitch.Name,
+                    PitchTypeName = b.Pitch.PitchType.Name,
+                    BookingDate = b.BookingDate,
+                    Duration = b.Duration,
+                    PaymentStatus = b.PaymentStatus,
+                    IsReceived = b.IsReceived
+                })
                 .ToListAsync();
+
+            return bookings;
         }
 
         //Lấy Booking theo Id
@@ -33,14 +48,24 @@ namespace QuanLySanBong.Repository.Booking
         }
 
         //Lấy danh sách Booking của chính Customer
-        public async Task<IEnumerable<BookingModel>> GetBookingsByCustomerIdAsync(int customerId)
+        public async Task<List<BookingDto>> GetBookingsByCustomerIdAsync(int customerId)
         {
             return await _context.Bookings
                 .Where(b => b.IdCustomer == customerId)
                 .Include(b => b.Pitch)
                 .ThenInclude(p => p.PitchType)
-                .OrderByDescending(b => b.BookingDate)
-                .AsNoTracking()
+                .OrderByDescending(b => b.BookingDate) // 🛠 Sắp xếp giảm dần
+                .Select(b => new BookingDto
+                {
+                    Id = b.Id,
+                    IdCustomer = b.IdCustomer,
+                    PitchName = b.Pitch.Name,
+                    PitchTypeName = b.Pitch.PitchType.Name,
+                    BookingDate = b.BookingDate,
+                    Duration = b.Duration,
+                    PaymentStatus = b.PaymentStatus,
+                    IsReceived = b.IsReceived
+                })
                 .ToListAsync();
         }
 
@@ -49,6 +74,7 @@ namespace QuanLySanBong.Repository.Booking
         {
             return await _context.Bookings
                 .Where(b => b.IdPitch == pitchId && b.BookingDate >= startDate && b.BookingDate <= endDate)
+                .Include(b => b.Customer)
                 .Include(b => b.Pitch)
                 .ThenInclude(p => p.PitchType)
                 .ToListAsync();
@@ -70,6 +96,27 @@ namespace QuanLySanBong.Repository.Booking
         public void DeleteBooking(BookingModel booking)
         {
             _context.Bookings.Remove(booking);
+        }
+
+        public async Task<bool> CancelBookingAsync(int bookingId)
+        {
+            var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.Id == bookingId);
+            if(booking == null || booking.IsCanceled)
+            {
+                return false;
+            }
+
+            DateTime now = DateTime.UtcNow;
+            if(booking.BookingDate <= now.AddHours(1))
+            {
+                return false;
+            }
+
+            booking.IsCanceled = true;
+            booking.UpdateTimestamp();
+
+            _context.Bookings.Update(booking);
+            return true;
         }
 
         // Kiểm tra khung giờ có trùng không

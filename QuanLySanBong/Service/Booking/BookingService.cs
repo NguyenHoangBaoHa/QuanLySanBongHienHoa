@@ -21,7 +21,7 @@ namespace QuanLySanBong.Service.Booking
         // 📌 Lấy danh sách Booking cho Admin & Staff
         public async Task<IEnumerable<BookingDto>> GetAllBookingsAsync()
         {
-            var bookings = await _unitOfWork.Bookings.GetAllBookingAsync();
+            var bookings = await _unitOfWork.Bookings.GetAllBookingsAsync();
             return _mapper.Map<IEnumerable<BookingDto>>(bookings);
         }
 
@@ -33,10 +33,9 @@ namespace QuanLySanBong.Service.Booking
         }
 
         // 📌 Lấy danh sách Booking của chính Customer
-        public async Task<IEnumerable<BookingDto>> GetBookingsByCustomerIdAsync(int customerId)
+        public async Task<List<BookingDto>> GetBookingsByCustomerIdAsync(int customerId)
         {
-            var bookings = await _unitOfWork.Bookings.GetBookingsByCustomerIdAsync(customerId);
-            return _mapper.Map<IEnumerable<BookingDto>>(bookings);
+            return await _unitOfWork.Bookings.GetBookingsByCustomerIdAsync(customerId);
         }
 
         // 📌 Lấy danh sách Booking của một sân theo tuần
@@ -47,7 +46,8 @@ namespace QuanLySanBong.Service.Booking
             var bookings = await _unitOfWork.Bookings.GetBookingsByPitchAndDateRangeAsync(pitchId, startDate, endDate);
 
             var pitch = await _unitOfWork.Pitches.GetByIdAsync(pitchId);
-            if (pitch == null) throw new Exception("Không tìm thấy sân.");
+            if (pitch == null)
+                throw new Exception("Không tìm thấy sân.");
 
             return new
             {
@@ -77,7 +77,7 @@ namespace QuanLySanBong.Service.Booking
             // Kiểm tra trùng khung giờ đặt sân
             bool isAvailable = await _unitOfWork.Bookings.IsTimeSlotAvailable(bookingDto.IdPitch, bookingDto.BookingDate, bookingDto.Duration);
             if (!isAvailable)
-                throw new Exception("Khung giờ này đã có người đặt. Vui lòng chọn khung giờ khác.");
+                return null;
 
             // Tạo Booking mới
             var booking = new BookingModel
@@ -101,8 +101,14 @@ namespace QuanLySanBong.Service.Booking
         // 📌 Cập nhật trạng thái nhận sân của Staff
         public async Task<bool> UpdateReceivedStatusAsync(int bookingId, bool isReceived)
         {
+            Console.WriteLine($"📌 Đang cập nhật Booking ID: {bookingId}, IsReceived: {isReceived}");
+
             var booking = await _unitOfWork.Bookings.GetBookingByIdAsync(bookingId);
-            if (booking == null) return false;
+            if (booking == null)
+            {
+                Console.WriteLine("⚠️ Không tìm thấy Booking!");
+                return false;
+            }
 
             booking.IsReceived = isReceived;
             booking.UpdateTimestamp();
@@ -110,6 +116,7 @@ namespace QuanLySanBong.Service.Booking
             _unitOfWork.Bookings.UpdateBooking(booking);
             await _unitOfWork.CompleteAsync();
 
+            Console.WriteLine("✅ Cập nhật thành công!");
             return true;
         }
 
@@ -122,6 +129,32 @@ namespace QuanLySanBong.Service.Booking
             _unitOfWork.Bookings.DeleteBooking(booking);
             await _unitOfWork.CompleteAsync();
 
+            return true;
+        }
+
+        // 📌 Hủy đặt sân
+        public async Task<bool> CancelBookingAsync(int customerId, int bookingId)
+        {
+            var booking = await _unitOfWork.Bookings.GetBookingByIdAsync(bookingId);
+
+            if(booking == null || booking.IdCustomer == customerId)
+            {
+                return false;
+            }
+
+            DateTime now = DateTime.UtcNow;
+            if(booking.BookingDate <= now.AddHours(1))
+            {
+                throw new Exception("Bạn chỉ có thể hủy đặt sân trước ít nhất 1 giờ.");
+            }
+
+            bool isCanceled = await _unitOfWork.Bookings.CancelBookingAsync(bookingId);
+            if (!isCanceled)
+            {
+                throw new Exception("Không thể hủy đặt sân.");
+            }
+
+            await _unitOfWork.CompleteAsync();
             return true;
         }
     }

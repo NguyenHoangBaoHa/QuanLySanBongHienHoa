@@ -12,7 +12,7 @@ namespace QuanLySanBong.Entities.Booking.Model
         [Key]
         public int Id { get; set; }
 
-        public int IdCustomer {  get; set; }
+        public int IdCustomer { get; set; }
         [ForeignKey("IdCustomer")]
         public virtual CustomerModel Customer { get; set; }
 
@@ -26,6 +26,7 @@ namespace QuanLySanBong.Entities.Booking.Model
         public PaymentStatusEnum PaymentStatus { get; set; }
 
         public bool IsReceived { get; set; }
+        public bool IsCanceled { get; set; } // Đảm bảo có logic cập nhật khi hủy
 
         public virtual BillModel Bill { get; set; }
 
