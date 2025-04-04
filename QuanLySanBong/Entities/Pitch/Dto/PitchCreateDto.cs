@@ -21,7 +21,5 @@ namespace QuanLySanBong.Entities.Pitch.Dto
 
         [Required(ErrorMessage = "IdPitchType không được để trống.")]
         public int? IdPitchType { get; set; }
-
-        public PitchStatusEnum Status { get; set; }
     }
 }

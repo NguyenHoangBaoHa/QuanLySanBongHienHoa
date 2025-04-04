@@ -37,7 +37,6 @@ namespace QuanLySanBong.Mapper
 
             // Mapping từ CreateDto sang Model (mặc định Status là Available)
             CreateMap<PitchCreateDto, PitchModel>()
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => PitchStatusEnum.Available))
                 .ForMember(dest => dest.CreateAt, opt => opt.MapFrom(_ => DateTime.UtcNow))
                 .ForMember(dest => dest.UpdateAt, opt => opt.MapFrom(_ => DateTime.UtcNow));
 

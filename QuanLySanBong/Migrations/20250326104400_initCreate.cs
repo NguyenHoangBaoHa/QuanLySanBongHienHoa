@@ -71,7 +71,6 @@ namespace QuanLySanBong.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     IdPitchType = table.Column<int>(type: "int", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: false),
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
                     UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
                 },
@@ -203,7 +202,7 @@ namespace QuanLySanBong.Migrations
             migrationBuilder.InsertData(
                 table: "Account",
                 columns: new[] { "Id", "Email", "IdCustomer", "IdStaff", "Password", "Role" },
-                values: new object[] { 1, "admin", null, null, "$2a$11$Q3mBr7Af/EGN7nq6/qzEWeHo50XNwAtzCxrujtXRBF/R6cjvfVkNy", "Admin" });
+                values: new object[] { 1, "admin", null, null, "$2a$11$u1viFQcjmo9wxYQiHdh93ekvlVhdt1Uhjgt/24J/zK31Rx3TlXjYG", "Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Account_IdCustomer",

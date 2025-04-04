@@ -6,7 +6,7 @@ const ManagePitchesStaff = () => {
   const [pitches, setPitches] = useState([]);
   const [pitchTypes, setPitchTypes] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({ id: null, name: '', idPitchType: '', status: 'Trống' });
+  const [formData, setFormData] = useState({ id: null, name: '', idPitchType: ''});
   const [isEdit, setIsEdit] = useState(false);
   // Load dữ liệu sân và loại sân
   useEffect(() => {
@@ -38,7 +38,7 @@ const ManagePitchesStaff = () => {
       });
     } else {
       setIsEdit(false);
-      setFormData({ id: null, name: '', idPitchType: '', status: 'Trống' });
+      setFormData({ id: null, name: '', idPitchType: ''});
     }
     setShowModal(true);
   };
@@ -140,17 +140,6 @@ const ManagePitchesStaff = () => {
                     {type.name}
                   </option>
                 ))}
-              </Form.Control>
-            </Form.Group>
-            <Form.Group controlId="formStatus">
-              <Form.Label>Trạng Thái</Form.Label>
-              <Form.Control
-                as="select"
-                value={formData.status}
-                onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-              >
-                <option value="Trống">Trống</option>
-                <option value="Đã Đặt">Đã Đặt</option>
               </Form.Control>
             </Form.Group>
           </Form>

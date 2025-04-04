@@ -13,17 +13,18 @@ const ManagePitchType = () => {
   const [uploadedImages, setUploadedImages] = useState([]);
 
   const fetchPitchTypes = async () => {
-    setLoading(true);
     try {
-      const data = await PitchTypeAPI.GetAll();
-      setPitchTypes(data);
+      const response = await PitchTypeAPI.GetAll();
+      console.log("Dữ liệu trả về:", response);
+  
+      // Xử lý trả về object { items: [] } hoặc array []
+      const pitchTypeList = Array.isArray(response) ? response : response.items || [];
+      setPitchTypes(pitchTypeList);
     } catch (err) {
-      setError(err.message || "Không thể lấy danh sách loại sân.");
-    } finally {
-      setLoading(false);
+      console.error("Lỗi khi lấy danh sách loại sân:", err);
     }
   };
-
+  
   useEffect(() => {
     fetchPitchTypes();
   }, []);

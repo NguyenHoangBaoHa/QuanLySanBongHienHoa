@@ -50,11 +50,7 @@ namespace QuanLySanBong.Repository.Pitch
             var pitch = await _context.Pitches.FindAsync(id);
             if (pitch == null) return;
 
-            // Không cho phép xóa sân đã được đặt (Booked)
-            if (pitch.Status == PitchStatusEnum.Booked)
-                throw new InvalidOperationException("Không thể xóa sân đã được đặt.");
-
-            _context.Pitches.Remove(pitch);
+           _context.Pitches.Remove(pitch);
             await _context.SaveChangesAsync();
         }
     }

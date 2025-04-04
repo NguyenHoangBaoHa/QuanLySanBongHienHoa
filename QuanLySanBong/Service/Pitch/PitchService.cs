@@ -64,14 +64,6 @@ namespace QuanLySanBong.Service.Pitch
             var pitch = await _unitOfWork.Pitches.GetByIdAsync(id);
             if (pitch == null) throw new KeyNotFoundException("Không tìm thấy sân.");
 
-            // Không cho phép cập nhật trực tiếp trạng thái thành Booked
-            if (pitchDto.Status == PitchStatusEnum.Booked)
-                throw new InvalidOperationException("Không thể cập nhật trực tiếp trạng thái 'Booked'.");
-
-            // Kiểm tra trạng thái bảo trì
-            if (pitch.Status == PitchStatusEnum.Maintenance && pitchDto.Status == PitchStatusEnum.Available)
-                throw new InvalidOperationException("Sân đang bảo trì, không thể mở lại.");
-
             _mapper.Map(pitchDto, pitch);
             await _unitOfWork.Pitches.UpdateAsync(pitch);
         }

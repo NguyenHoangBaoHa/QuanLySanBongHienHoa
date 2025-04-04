@@ -67,7 +67,7 @@ namespace QuanLySanBong.Migrations
                         {
                             Id = 1,
                             Email = "admin",
-                            Password = "$2a$11$Q3mBr7Af/EGN7nq6/qzEWeHo50XNwAtzCxrujtXRBF/R6cjvfVkNy",
+                            Password = "$2a$11$u1viFQcjmo9wxYQiHdh93ekvlVhdt1Uhjgt/24J/zK31Rx3TlXjYG",
                             Role = "Admin"
                         });
                 });
@@ -235,9 +235,6 @@ namespace QuanLySanBong.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdateAt")
                         .ValueGeneratedOnAdd()

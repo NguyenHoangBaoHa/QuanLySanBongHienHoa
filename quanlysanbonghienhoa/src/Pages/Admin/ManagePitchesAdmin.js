@@ -1,190 +1,214 @@
-import React, { useEffect, useState } from 'react';
-import { Table, Button, Modal, Form, Spinner, Alert } from 'react-bootstrap';
-import { PitchAPI, PitchTypeAPI } from '../../API';
+import React, { useEffect, useState } from "react";
+import { PitchAPI, PitchTypeAPI } from "../../API";
+import { Table, Button, Spinner, Alert, Modal, Form } from "react-bootstrap";
 
 const ManagePitchesAdmin = () => {
   const [pitches, setPitches] = useState([]);
   const [pitchTypes, setPitchTypes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // State cho Modal (Thêm/Cập nhật)
   const [showModal, setShowModal] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
     id: null,
-    name: '',
-    idPitchType: '',
-    status: 0, // Mặc định là Available
+    name: "",
+    idPitchType: "",
   });
-  const [isEdit, setIsEdit] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
-  // Mapping trạng thái từ Enum
-  const pitchStatusEnum = {
-    0: 'Trống',
-    1: 'Đã Đặt',
-    2: 'Bảo Trì',
-  };
-
-  // Chỉ hiển thị trạng thái mà Admin/Staff có thể chỉnh sửa
-  const editableStatus = [
-    { value: 0, label: 'Trống' },
-    { value: 2, label: 'Bảo Trì' },
-  ];
-
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = async () => {
-    setLoading(true);
+  // Lấy danh sách sân và loại sân
+  const fetchData = async () => {
     try {
-      const pitchData = await PitchAPI.GetAllPitches();
-      const pitchTypeData = await PitchTypeAPI.GetAll();
-      setPitches(pitchData);
-      setPitchTypes(pitchTypeData);
+      setLoading(true);
+      const [pitchResponse, pitchTypeResponse] = await Promise.all([
+        PitchAPI.GetAllPitches(),
+        PitchTypeAPI.GetAll(),
+      ]);
+      setPitches(Array.isArray(pitchResponse) ? pitchResponse : []);
+      setPitchTypes(Array.isArray(pitchTypeResponse) ? pitchTypeResponse : []);
     } catch (error) {
-      setError('Lỗi khi tải dữ liệu');
+      setError("Không thể tải dữ liệu. Vui lòng thử lại!");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleShow = (pitch = null) => {
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // Xử lý hiển thị Modal
+  const handleShowModal = (pitch = null) => {
     if (pitch) {
-      setIsEdit(true);
+      // Chế độ cập nhật
+      setEditMode(true);
       setFormData({
         id: pitch.id,
         name: pitch.name,
-        idPitchType: pitch.idPitchType || '',
-        status: pitch.status,
+        idPitchType: pitch.idPitchType.toString(),
       });
     } else {
-      setIsEdit(false);
-      setFormData({ id: null, name: '', idPitchType: '', status: 0 });
+      // Chế độ thêm mới
+      setEditMode(false);
+      setFormData({ id: null, name: "", idPitchType: "" });
     }
     setShowModal(true);
   };
 
-  const handleClose = () => setShowModal(false);
+  const handleCloseModal = () => setShowModal(false);
 
-  const handleSave = async () => {
-    if (!formData.idPitchType) {
-      alert('Vui lòng chọn loại sân');
-      return;
-    }
+  // Xử lý thay đổi form
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    setLoading(true);
+  // Xử lý thêm mới hoặc cập nhật sân
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      if (formData.id) {
-        await PitchAPI.UpdatePitch(formData.id, formData);
+      if (editMode) {
+        await PitchAPI.UpdatePitch(formData.id, {
+          name: formData.name,
+          idPitchType: Number(formData.idPitchType),
+        });
+        alert("Cập nhật sân thành công!");
       } else {
-        await PitchAPI.CreatePitch(formData);
+        await PitchAPI.CreatePitch({
+          name: formData.name,
+          idPitchType: Number(formData.idPitchType),
+        });
+        alert("Thêm sân thành công!");
       }
-      loadData();
-      handleClose();
+      handleCloseModal();
+      fetchData(); // Tải lại danh sách sân
     } catch (error) {
-      setError('Lỗi khi lưu dữ liệu');
-    } finally {
-      setLoading(false);
+      alert(`Lỗi: ${error}`);
     }
   };
 
-  const handleDelete = async (id) => {
-    if (window.confirm('Bạn có chắc muốn xóa sân này không?')) {
-      setLoading(true);
+  // Xử lý xóa sân
+  const handleDeletePitch = async (id) => {
+    if (window.confirm("Bạn có chắc chắn muốn xóa sân này không?")) {
       try {
         await PitchAPI.DeletePitch(id);
-        loadData();
+        alert("Xóa sân thành công!");
+        fetchData(); // Tải lại danh sách sân
       } catch (error) {
-        setError('Lỗi khi xóa sân');
-      } finally {
-        setLoading(false);
+        alert("Lỗi khi xóa sân: " + error);
       }
     }
   };
 
+  // Hiển thị trạng thái loading
+  if (loading) {
+    return (
+      <div className="text-center mt-4">
+        <Spinner animation="border" />
+        <p>Đang tải dữ liệu...</p>
+      </div>
+    );
+  }
+
+  // Hiển thị thông báo lỗi
+  if (error) {
+    return <Alert variant="danger">{error}</Alert>;
+  }
+
   return (
-    <div className="container mt-4">
-      <h2>Quản Lý Sân</h2>
-      {error && <Alert variant="danger">{error}</Alert>}
-      <Button variant="primary" onClick={() => handleShow()}>Thêm Sân</Button>
-      <Table striped bordered hover className="mt-3">
-        <thead>
+    <div>
+      <h2 className="my-4">Quản lý sân</h2>
+
+      {/* Nút thêm sân */}
+      <Button variant="success" className="mb-3" onClick={() => handleShowModal()}>
+        + Thêm sân
+      </Button>
+
+      {/* Bảng hiển thị danh sách sân */}
+      <Table striped bordered hover responsive className="text-center">
+        <thead className="table-dark">
           <tr>
+            <th>#</th>
             <th>Tên Sân</th>
-            <th>Loại Sân</th>
-            <th>Trạng Thái</th>
-            <th>Thao Tác</th>
+            <th>Tên Loại Sân</th>
+            <th>Hành động</th>
           </tr>
         </thead>
         <tbody>
-          {loading ? (
-            <tr>
-              <td colSpan="4" className="text-center"><Spinner animation="border" /></td>
-            </tr>
-          ) : (
-            pitches.map((pitch) => (
+          {pitches.length > 0 ? (
+            pitches.map((pitch, index) => (
               <tr key={pitch.id}>
+                <td>{index + 1}</td>
                 <td>{pitch.name}</td>
-                <td>{pitchTypes.find(pt => pt.id === pitch.idPitchType)?.name}</td>
-                <td>{pitchStatusEnum[pitch.status]}</td>
+                <td>{pitch.pitchTypeName}</td>
                 <td>
-                  <Button variant="warning" onClick={() => handleShow(pitch)}>Sửa</Button>{' '}
-                  <Button variant="danger" onClick={() => handleDelete(pitch.id)}>Xóa</Button>
+                  <Button
+                    variant="warning"
+                    className="me-2"
+                    onClick={() => handleShowModal(pitch)}
+                  >
+                    Sửa
+                  </Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDeletePitch(pitch.id)}
+                  >
+                    Xóa
+                  </Button>
                 </td>
               </tr>
             ))
+          ) : (
+            <tr>
+              <td colSpan="4" className="text-center">
+                Không có sân nào.
+              </td>
+            </tr>
           )}
         </tbody>
       </Table>
 
-      <Modal show={showModal} onHide={handleClose}>
+      {/* Modal thêm/cập nhật sân */}
+      <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
-          <Modal.Title>{isEdit ? 'Sửa Sân' : 'Thêm Sân'}</Modal.Title>
+          <Modal.Title>{editMode ? "Cập nhật sân" : "Thêm sân mới"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group controlId="formName">
-              <Form.Label>Tên Sân</Form.Label>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3">
+              <Form.Label>Tên sân</Form.Label>
               <Form.Control
                 type="text"
+                name="name"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={handleChange}
+                required
               />
             </Form.Group>
-            <Form.Group controlId="formPitchType">
-              <Form.Label>Loại Sân</Form.Label>
-              <Form.Control
-                as="select"
+
+            <Form.Group className="mb-3">
+              <Form.Label>Loại sân</Form.Label>
+              <Form.Select
+                name="idPitchType"
                 value={formData.idPitchType}
-                onChange={(e) => setFormData({ ...formData, idPitchType: e.target.value })}
+                onChange={handleChange}
+                required
               >
-                <option value="">Chọn Loại Sân</option>
+                <option value="">-- Chọn loại sân --</option>
                 {pitchTypes.map((type) => (
-                  <option key={type.id} value={type.id}>{type.name}</option>
-                ))}
-              </Form.Control>
-            </Form.Group>
-            <Form.Group controlId="formStatus">
-              <Form.Label>Trạng Thái</Form.Label>
-              <Form.Control
-                as="select"
-                value={formData.status}
-                onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-              >
-                {editableStatus.map((status) => (
-                  <option key={status.value} value={status.value}>
-                    {status.label}
+                  <option key={type.id} value={type.id}>
+                    {type.name}
                   </option>
                 ))}
-              </Form.Control>
+              </Form.Select>
             </Form.Group>
+
+            <Button variant="primary" type="submit">
+              {editMode ? "Cập nhật" : "Thêm mới"}
+            </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>Hủy</Button>
-          <Button variant="primary" onClick={handleSave}>
-            {loading ? <Spinner animation="border" size="sm" /> : 'Lưu'}
-          </Button>
-        </Modal.Footer>
       </Modal>
     </div>
   );

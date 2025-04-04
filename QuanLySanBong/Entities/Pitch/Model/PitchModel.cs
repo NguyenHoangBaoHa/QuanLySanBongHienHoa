@@ -19,11 +19,10 @@ namespace QuanLySanBong.Entities.Pitch.Model
 
         [ForeignKey("IdPitchType")]
         public virtual PitchTypeModel PitchType { get; set; }
-        public PitchStatusEnum Status { get; set; } = PitchStatusEnum.Available;
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreateAt { get; set; } = DateTime.UtcNow;
-        public DateTime UpdateAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreateAt { get; set; } = DateTime.Now;
+        public DateTime UpdateAt { get; set; } = DateTime.Now;
 
         public virtual ICollection<BookingModel> Bookings { get; set; } = new List<BookingModel>();
     }
