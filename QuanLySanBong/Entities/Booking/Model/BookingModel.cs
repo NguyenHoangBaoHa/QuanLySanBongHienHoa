@@ -33,6 +33,8 @@ namespace QuanLySanBong.Entities.Booking.Model
         public DateTime CreateAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdateAt { get; set; } = DateTime.UtcNow;
 
+        public TimeslotStatus TimeslotStatus { get; set; }
+
         public void UpdateTimestamp()
         {
             UpdateAt = DateTime.UtcNow;

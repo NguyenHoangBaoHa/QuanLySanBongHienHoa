@@ -30,6 +30,7 @@ namespace QuanLySanBong.Repository.Pitch
             return await _context.Pitches
                 .Include(p => p.PitchType)
                 .ThenInclude(pt => pt.Images)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 

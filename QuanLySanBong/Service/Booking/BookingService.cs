@@ -49,10 +49,25 @@ namespace QuanLySanBong.Service.Booking
             if (pitch == null)
                 throw new Exception("Không tìm thấy sân.");
 
+            var bookingDtos = bookings.Select(b => new BookingDto
+            {
+                Id = b.Id,
+                IdCustomer = b.IdCustomer,
+                DisplayName = b.Customer?.DisplayName,
+                PhoneNumber = b.Customer?.PhoneNumber,
+                PitchName = b.Pitch?.Name,
+                PitchTypeName = b.Pitch?.PitchType?.Name,
+                BookingDate = b.BookingDate,
+                Duration = b.Duration,
+                PaymentStatus = b.PaymentStatus,
+                IsReceived = b.IsReceived,
+                IsCanceled = b.IsCanceled
+            });
+
             return new
             {
                 Pitch = _mapper.Map<PitchDto>(pitch),
-                Booking = _mapper.Map<IEnumerable<BookingDto>>(bookings)
+                Booking = bookingDtos
             };
         }
 
@@ -77,7 +92,7 @@ namespace QuanLySanBong.Service.Booking
             // Kiểm tra trùng khung giờ đặt sân
             bool isAvailable = await _unitOfWork.Bookings.IsTimeSlotAvailable(bookingDto.IdPitch, bookingDto.BookingDate, bookingDto.Duration);
             if (!isAvailable)
-                return null;
+                throw new Exception("Khung giờ này không trống hoặc đang bảo trì. Vui lòng chọn khung giờ khác.");
 
             // Tạo Booking mới
             var booking = new BookingModel
@@ -87,6 +102,7 @@ namespace QuanLySanBong.Service.Booking
                 BookingDate = bookingDto.BookingDate,
                 Duration = bookingDto.Duration,
                 PaymentStatus = PaymentStatusEnum.ChuaThanhToan, // Mặc định chưa thanh toán
+                TimeslotStatus = TimeslotStatus.Booked,
                 IsReceived = false,
                 CreateAt = DateTime.UtcNow,
                 UpdateAt = DateTime.UtcNow
@@ -137,15 +153,20 @@ namespace QuanLySanBong.Service.Booking
         {
             var booking = await _unitOfWork.Bookings.GetBookingByIdAsync(bookingId);
 
-            if(booking == null || booking.IdCustomer == customerId)
+            if (booking == null || booking.IdCustomer != customerId)
             {
-                return false;
+                return false; // Không tìm thấy hoặc không phải của khách hàng này
             }
 
             DateTime now = DateTime.UtcNow;
-            if(booking.BookingDate <= now.AddHours(1))
+            if (booking.BookingDate <= now.AddHours(1)) // Kiểm tra thời gian hủy
             {
                 throw new Exception("Bạn chỉ có thể hủy đặt sân trước ít nhất 1 giờ.");
+            }
+
+            if (booking.TimeslotStatus == TimeslotStatus.Booked)
+            {
+                throw new Exception("Khung giờ này đã bị đặt và không thể hủy.");
             }
 
             bool isCanceled = await _unitOfWork.Bookings.CancelBookingAsync(bookingId);
@@ -154,7 +175,11 @@ namespace QuanLySanBong.Service.Booking
                 throw new Exception("Không thể hủy đặt sân.");
             }
 
+            // Cập nhật trạng thái TimeslotStatus về Available
+            booking.TimeslotStatus = TimeslotStatus.Available;
+            _unitOfWork.Bookings.UpdateBooking(booking);
             await _unitOfWork.CompleteAsync();
+
             return true;
         }
     }

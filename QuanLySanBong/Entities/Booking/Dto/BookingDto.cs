@@ -17,6 +17,8 @@ namespace QuanLySanBong.Entities.Booking.Dto
         public bool IsReceived { get; set; }
         public bool IsCanceled { get; set; } // Thêm thuộc tính IsCanceled
 
+        public TimeslotStatus TimeslotStatus { get; set; }
+
         // Biến tính toán để chuyển đổi sang dạng chuỗi dễ hiển thị
         public string BookingDateFormatted => BookingDate.ToString("dd/MM/yyyy HH:mm");
     }

@@ -80,9 +80,14 @@ const CustomerSchedule = () => {
 
   // 📌 Kiểm tra khung giờ đã đặt chưa
   const isBooked = (date, time) => {
-    return schedule.some(b =>
-      moment(b.bookingDate).format("YYYY-MM-DD") === date && moment(b.bookingTime, "HH:mm").format("HH:mm") === time
-    );
+    // Kiểm tra xem ngày và thời gian có trùng với lịch đã có đặt không
+    return schedule.some(b => {
+      const bookingStart = moment(b.bookingDate);
+      const bookingEnd = bookingStart.add(b.duration, "minutes"); // Tính thời gian kết thúc từ Duration
+
+      const selectedTime = moment(`${date} ${time}`, "YYYY-MM-DD HH:mm");
+      return selectedTime.isBetween(bookingStart, bookingEnd, null, '[)'); // Kiểm tra khung giờ trùng
+    });
   };
 
   // 📌 Kiểm tra khung giờ có thuộc quá khứ không
@@ -98,16 +103,16 @@ const CustomerSchedule = () => {
       alert("Bạn không thể đặt sân trong quá khứ!");
       return;
     }
-    
+  
     if (isBookedSlot) {
       alert("Khung giờ này đã có người đặt. Vui lòng chọn khung giờ khác!");
       return;
     }
-
+  
     // Nếu khung giờ hợp lệ thì chuyển đến trang đặt sân
     navigate(`/customer/booking/detail/${selectedPitch}/${selectedPitchType}/${date}/${time}`);
   };
-
+  
   return (
     <Container>
       <h2 className="my-4">Lịch đặt sân</h2>

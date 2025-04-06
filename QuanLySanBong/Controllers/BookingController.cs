@@ -92,8 +92,15 @@ namespace QuanLySanBong.Controllers
                 return Unauthorized("⚠️ Không tìm thấy IdCustomer trong token!");
             }
 
-            var result = await _service.CreateBookingAsync(idCustomer, bookingDto);
-            return Ok(result);
+            try
+            {
+                var result = await _service.CreateBookingAsync(idCustomer, bookingDto);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
 

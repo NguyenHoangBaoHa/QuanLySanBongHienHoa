@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "UwMCtYtxsimDpNPbXHEqJoBmBKIyVEzODzYMic+YCY4=",
+  "Hash": "sEDryZ3+8ja0z3xt6ul07FEInfQVMQBHthOgq/an+nE=",
   "Source": "QuanLySanBong",
   "BasePath": "_content/QuanLySanBong",
   "Mode": "Default",
@@ -122,6 +122,48 @@
       "OriginalItemSpec": "wwwroot\\images\\sân 5 (1)_4.jpg"
     },
     {
+      "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (1)_5.jpg",
+      "SourceId": "QuanLySanBong",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\TestCode\\QuanLySanBong\\wwwroot\\",
+      "BasePath": "_content/QuanLySanBong",
+      "RelativePath": "images/sân 5 (1)_5#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "81liqmyu1q",
+      "Integrity": "/Ez2PjZ9UUMpYdpOjENDGAtXWuuR5+WMV456pLkcmf4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\sân 5 (1)_5.jpg"
+    },
+    {
+      "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (1)_6.jpg",
+      "SourceId": "QuanLySanBong",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\TestCode\\QuanLySanBong\\wwwroot\\",
+      "BasePath": "_content/QuanLySanBong",
+      "RelativePath": "images/sân 5 (1)_6#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "81liqmyu1q",
+      "Integrity": "/Ez2PjZ9UUMpYdpOjENDGAtXWuuR5+WMV456pLkcmf4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\sân 5 (1)_6.jpg"
+    },
+    {
       "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (2).jpg",
       "SourceId": "QuanLySanBong",
       "SourceType": "Discovered",
@@ -227,6 +269,48 @@
       "OriginalItemSpec": "wwwroot\\images\\sân 5 (2)_4.jpg"
     },
     {
+      "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (2)_5.jpg",
+      "SourceId": "QuanLySanBong",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\TestCode\\QuanLySanBong\\wwwroot\\",
+      "BasePath": "_content/QuanLySanBong",
+      "RelativePath": "images/sân 5 (2)_5#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "b9lm03cbu7",
+      "Integrity": "4X5kpX4WpwK8Isu6vZpyCfvQ2+U8aiT3Xtkq3VShImM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\sân 5 (2)_5.jpg"
+    },
+    {
+      "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (2)_6.jpg",
+      "SourceId": "QuanLySanBong",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\TestCode\\QuanLySanBong\\wwwroot\\",
+      "BasePath": "_content/QuanLySanBong",
+      "RelativePath": "images/sân 5 (2)_6#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "b9lm03cbu7",
+      "Integrity": "4X5kpX4WpwK8Isu6vZpyCfvQ2+U8aiT3Xtkq3VShImM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\sân 5 (2)_6.jpg"
+    },
+    {
       "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(1).webp",
       "SourceId": "QuanLySanBong",
       "SourceType": "Discovered",
@@ -309,6 +393,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\sân 7(1)_3.webp"
+    },
+    {
+      "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(1)_4.webp",
+      "SourceId": "QuanLySanBong",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\TestCode\\QuanLySanBong\\wwwroot\\",
+      "BasePath": "_content/QuanLySanBong",
+      "RelativePath": "images/sân 7(1)_4#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "vk39qghqtr",
+      "Integrity": "oVvZcypTsV7cA2NkpNmRZxfFHKrswp3BIHZI/qqo0YA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\sân 7(1)_4.webp"
     },
     {
       "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(2).jpg",
@@ -395,6 +500,27 @@
       "OriginalItemSpec": "wwwroot\\images\\sân 7(2)_3.jpg"
     },
     {
+      "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(2)_4.jpg",
+      "SourceId": "QuanLySanBong",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\TestCode\\QuanLySanBong\\wwwroot\\",
+      "BasePath": "_content/QuanLySanBong",
+      "RelativePath": "images/sân 7(2)_4#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "foycx2zsa3",
+      "Integrity": "j3PwummATzhY8JFKmaFSEfmmvJaWLa7aq7KB0BqsshM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\sân 7(2)_4.jpg"
+    },
+    {
       "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(3).jpg",
       "SourceId": "QuanLySanBong",
       "SourceType": "Discovered",
@@ -477,6 +603,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\sân 7(3)_3.jpg"
+    },
+    {
+      "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(3)_4.jpg",
+      "SourceId": "QuanLySanBong",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\TestCode\\QuanLySanBong\\wwwroot\\",
+      "BasePath": "_content/QuanLySanBong",
+      "RelativePath": "images/sân 7(3)_4#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "a6if38b6z3",
+      "Integrity": "wjwH4fMnUFtbI26XJOjKt94NdkwVDD92H3w1igCCPXI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\sân 7(3)_4.jpg"
     },
     {
       "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(4).jpg",
@@ -563,6 +710,27 @@
       "OriginalItemSpec": "wwwroot\\images\\sân 7(4)_3.jpg"
     },
     {
+      "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(4)_4.jpg",
+      "SourceId": "QuanLySanBong",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\TestCode\\QuanLySanBong\\wwwroot\\",
+      "BasePath": "_content/QuanLySanBong",
+      "RelativePath": "images/sân 7(4)_4#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "73dvcg0uvc",
+      "Integrity": "A6DOlf5DzWU7VT3JzPf60oKP58eaL3icBWNrt5/vr3Y=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\sân 7(4)_4.jpg"
+    },
+    {
       "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 9(1).jpg",
       "SourceId": "QuanLySanBong",
       "SourceType": "Discovered",
@@ -647,6 +815,27 @@
       "OriginalItemSpec": "wwwroot\\images\\sân 9(1)_3.jpg"
     },
     {
+      "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 9(1)_4.jpg",
+      "SourceId": "QuanLySanBong",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\TestCode\\QuanLySanBong\\wwwroot\\",
+      "BasePath": "_content/QuanLySanBong",
+      "RelativePath": "images/sân 9(1)_4#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "vxql86whj6",
+      "Integrity": "o5vrjgM/VwErPoZdJST1MgqXkfYBKvHk2qKPYvOTlzE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\sân 9(1)_4.jpg"
+    },
+    {
       "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 9(2).jpg",
       "SourceId": "QuanLySanBong",
       "SourceType": "Discovered",
@@ -729,6 +918,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\sân 9(2)_3.jpg"
+    },
+    {
+      "Identity": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 9(2)_4.jpg",
+      "SourceId": "QuanLySanBong",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\TestCode\\QuanLySanBong\\wwwroot\\",
+      "BasePath": "_content/QuanLySanBong",
+      "RelativePath": "images/sân 9(2)_4#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "lyvpsl1i01",
+      "Integrity": "DQ6jc75CqTwyF7Zg1zhlLxI71mro27/JQmFBT9/uFLQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\sân 9(2)_4.jpg"
     }
   ],
   "Endpoints": [
@@ -1129,6 +1339,170 @@
         {
           "Name": "Last-Modified",
           "Value": "Wed, 26 Mar 2025 11:07:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/Ez2PjZ9UUMpYdpOjENDGAtXWuuR5+WMV456pLkcmf4="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 5 (1)_5.81liqmyu1q.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (1)_5.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "238582"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/Ez2PjZ9UUMpYdpOjENDGAtXWuuR5+WMV456pLkcmf4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:05 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "81liqmyu1q"
+        },
+        {
+          "Name": "label",
+          "Value": "images/sân 5 (1)_5.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/Ez2PjZ9UUMpYdpOjENDGAtXWuuR5+WMV456pLkcmf4="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 5 (1)_5.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (1)_5.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "238582"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/Ez2PjZ9UUMpYdpOjENDGAtXWuuR5+WMV456pLkcmf4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:05 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/Ez2PjZ9UUMpYdpOjENDGAtXWuuR5+WMV456pLkcmf4="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 5 (1)_6.81liqmyu1q.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (1)_6.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "238582"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/Ez2PjZ9UUMpYdpOjENDGAtXWuuR5+WMV456pLkcmf4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 14:08:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "81liqmyu1q"
+        },
+        {
+          "Name": "label",
+          "Value": "images/sân 5 (1)_6.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/Ez2PjZ9UUMpYdpOjENDGAtXWuuR5+WMV456pLkcmf4="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 5 (1)_6.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (1)_6.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "238582"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/Ez2PjZ9UUMpYdpOjENDGAtXWuuR5+WMV456pLkcmf4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 14:08:22 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1553,6 +1927,170 @@
       ]
     },
     {
+      "Route": "images/sân 5 (2)_5.b9lm03cbu7.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (2)_5.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "106513"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4X5kpX4WpwK8Isu6vZpyCfvQ2+U8aiT3Xtkq3VShImM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:05 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "b9lm03cbu7"
+        },
+        {
+          "Name": "label",
+          "Value": "images/sân 5 (2)_5.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4X5kpX4WpwK8Isu6vZpyCfvQ2+U8aiT3Xtkq3VShImM="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 5 (2)_5.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (2)_5.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "106513"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4X5kpX4WpwK8Isu6vZpyCfvQ2+U8aiT3Xtkq3VShImM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:05 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4X5kpX4WpwK8Isu6vZpyCfvQ2+U8aiT3Xtkq3VShImM="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 5 (2)_6.b9lm03cbu7.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (2)_6.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "106513"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4X5kpX4WpwK8Isu6vZpyCfvQ2+U8aiT3Xtkq3VShImM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 14:08:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "b9lm03cbu7"
+        },
+        {
+          "Name": "label",
+          "Value": "images/sân 5 (2)_6.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4X5kpX4WpwK8Isu6vZpyCfvQ2+U8aiT3Xtkq3VShImM="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 5 (2)_6.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 5 (2)_6.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "106513"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4X5kpX4WpwK8Isu6vZpyCfvQ2+U8aiT3Xtkq3VShImM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 14:08:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4X5kpX4WpwK8Isu6vZpyCfvQ2+U8aiT3Xtkq3VShImM="
+        }
+      ]
+    },
+    {
       "Route": "images/sân 7(1).vk39qghqtr.webp",
       "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(1).webp",
       "Selectors": [],
@@ -1867,6 +2405,88 @@
         {
           "Name": "Last-Modified",
           "Value": "Wed, 26 Mar 2025 12:03:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-oVvZcypTsV7cA2NkpNmRZxfFHKrswp3BIHZI/qqo0YA="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 7(1)_4.vk39qghqtr.webp",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(1)_4.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "266152"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"oVvZcypTsV7cA2NkpNmRZxfFHKrswp3BIHZI/qqo0YA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "vk39qghqtr"
+        },
+        {
+          "Name": "label",
+          "Value": "images/sân 7(1)_4.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-oVvZcypTsV7cA2NkpNmRZxfFHKrswp3BIHZI/qqo0YA="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 7(1)_4.webp",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(1)_4.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "266152"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"oVvZcypTsV7cA2NkpNmRZxfFHKrswp3BIHZI/qqo0YA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2209,6 +2829,88 @@
       ]
     },
     {
+      "Route": "images/sân 7(2)_4.foycx2zsa3.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(2)_4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "82282"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"j3PwummATzhY8JFKmaFSEfmmvJaWLa7aq7KB0BqsshM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "foycx2zsa3"
+        },
+        {
+          "Name": "label",
+          "Value": "images/sân 7(2)_4.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-j3PwummATzhY8JFKmaFSEfmmvJaWLa7aq7KB0BqsshM="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 7(2)_4.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(2)_4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "82282"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"j3PwummATzhY8JFKmaFSEfmmvJaWLa7aq7KB0BqsshM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-j3PwummATzhY8JFKmaFSEfmmvJaWLa7aq7KB0BqsshM="
+        }
+      ]
+    },
+    {
       "Route": "images/sân 7(3).a6if38b6z3.jpg",
       "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(3).jpg",
       "Selectors": [],
@@ -2523,6 +3225,88 @@
         {
           "Name": "Last-Modified",
           "Value": "Wed, 26 Mar 2025 12:03:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wjwH4fMnUFtbI26XJOjKt94NdkwVDD92H3w1igCCPXI="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 7(3)_4.a6if38b6z3.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(3)_4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "236726"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wjwH4fMnUFtbI26XJOjKt94NdkwVDD92H3w1igCCPXI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "a6if38b6z3"
+        },
+        {
+          "Name": "label",
+          "Value": "images/sân 7(3)_4.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-wjwH4fMnUFtbI26XJOjKt94NdkwVDD92H3w1igCCPXI="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 7(3)_4.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(3)_4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "236726"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wjwH4fMnUFtbI26XJOjKt94NdkwVDD92H3w1igCCPXI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2865,6 +3649,88 @@
       ]
     },
     {
+      "Route": "images/sân 7(4)_4.73dvcg0uvc.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(4)_4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "75434"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"A6DOlf5DzWU7VT3JzPf60oKP58eaL3icBWNrt5/vr3Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "73dvcg0uvc"
+        },
+        {
+          "Name": "label",
+          "Value": "images/sân 7(4)_4.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-A6DOlf5DzWU7VT3JzPf60oKP58eaL3icBWNrt5/vr3Y="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 7(4)_4.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 7(4)_4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "75434"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"A6DOlf5DzWU7VT3JzPf60oKP58eaL3icBWNrt5/vr3Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-A6DOlf5DzWU7VT3JzPf60oKP58eaL3icBWNrt5/vr3Y="
+        }
+      ]
+    },
+    {
       "Route": "images/sân 9(1).jpg",
       "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 9(1).jpg",
       "Selectors": [],
@@ -3193,6 +4059,88 @@
       ]
     },
     {
+      "Route": "images/sân 9(1)_4.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 9(1)_4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "42221"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"o5vrjgM/VwErPoZdJST1MgqXkfYBKvHk2qKPYvOTlzE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-o5vrjgM/VwErPoZdJST1MgqXkfYBKvHk2qKPYvOTlzE="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 9(1)_4.vxql86whj6.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 9(1)_4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "42221"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"o5vrjgM/VwErPoZdJST1MgqXkfYBKvHk2qKPYvOTlzE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "vxql86whj6"
+        },
+        {
+          "Name": "label",
+          "Value": "images/sân 9(1)_4.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-o5vrjgM/VwErPoZdJST1MgqXkfYBKvHk2qKPYvOTlzE="
+        }
+      ]
+    },
+    {
       "Route": "images/sân 9(2).jpg",
       "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 9(2).jpg",
       "Selectors": [],
@@ -3513,6 +4461,88 @@
         {
           "Name": "label",
           "Value": "images/sân 9(2)_3.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-DQ6jc75CqTwyF7Zg1zhlLxI71mro27/JQmFBT9/uFLQ="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 9(2)_4.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 9(2)_4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "61779"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DQ6jc75CqTwyF7Zg1zhlLxI71mro27/JQmFBT9/uFLQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-DQ6jc75CqTwyF7Zg1zhlLxI71mro27/JQmFBT9/uFLQ="
+        }
+      ]
+    },
+    {
+      "Route": "images/sân 9(2)_4.lyvpsl1i01.jpg",
+      "AssetFile": "E:\\TestCode\\QuanLySanBong\\wwwroot\\images\\sân 9(2)_4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "61779"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DQ6jc75CqTwyF7Zg1zhlLxI71mro27/JQmFBT9/uFLQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 12:23:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "lyvpsl1i01"
+        },
+        {
+          "Name": "label",
+          "Value": "images/sân 9(2)_4.jpg"
         },
         {
           "Name": "integrity",

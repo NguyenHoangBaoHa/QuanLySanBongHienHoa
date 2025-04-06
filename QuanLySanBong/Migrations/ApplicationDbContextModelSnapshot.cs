@@ -67,7 +67,7 @@ namespace QuanLySanBong.Migrations
                         {
                             Id = 1,
                             Email = "admin",
-                            Password = "$2a$11$u1viFQcjmo9wxYQiHdh93ekvlVhdt1Uhjgt/24J/zK31Rx3TlXjYG",
+                            Password = "$2a$11$NHBjGJKNGK.1F5vM9TulTewHGLLwmKyd.ShOdAKwUHTr8eYnDc1J.",
                             Role = "Admin"
                         });
                 });
@@ -160,6 +160,9 @@ namespace QuanLySanBong.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<int>("PaymentStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TimeslotStatus")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdateAt")

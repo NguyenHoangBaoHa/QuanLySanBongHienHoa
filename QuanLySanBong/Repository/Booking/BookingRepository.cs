@@ -2,6 +2,7 @@
 using QuanLySanBong.Data;
 using QuanLySanBong.Entities.Booking.Dto;
 using QuanLySanBong.Entities.Booking.Model;
+using QuanLySanBong.Entities.Enums;
 
 namespace QuanLySanBong.Repository.Booking
 {
@@ -73,7 +74,10 @@ namespace QuanLySanBong.Repository.Booking
         public async Task<IEnumerable<BookingModel>> GetBookingsByPitchAndDateRangeAsync(int pitchId, DateTime startDate, DateTime endDate)
         {
             return await _context.Bookings
-                .Where(b => b.IdPitch == pitchId && b.BookingDate >= startDate && b.BookingDate <= endDate)
+                .Where(b => b.IdPitch == pitchId &&
+                            b.BookingDate >= startDate &&
+                            b.BookingDate <= endDate &&
+                            !b.IsCanceled)
                 .Include(b => b.Customer)
                 .Include(b => b.Pitch)
                 .ThenInclude(p => p.PitchType)
@@ -123,10 +127,16 @@ namespace QuanLySanBong.Repository.Booking
         public async Task<bool> IsTimeSlotAvailable(int pitchId, DateTime bookingDate, int duration)
         {
             DateTime bookingEndTime = bookingDate.AddMinutes(duration);
-            return !await _context.Bookings.AnyAsync(b =>
-                b.IdPitch == pitchId &&
-                ((b.BookingDate <= bookingDate && b.BookingDate.AddMinutes(b.Duration) > bookingDate) ||
-                 (b.BookingDate < bookingEndTime && b.BookingDate.AddMinutes(b.Duration) >= bookingEndTime)));
+
+            var isBooked = await _context.Bookings
+                .Where(b => b.IdPitch == pitchId &&
+                            b.BookingDate.Date == b.BookingDate.Date &&
+                            b.BookingDate.AddMinutes(b.Duration) > bookingDate &&
+                            b.BookingDate < bookingDate.AddMinutes(duration) &&
+                            b.TimeslotStatus == TimeslotStatus.Booked)
+                .FirstOrDefaultAsync();
+
+            return isBooked != null;
         }
     }
 }

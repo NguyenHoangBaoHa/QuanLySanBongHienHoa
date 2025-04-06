@@ -184,6 +184,10 @@ namespace QuanLySanBong.Data
                       .IsRequired()
                       .HasDefaultValueSql("GETUTCDATE()");
 
+                entity.Property(b => b.TimeslotStatus)
+                      .IsRequired()
+                      .HasConversion<int>();
+
                 // Quan hệ với Customer
                 entity.HasOne(b => b.Customer)
                       .WithMany(c => c.Bookings)

@@ -146,7 +146,8 @@ namespace QuanLySanBong.Migrations
                     IsReceived = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     IsCanceled = table.Column<bool>(type: "bit", nullable: false),
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
-                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
+                    UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
+                    TimeslotStatus = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -202,7 +203,7 @@ namespace QuanLySanBong.Migrations
             migrationBuilder.InsertData(
                 table: "Account",
                 columns: new[] { "Id", "Email", "IdCustomer", "IdStaff", "Password", "Role" },
-                values: new object[] { 1, "admin", null, null, "$2a$11$u1viFQcjmo9wxYQiHdh93ekvlVhdt1Uhjgt/24J/zK31Rx3TlXjYG", "Admin" });
+                values: new object[] { 1, "admin", null, null, "$2a$11$NHBjGJKNGK.1F5vM9TulTewHGLLwmKyd.ShOdAKwUHTr8eYnDc1J.", "Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Account_IdCustomer",

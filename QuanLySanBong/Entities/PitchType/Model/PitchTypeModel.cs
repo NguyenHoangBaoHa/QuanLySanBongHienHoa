@@ -1,6 +1,7 @@
 ﻿using QuanLySanBong.Entities.Pitch.Model;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace QuanLySanBong.Entities.PitchType.Model
 {
@@ -23,6 +24,7 @@ namespace QuanLySanBong.Entities.PitchType.Model
         public int LimitPerson { get; set; }
 
         [InverseProperty("PitchType")]
+        [JsonIgnore]
         public virtual ICollection<PitchModel> Pitches { get; set; } = new List<PitchModel>();
 
         public virtual ICollection<PitchTypeImageModel> Images { get; set; } = new List<PitchTypeImageModel>();

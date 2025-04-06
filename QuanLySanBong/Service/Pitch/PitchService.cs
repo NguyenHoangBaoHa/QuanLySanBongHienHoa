@@ -36,22 +36,14 @@ namespace QuanLySanBong.Service.Pitch
 
         public async Task<PitchModel> AddAsync(PitchCreateDto pitchDto)
         {
-            // Kiểm tra IdPitchType không null và tồn tại trong database
             if (pitchDto.IdPitchType == null)
-            {
-                throw new ArgumentNullException("IdPitchType", "IdPitchType không được để trống.");
-            }
+                throw new ArgumentNullException(nameof(pitchDto.IdPitchType), "IdPitchType không được để trống.");
 
             var pitchType = await _unitOfWork.PitchTypes.GetByIdAsync(pitchDto.IdPitchType.Value);
             if (pitchType == null)
-            {
                 throw new KeyNotFoundException($"Loại sân với Id {pitchDto.IdPitchType.Value} không tồn tại.");
-            }
 
-            // Tạo mới Pitch và ánh xạ PitchType vào PitchModel
             var pitch = _mapper.Map<PitchModel>(pitchDto);
-
-            // Thêm PitchType vào PitchModel (giải quyết null)
             pitch.PitchType = pitchType;
 
             await _unitOfWork.Pitches.AddAsync(pitch);

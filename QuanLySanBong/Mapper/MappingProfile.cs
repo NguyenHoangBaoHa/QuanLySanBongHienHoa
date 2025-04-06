@@ -64,7 +64,8 @@ namespace QuanLySanBong.Mapper
                 .ForMember(dest => dest.PitchTypeName, opt => opt.MapFrom(src => src.Pitch != null && src.Pitch.PitchType != null ? src.Pitch.PitchType.Name : string.Empty))
                 .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration))
                 .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.PaymentStatus.ToString())) // Chuyển Enum thành chuỗi
-                .ForMember(dest => dest.IsCanceled, opt => opt.MapFrom(src => src.IsCanceled)); // Thêm ánh xạ IsCanceled
+                .ForMember(dest => dest.IsCanceled, opt => opt.MapFrom(src => src.IsCanceled)) // Thêm ánh xạ IsCanceled
+                .ForMember(dest => dest.TimeslotStatus, opt => opt.MapFrom(src => src.TimeslotStatus)); // Thêm ánh xạ TimeslotStatus
 
             // Ánh xạ từ BookingUpdateStatusDto sang BookingModel khi cập nhật trạng thái
             CreateMap<BookingUpdateStatusDto, BookingModel>()

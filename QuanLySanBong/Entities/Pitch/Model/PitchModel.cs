@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using QuanLySanBong.Entities.Booking.Model;
 using QuanLySanBong.Entities.Enums;
+using System.Text.Json.Serialization;
 
 namespace QuanLySanBong.Entities.Pitch.Model
 {
@@ -24,6 +25,7 @@ namespace QuanLySanBong.Entities.Pitch.Model
         public DateTime CreateAt { get; set; } = DateTime.Now;
         public DateTime UpdateAt { get; set; } = DateTime.Now;
 
+        [JsonIgnore]
         public virtual ICollection<BookingModel> Bookings { get; set; } = new List<BookingModel>();
     }
 
