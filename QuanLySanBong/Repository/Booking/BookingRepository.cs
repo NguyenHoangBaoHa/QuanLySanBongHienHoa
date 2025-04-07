@@ -130,13 +130,13 @@ namespace QuanLySanBong.Repository.Booking
 
             var isBooked = await _context.Bookings
                 .Where(b => b.IdPitch == pitchId &&
-                            b.BookingDate.Date == b.BookingDate.Date &&
+                            b.BookingDate.Date == bookingDate.Date && // ✅ Sửa ở đây
                             b.BookingDate.AddMinutes(b.Duration) > bookingDate &&
-                            b.BookingDate < bookingDate.AddMinutes(duration) &&
+                            b.BookingDate < bookingEndTime &&
                             b.TimeslotStatus == TimeslotStatus.Booked)
                 .FirstOrDefaultAsync();
 
-            return isBooked != null;
+            return isBooked == null; // ✅ Trả về true nếu KHÔNG có bản ghi trùng
         }
     }
 }

@@ -210,6 +210,16 @@ const BookingAPI = {
       throw handleApiError(error);
     }
   },
+  GetScheduleByWeek: async (pitchId, startDate) => {
+    try {
+      const response = await api.get(`/Booking/pitch/${pitchId}/week`, {
+        params: { startDate }
+      });
+      return response.data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
+  }
 };
 
 export { AccountAPI, PitchTypeAPI, PitchAPI, BookingAPI };

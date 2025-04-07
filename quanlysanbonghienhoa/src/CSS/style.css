@@ -1,0 +1,11 @@
+.bg-success {
+  background-color: green !important;
+}
+
+.bg-danger {
+  background-color: #f44336 !important;
+}
+
+.bg-secondary {
+  background-color: #9e9e9e !important;
+}

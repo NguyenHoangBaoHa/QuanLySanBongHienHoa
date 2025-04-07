@@ -3,6 +3,7 @@ import { Container, Table, Form, Spinner, Alert } from "react-bootstrap";
 import moment from "moment";
 import { useParams, useNavigate } from "react-router-dom";
 import { PitchAPI, BookingAPI } from "../../API";
+import "../../CSS/style.css"
 
 // Lấy ngày hiện tại
 const getToday = () => moment().format("YYYY-MM-DD");
@@ -19,52 +20,46 @@ const CustomerSchedule = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // ✅ Khung giờ cố định
   const timeSlots = ["08:00", "09:00", "10:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"];
 
   useEffect(() => {
     if (!pitchId || !idPitchType) {
-      console.error("⛔ Lỗi: idPitchType bị undefined!", { pitchId, idPitchType });
+      console.error("⛔ Thiếu thông tin pitchId hoặc idPitchType");
       navigate("/customer/booking");
     }
   }, [pitchId, idPitchType, navigate]);
 
-  // 📌 Lấy danh sách sân bóng
   const fetchPitches = useCallback(async () => {
     try {
       setLoading(true);
       const response = await PitchAPI.GetAllPitches();
-
-      if (!Array.isArray(response)) {
-        throw new Error("Dữ liệu sân không hợp lệ!");
-      }
+      if (!Array.isArray(response)) throw new Error("Dữ liệu sân không hợp lệ!");
 
       setPitches(response);
-      if (pitchId) {
+      const currentPitch = response.find(p => p.id === pitchId);
+      if (currentPitch) {
         setSelectedPitch(pitchId);
+        setSelectedPitchType(currentPitch.idPitchType);
       } else if (response.length > 0) {
         setSelectedPitch(response[0].id);
+        setSelectedPitchType(response[0].idPitchType);
       }
-    } catch (error) {
+    } catch (err) {
       setError("Không thể tải danh sách sân bóng.");
     } finally {
       setLoading(false);
     }
   }, [pitchId]);
 
-  // 📌 Lấy lịch đặt sân theo tuần
   const fetchSchedule = useCallback(async () => {
     if (!selectedPitch) return;
     try {
       setLoading(true);
-      setError(null);
-
-      const startDate = moment(weekStart).format("YYYY-MM-DD");
-      const data = await BookingAPI.GetScheduleByWeek(selectedPitch, startDate);
-
+      const formattedDate = moment(weekStart).format("YYYY-MM-DD");
+      const data = await BookingAPI.GetScheduleByWeek(selectedPitch, formattedDate);
       setSchedule(Array.isArray(data) ? data : []);
-    } catch (error) {
-      setError("Không thể tải lịch đặt sân. Vui lòng thử lại!");
+    } catch (err) {
+      setError("Không thể tải lịch đặt sân.");
     } finally {
       setLoading(false);
     }
@@ -78,41 +73,35 @@ const CustomerSchedule = () => {
     fetchSchedule();
   }, [fetchSchedule]);
 
-  // 📌 Kiểm tra khung giờ đã đặt chưa
   const isBooked = (date, time) => {
-    // Kiểm tra xem ngày và thời gian có trùng với lịch đã có đặt không
     return schedule.some(b => {
       const bookingStart = moment(b.bookingDate);
-      const bookingEnd = bookingStart.add(b.duration, "minutes"); // Tính thời gian kết thúc từ Duration
-
+      const bookingEnd = bookingStart.clone().add(b.duration, "minutes");
       const selectedTime = moment(`${date} ${time}`, "YYYY-MM-DD HH:mm");
-      return selectedTime.isBetween(bookingStart, bookingEnd, null, '[)'); // Kiểm tra khung giờ trùng
+      return selectedTime.isBetween(bookingStart, bookingEnd, null, "[)");
     });
   };
 
-  // 📌 Kiểm tra khung giờ có thuộc quá khứ không
   const isPastTime = (date, time) => {
     const now = moment();
     const selectedDateTime = moment(`${date} ${time}`, "YYYY-MM-DD HH:mm");
-    return selectedDateTime.isBefore(now); // Nếu trước hiện tại thì là quá khứ
+    return selectedDateTime.isBefore(now);
   };
 
-  // 📌 Xử lý khi nhấn vào khung giờ
   const handleTimeSlotClick = (date, time, isBookedSlot, isPast) => {
     if (isPast) {
       alert("Bạn không thể đặt sân trong quá khứ!");
       return;
     }
-  
+
     if (isBookedSlot) {
       alert("Khung giờ này đã có người đặt. Vui lòng chọn khung giờ khác!");
       return;
     }
-  
-    // Nếu khung giờ hợp lệ thì chuyển đến trang đặt sân
+
     navigate(`/customer/booking/detail/${selectedPitch}/${selectedPitchType}/${date}/${time}`);
   };
-  
+
   return (
     <Container>
       <h2 className="my-4">Lịch đặt sân</h2>
@@ -123,8 +112,9 @@ const CustomerSchedule = () => {
         <Form.Select
           value={selectedPitch}
           onChange={(e) => {
-            setSelectedPitch(e.target.value);
-            const selected = pitches.find(p => p.id === e.target.value);
+            const pitchId = e.target.value;
+            setSelectedPitch(pitchId);
+            const selected = pitches.find(p => p.id === pitchId);
             if (selected) setSelectedPitchType(selected.idPitchType);
           }}
         >
@@ -163,7 +153,13 @@ const CustomerSchedule = () => {
                   return (
                     <td
                       key={date}
-                      className={booked ? "bg-danger text-white" : past ? "bg-secondary text-white" : "bg-success text-white"}
+                      className={
+                        booked
+                          ? "bg-danger text-white"
+                          : past
+                          ? "bg-secondary text-white"
+                          : "bg-success text-white"
+                      }
                       style={{ cursor: past ? "not-allowed" : "pointer" }}
                       onClick={() => handleTimeSlotClick(date, time, booked, past)}
                     >
