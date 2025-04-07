@@ -49,25 +49,10 @@ namespace QuanLySanBong.Service.Booking
             if (pitch == null)
                 throw new Exception("Không tìm thấy sân.");
 
-            var bookingDtos = bookings.Select(b => new BookingDto
-            {
-                Id = b.Id,
-                IdCustomer = b.IdCustomer,
-                DisplayName = b.Customer?.DisplayName,
-                PhoneNumber = b.Customer?.PhoneNumber,
-                PitchName = b.Pitch?.Name,
-                PitchTypeName = b.Pitch?.PitchType?.Name,
-                BookingDate = b.BookingDate,
-                Duration = b.Duration,
-                PaymentStatus = b.PaymentStatus,
-                IsReceived = b.IsReceived,
-                IsCanceled = b.IsCanceled
-            });
-
             return new
             {
                 Pitch = _mapper.Map<PitchDto>(pitch),
-                Booking = bookingDtos
+                Booking = _mapper.Map<IEnumerable<BookingDto>>(bookings)
             };
         }
 

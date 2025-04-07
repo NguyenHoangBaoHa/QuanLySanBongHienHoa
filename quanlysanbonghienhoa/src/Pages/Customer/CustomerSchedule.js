@@ -3,9 +3,7 @@ import { Container, Table, Form, Spinner, Alert } from "react-bootstrap";
 import moment from "moment";
 import { useParams, useNavigate } from "react-router-dom";
 import { PitchAPI, BookingAPI } from "../../API";
-import "../../CSS/style.css"
 
-// Lấy ngày hiện tại
 const getToday = () => moment().format("YYYY-MM-DD");
 
 const CustomerSchedule = () => {
@@ -20,7 +18,12 @@ const CustomerSchedule = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const timeSlots = ["08:00", "09:00", "10:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00"];
+  const timeSlots = [
+    "08:00", "09:00", "10:00",
+    "14:00", "15:00", "16:00",
+    "17:00", "18:00", "19:00",
+    "20:00", "21:00"
+  ];
 
   useEffect(() => {
     if (!pitchId || !idPitchType) {
@@ -57,6 +60,8 @@ const CustomerSchedule = () => {
       setLoading(true);
       const formattedDate = moment(weekStart).format("YYYY-MM-DD");
       const data = await BookingAPI.GetScheduleByWeek(selectedPitch, formattedDate);
+      console.log("📅 Lịch đặt sân từ API:", data);
+
       setSchedule(Array.isArray(data) ? data : []);
     } catch (err) {
       setError("Không thể tải lịch đặt sân.");
@@ -73,13 +78,12 @@ const CustomerSchedule = () => {
     fetchSchedule();
   }, [fetchSchedule]);
 
-  const isBooked = (date, time) => {
-    return schedule.some(b => {
-      const bookingStart = moment(b.bookingDate);
-      const bookingEnd = bookingStart.clone().add(b.duration, "minutes");
-      const selectedTime = moment(`${date} ${time}`, "YYYY-MM-DD HH:mm");
-      return selectedTime.isBetween(bookingStart, bookingEnd, null, "[)");
+  const getSlotStatus = (date, time) => {
+    const slot = schedule.find(item => {
+      const bookingTime = moment(item.bookingDate).format("YYYY-MM-DD HH:mm");
+      return bookingTime === `${date} ${time}`;
     });
+    return slot ? slot.timeslotStatus : 0; // 0 = Trống, 1 = Đã đặt
   };
 
   const isPastTime = (date, time) => {
@@ -125,7 +129,11 @@ const CustomerSchedule = () => {
           ))}
         </Form.Select>
 
-        <Form.Control type="date" value={weekStart} onChange={(e) => setWeekStart(e.target.value)} />
+        <Form.Control
+          type="date"
+          value={weekStart}
+          onChange={(e) => setWeekStart(e.target.value)}
+        />
       </Form>
 
       {loading ? (
@@ -133,40 +141,53 @@ const CustomerSchedule = () => {
           <Spinner animation="border" variant="primary" />
         </div>
       ) : (
-        <Table bordered hover>
+        <Table bordered hover responsive className="text-center align-middle">
           <thead>
             <tr>
-              <th>Khung Giờ</th>
-              {[...Array(7)].map((_, i) => (
-                <th key={i}>{moment(weekStart).add(i, "days").format("DD/MM")}</th>
-              ))}
+              <th>Khung giờ</th>
+              {[...Array(7)].map((_, i) => {
+                const day = moment(weekStart).add(i, 'days');
+                return <th key={i}>{day.format("ddd DD/MM")}</th>;
+              })}
             </tr>
           </thead>
           <tbody>
-            {timeSlots.map(time => (
+            {timeSlots.map((time) => (
               <tr key={time}>
                 <td>{time}</td>
                 {[...Array(7)].map((_, i) => {
-                  const date = moment(weekStart).add(i, "days").format("YYYY-MM-DD");
-                  const booked = isBooked(date, time);
+                  const date = moment(weekStart).add(i, 'days').format("YYYY-MM-DD");
+                  const status = getSlotStatus(date, time);
                   const past = isPastTime(date, time);
+
+                  let bgColor = "";
+                  let label = "";
+
+                  if (past) {
+                    bgColor = "bg-secondary text-white";
+                    label = "Quá khứ";
+                  } else if (status === 1) {
+                    bgColor = "bg-danger text-white";
+                    label = "Đã đặt";
+                  } else {
+                    bgColor = "bg-success text-white";
+                    label = "Trống";
+                  }
+
                   return (
                     <td
-                      key={date}
-                      className={
-                        booked
-                          ? "bg-danger text-white"
-                          : past
-                          ? "bg-secondary text-white"
-                          : "bg-success text-white"
-                      }
-                      style={{ cursor: past ? "not-allowed" : "pointer" }}
-                      onClick={() => handleTimeSlotClick(date, time, booked, past)}
+                      key={`${date}-${time}`}
+                      className={bgColor}
+                      style={{
+                        cursor: past || status === 1 ? "not-allowed" : "pointer",
+                      }}
+                      onClick={() => handleTimeSlotClick(date, time, status === 1, past)}
                     >
-                      {booked ? "Đã đặt" : past ? "Quá khứ" : "Đặt Sân"}
+                      {label}
                     </td>
                   );
                 })}
+
               </tr>
             ))}
           </tbody>
