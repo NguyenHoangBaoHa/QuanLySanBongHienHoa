@@ -7,5 +7,6 @@ namespace QuanLySanBong.Repository.Bill
         Task<IEnumerable<BillModel>> GetAllAsync(int page, int pageSize);
         Task<BillModel> GetByIdAsync(int id);
         Task UpdateAsync(BillModel bill);
+        IQueryable<BillModel> GetQueryable();
     }
 }

@@ -24,6 +24,7 @@ namespace QuanLySanBong.Repository.Booking
                 .Select(b => new BookingDto
                 {
                     Id = b.Id,
+                    IdPitch = b.Pitch.Id,
                     DisplayName = b.Customer.DisplayName,  // 🛠 Lấy họ tên từ Customer
                     PhoneNumber = b.Customer.PhoneNumber, // 🛠 Thêm SĐT từ Customer
                     PitchName = b.Pitch.Name,
@@ -31,6 +32,7 @@ namespace QuanLySanBong.Repository.Booking
                     BookingDate = b.BookingDate,
                     Duration = b.Duration,
                     PaymentStatus = b.PaymentStatus,
+                    TimeslotStatus = b.TimeslotStatus,
                     IsReceived = b.IsReceived
                 })
                 .ToListAsync();
@@ -60,11 +62,13 @@ namespace QuanLySanBong.Repository.Booking
                 {
                     Id = b.Id,
                     IdCustomer = b.IdCustomer,
+                    IdPitch = b.Pitch.Id,
                     PitchName = b.Pitch.Name,
                     PitchTypeName = b.Pitch.PitchType.Name,
                     BookingDate = b.BookingDate,
                     Duration = b.Duration,
                     PaymentStatus = b.PaymentStatus,
+                    TimeslotStatus = b.TimeslotStatus,
                     IsReceived = b.IsReceived
                 })
                 .ToListAsync();

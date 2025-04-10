@@ -7,7 +7,6 @@ namespace QuanLySanBong.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin,Staff")]
     public class PitchController : ControllerBase
     {
         private readonly IPitchService _service;
@@ -22,10 +21,16 @@ namespace QuanLySanBong.Controllers
         // ✅ [MỞ QUYỀN] Cho phép tất cả người dùng xem danh sách sân
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] int? pitchTypeId)
         {
-            var pitches = await _service.GetAllAsync();
-            return Ok(pitches);
+            if (pitchTypeId.HasValue)
+            {
+                var filtered = await _service.GetAllAsync(pitchTypeId.Value);
+                return Ok(filtered);
+            }
+
+            var all = await _service.GetAllAsync();
+            return Ok(all);
         }
 
         // ✅ [MỞ QUYỀN] Cho phép tất cả người dùng xem chi tiết sân

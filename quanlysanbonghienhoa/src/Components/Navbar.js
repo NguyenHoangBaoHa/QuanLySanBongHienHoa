@@ -57,6 +57,9 @@ const NavigationBar = () => {
                 <NavDropdown.Item as={Link} to="/manage-bookings-staff">
                   Quản lý đặt sân
                 </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/manage-pitch-receiving-staff">
+                  Quản lý nhận sân
+                </NavDropdown.Item>
               </NavDropdown>
             )}
 

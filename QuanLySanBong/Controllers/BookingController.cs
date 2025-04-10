@@ -60,6 +60,7 @@ namespace QuanLySanBong.Controllers
         }
 
         // 📌 Lấy lịch đặt sân theo tuần
+        // 📌 Lấy lịch đặt sân theo tuần kèm trạng thái khung giờ
         [HttpGet("pitch/{pitchId}/week")]
         public async Task<IActionResult> GetPitchScheduleByWeek(int pitchId, [FromQuery] DateTime startDate)
         {
@@ -69,6 +70,7 @@ namespace QuanLySanBong.Controllers
             try
             {
                 var bookings = await _service.GetBookingsForPitchByWeekAsync(pitchId, startDate);
+
                 return Ok(bookings);
             }
             catch (Exception ex)
@@ -76,6 +78,7 @@ namespace QuanLySanBong.Controllers
                 return NotFound(ex.Message);
             }
         }
+
 
         [HttpPost("CreateBooking")]
         [Authorize(Roles = "Customer")]

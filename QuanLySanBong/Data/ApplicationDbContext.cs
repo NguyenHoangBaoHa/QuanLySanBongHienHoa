@@ -78,6 +78,12 @@ namespace QuanLySanBong.Data
                 .Property(s => s.StartDate)
                 .IsRequired();
 
+            // Thiết lập mối quan hệ 1-1 giữa Staff và Account nếu cần
+            modelBuilder.Entity<AccountModel>()
+                .HasOne(a => a.Staff)
+                .WithOne(s => s.Account)
+                .HasForeignKey<AccountModel>(a => a.IdStaff);
+
             // Định nghĩa cấu trúc cho bảng Customer
             modelBuilder.Entity<CustomerModel>()
                 .ToTable("Customer")
@@ -86,12 +92,6 @@ namespace QuanLySanBong.Data
             modelBuilder.Entity<CustomerModel>()
                 .Property(c => c.DisplayName)
                 .IsRequired();
-
-            // Thiết lập mối quan hệ 1-1 giữa Staff và Account nếu cần
-            modelBuilder.Entity<AccountModel>()
-                .HasOne(a => a.Staff)
-                .WithOne(s => s.Account)
-                .HasForeignKey<AccountModel>(a => a.IdStaff);
 
             // Thiết lập mối quan hệ 1-1 giữa Customer và Account nếu cần
             modelBuilder.Entity<AccountModel>()
@@ -176,6 +176,10 @@ namespace QuanLySanBong.Data
                       .IsRequired()
                       .HasDefaultValue(false);
 
+                entity.Property(b => b.ReceivedTime)
+                      .IsRequired()
+                      .HasComputedColumnSql("GETUTCDATE()");
+
                 entity.Property(b => b.CreateAt)
                       .IsRequired()
                       .HasDefaultValueSql("GETUTCDATE()");
@@ -200,6 +204,7 @@ namespace QuanLySanBong.Data
                       .HasForeignKey(b => b.IdPitch)
                       .OnDelete(DeleteBehavior.Restrict); // Không xóa Pitch khi xóa Booking
             });
+
             modelBuilder.Entity<BillModel>(entity =>
             {
                 entity.ToTable("Bill");

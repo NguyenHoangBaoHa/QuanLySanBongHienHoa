@@ -2,6 +2,7 @@
 using QuanLySanBong.Entities.Customer.Model;
 using QuanLySanBong.Entities.Enums;
 using QuanLySanBong.Entities.Pitch.Model;
+using QuanLySanBong.Entities.Staff.Model;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,6 +12,10 @@ namespace QuanLySanBong.Entities.Booking.Model
     {
         [Key]
         public int Id { get; set; }
+
+        public int? IdStaff { get; set; }
+        [ForeignKey("IdStaff")]
+        public virtual StaffModel Staff { get; set; }
 
         public int IdCustomer { get; set; }
         [ForeignKey("IdCustomer")]
@@ -26,6 +31,7 @@ namespace QuanLySanBong.Entities.Booking.Model
         public PaymentStatusEnum PaymentStatus { get; set; }
 
         public bool IsReceived { get; set; }
+        public DateTime? ReceivedTime { get; set; }
         public bool IsCanceled { get; set; } // Đảm bảo có logic cập nhật khi hủy
 
         public virtual BillModel Bill { get; set; }

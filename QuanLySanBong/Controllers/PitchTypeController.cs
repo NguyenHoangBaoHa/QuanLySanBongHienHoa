@@ -43,67 +43,23 @@ namespace QuanLySanBong.Controllers
         public async Task<IActionResult> Add([FromForm] PitchTypeCreateDto model)
         {
             var createdPitchType = await _service.AddAsync(model);
-            return CreatedAtAction(nameof(GetById), new { id = createdPitchType.Id }, createdPitchType);
+            return Ok(createdPitchType);
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, [FromForm] PitchTypeUpdateDto model)
         {
-            var pitchType = await _unitOfWork.PitchTypes.GetByIdAsync(id);
-            if (pitchType == null) throw new Exception("Loại sân không tồn tại!");
-
-            // Cập nhật thông tin loại sân
-            pitchType.Name = model.Name;
-            pitchType.Price = model.Price;
-            pitchType.LimitPerson = model.LimitPerson;
-            _unitOfWork.PitchTypes.UpdateAsync(pitchType);
-
-            if(model.ImageFile != null)
-            {
-                foreach(var image in model.ImageFile)
-                {
-                    string imageUrl = await _fileService.SaveFileAsync(image);
-                    var pitchTypeImage = new PitchTypeImageModel
-                    {
-                        PitchTypeId = id,
-                        ImagePath = imageUrl,
-                    };
-                    await _unitOfWork.PitchTypeImages.AddAsync(pitchTypeImage);
-                }
-            }
-
-            if(model.DeleteImageIds != null)
-            {
-                foreach(var imageId in model.DeleteImageIds)
-                {
-                    var image = await _unitOfWork.PitchTypeImages.GetByIdAsync(imageId);
-                    if (image != null)
-                    {
-                        _unitOfWork.PitchTypeImages.Remove(image);
-                    }
-                }
-            }
-
-            await _unitOfWork.CompleteAsync();
-            return NoContent();
+            var updatedPitchType = await _service.UpdateAsync(id, model);
+            return Ok(updatedPitchType); // có thể trả NoContent nếu không muốn trả data
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            var pitchType = await _unitOfWork.PitchTypes.GetByIdAsync(id);
-            if (pitchType == null) return NotFound();
-
-            var images = await _unitOfWork.PitchTypeImages.GetByPitchTypeIdAsync(id);
-            foreach (var img in images)
-            {
-                _unitOfWork.PitchTypeImages.Remove(img);
-            }
-            _unitOfWork.PitchTypes.DeleteAsync(pitchType);
-            await _unitOfWork.CompleteAsync();
-            return NoContent();
+            await _service.DeleteAsync(id);
+            return Ok(new { success = true });
         }
     }
 

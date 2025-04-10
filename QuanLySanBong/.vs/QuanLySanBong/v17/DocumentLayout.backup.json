@@ -3,8 +3,28 @@
   "WorkspaceRootPath": "E:\\TestCode\\QuanLySanBong\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\bill\\model\\billmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\bill\\model\\billmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\service\\booking\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:service\\booking\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\booking\\model\\bookingmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\booking\\model\\bookingmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\booking\\dto\\bookingcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\booking\\dto\\bookingcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\entities\\booking\\dto\\bookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:entities\\booking\\dto\\bookingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\repository\\booking\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:repository\\booking\\bookingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|e:\\testcode\\quanlysanbong\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21FDC211-67D8-4C61-890F-A93FD9C3563F}|QuanLySanBong.csproj|solutionrelative:controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,20 +34,87 @@
       "DocumentGroups": [
         {
           "DockedWidth": 232,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BookingCreateDto.cs",
+              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\Booking\\Dto\\BookingCreateDto.cs",
+              "RelativeDocumentMoniker": "Entities\\Booking\\Dto\\BookingCreateDto.cs",
+              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\Booking\\Dto\\BookingCreateDto.cs",
+              "RelativeToolTip": "Entities\\Booking\\Dto\\BookingCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:49:03.698Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BookingDto.cs",
+              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\Booking\\Dto\\BookingDto.cs",
+              "RelativeDocumentMoniker": "Entities\\Booking\\Dto\\BookingDto.cs",
+              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\Booking\\Dto\\BookingDto.cs",
+              "RelativeToolTip": "Entities\\Booking\\Dto\\BookingDto.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAowCMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:49:02.86Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BookingModel.cs",
+              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\Booking\\Model\\BookingModel.cs",
+              "RelativeDocumentMoniker": "Entities\\Booking\\Model\\BookingModel.cs",
+              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\Booking\\Model\\BookingModel.cs",
+              "RelativeToolTip": "Entities\\Booking\\Model\\BookingModel.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAcwC8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T13:48:32.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BookingController.cs",
+              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Controllers\\BookingController.cs",
+              "RelativeDocumentMoniker": "Controllers\\BookingController.cs",
+              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Controllers\\BookingController.cs",
+              "RelativeToolTip": "Controllers\\BookingController.cs",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAmwHsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T04:29:07.125Z"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "BillModel.cs",
-              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Entities\\Bill\\Model\\BillModel.cs",
-              "RelativeDocumentMoniker": "Entities\\Bill\\Model\\BillModel.cs",
-              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Entities\\Bill\\Model\\BillModel.cs",
-              "RelativeToolTip": "Entities\\Bill\\Model\\BillModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADYAAAAFAAAAAAAAAA==",
+              "Title": "BookingService.cs",
+              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Service\\Booking\\BookingService.cs",
+              "RelativeDocumentMoniker": "Service\\Booking\\BookingService.cs",
+              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Service\\Booking\\BookingService.cs",
+              "RelativeToolTip": "Service\\Booking\\BookingService.cs",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAmwHIAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T15:45:00.813Z",
+              "WhenOpened": "2025-04-10T04:28:36.581Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BookingRepository.cs",
+              "DocumentMoniker": "E:\\TestCode\\QuanLySanBong\\Repository\\Booking\\BookingRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\Booking\\BookingRepository.cs",
+              "ToolTip": "E:\\TestCode\\QuanLySanBong\\Repository\\Booking\\BookingRepository.cs",
+              "RelativeToolTip": "Repository\\Booking\\BookingRepository.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAcwJAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T04:31:04.21Z"
             }
           ]
         }

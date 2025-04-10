@@ -76,23 +76,22 @@ const PitchTypeAPI = {
     }
   },
 
-  CreatePitchType: async (data) => {
+  CreatePitchType: async (formData) => {
     try {
-      const formData = new FormData();
-      formData.append("name", data.name);
-      formData.append("price", data.price);
-      formData.append("limitPerson", data.limitPerson);
-
-      if (data.images && data.images.length > 0) {
-        data.images.forEach((image) => {
-          formData.append("imageFile", image);
-        });
-      }
-
       const response = await api.post("/PitchType", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      return response.data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
+  },
 
+  UpdatePitchType: async (id, formData) => {
+    try {
+      const response = await api.put(`/PitchType/${id}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       return response.data;
     } catch (error) {
       throw handleApiError(error);
@@ -101,8 +100,8 @@ const PitchTypeAPI = {
 
   DeletePitchType: async (id) => {
     try {
-      await api.delete(`/PitchType/${id}`);
-      return { success: true };
+      const response = await api.delete(`/PitchType/${id}`);
+      return response.data;
     } catch (error) {
       throw handleApiError(error);
     }
@@ -219,6 +218,12 @@ const BookingAPI = {
     } catch (error) {
       throw handleApiError(error);
     }
+  },
+  ConfirmReceived: async (id) => {
+    const response = await api.patch(`/Booking/${id}/confirm-received`, {
+      isReceived: true,
+    });
+    return response.data;
   }
 };
 

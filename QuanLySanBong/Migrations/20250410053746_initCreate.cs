@@ -138,12 +138,14 @@ namespace QuanLySanBong.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    IdStaff = table.Column<int>(type: "int", nullable: true),
                     IdCustomer = table.Column<int>(type: "int", nullable: false),
                     IdPitch = table.Column<int>(type: "int", nullable: false),
                     BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Duration = table.Column<int>(type: "int", nullable: false),
                     PaymentStatus = table.Column<int>(type: "int", nullable: false),
                     IsReceived = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    ReceivedTime = table.Column<DateTime>(type: "datetime2", nullable: false, computedColumnSql: "GETUTCDATE()"),
                     IsCanceled = table.Column<bool>(type: "bit", nullable: false),
                     CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
                     UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
@@ -164,6 +166,11 @@ namespace QuanLySanBong.Migrations
                         principalTable: "Pitch",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Booking_Staff_IdStaff",
+                        column: x => x.IdStaff,
+                        principalTable: "Staff",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -203,7 +210,7 @@ namespace QuanLySanBong.Migrations
             migrationBuilder.InsertData(
                 table: "Account",
                 columns: new[] { "Id", "Email", "IdCustomer", "IdStaff", "Password", "Role" },
-                values: new object[] { 1, "admin", null, null, "$2a$11$NHBjGJKNGK.1F5vM9TulTewHGLLwmKyd.ShOdAKwUHTr8eYnDc1J.", "Admin" });
+                values: new object[] { 1, "admin", null, null, "$2a$11$o.lnH2CNV3OtLfMPCbUuOeto7PFFCyTu.8qBZ884vzmSDSkCB9rDS", "Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Account_IdCustomer",
@@ -241,6 +248,11 @@ namespace QuanLySanBong.Migrations
                 column: "IdPitch");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Booking_IdStaff",
+                table: "Booking",
+                column: "IdStaff");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Pitch_IdPitchType",
                 table: "Pitch",
                 column: "IdPitchType");
@@ -267,13 +279,13 @@ namespace QuanLySanBong.Migrations
                 name: "Booking");
 
             migrationBuilder.DropTable(
-                name: "Staff");
-
-            migrationBuilder.DropTable(
                 name: "Customer");
 
             migrationBuilder.DropTable(
                 name: "Pitch");
+
+            migrationBuilder.DropTable(
+                name: "Staff");
 
             migrationBuilder.DropTable(
                 name: "PitchType");

@@ -9,5 +9,7 @@ namespace QuanLySanBong.Repository.Pitch
         Task AddAsync(PitchModel pitch);
         Task UpdateAsync(PitchModel pitch);
         Task DeleteAsync(int id);
+
+        IQueryable<PitchModel> GetQueryable();
     }
 }

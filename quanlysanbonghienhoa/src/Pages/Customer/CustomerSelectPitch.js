@@ -50,31 +50,30 @@ const CustomerSelectPitch = () => {
     );
   }
 
-
   return (
     <Container className="mt-4">
       <h2 className="mb-4">Chọn Sân Bóng</h2>
       <Row>
         {pitches.map((pitch) => {
-          console.log(`Pitch ID: ${pitch.id}, ImagePath: ${pitch.imagePath}`); // Thêm log để kiểm tra giá trị của imagePath
           return (
             <Col key={pitch.id} md={4} className="mb-4">
               <Card>
-                {pitch.imagePath ? (
-                  <Card.Img variant="top" src={pitch.imagePath} alt={pitch.name} />
-                ) : (
-                  <Card.Img variant="top" src="/default-image.jpg" alt="Hình ảnh mặc định" />
-                )}
+                <Card.Img
+                  variant="top"
+                  src={pitch.imagePath || "/default-image.jpg"}
+                  alt={pitch.name}
+                />
                 <Card.Body>
                   <Card.Title>{pitch.name}</Card.Title>
                   <Card.Text>
                     <strong>Loại sân:</strong> {pitch.pitchTypeName || "Không xác định"} <br />
-                    <strong>Sức chứa:</strong> {pitch.limitPerson ? pitch.limitPerson : "N/A"} người <br />
-                    <strong>Giá:</strong> {pitch.price ? pitch.price.toLocaleString() : "N/A"} VND
+                    <strong>Sức chứa:</strong> {pitch.limitPerson || "N/A"} người <br />
+                    <strong>Giá:</strong>{" "}
+                    {pitch.price ? pitch.price.toLocaleString() : "N/A"} VND
                   </Card.Text>
                   <Button
                     variant="primary"
-                    onClick={() => handleSelectPitch(pitch)} // ✅ Sửa pitchTypeName → pitchTypeId
+                    onClick={() => handleSelectPitch(pitch)}
                   >
                     Chọn Sân
                   </Button>

@@ -19,8 +19,18 @@ namespace QuanLySanBong.Mapper
                 .ForMember(dest => dest.ImageUrls, opt => opt.MapFrom(src => src.Images != null ? src.Images.Select(img => img.ImagePath).ToList() : new List<string>()))
                 .ReverseMap();
 
-            CreateMap<PitchTypeModel, PitchTypeCreateDto>().ReverseMap();
-            CreateMap<PitchTypeModel, PitchTypeUpdateDto>().ReverseMap();
+            CreateMap<PitchTypeCreateDto, PitchTypeModel>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+                .ForMember(dest => dest.LimitPerson, opt => opt.MapFrom(src => src.LimitPerson))
+                .ForMember(dest => dest.Images, opt => opt.Ignore()); // không ánh xạ ImageFile
+
+            CreateMap<PitchTypeUpdateDto, PitchTypeModel>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+                .ForMember(dest => dest.LimitPerson, opt => opt.MapFrom(src => src.LimitPerson))
+                .ForMember(dest => dest.Images, opt => opt.Ignore()); // không ánh xạ ImageFile
+
 
             CreateMap<PitchTypeImageModel, PitchTypeImageDto>().ReverseMap();
 
@@ -58,6 +68,7 @@ namespace QuanLySanBong.Mapper
 
             // Ánh xạ từ BookingModel sang BookingDto (để trả về cho frontend)
             CreateMap<BookingModel, BookingDto>()
+                .ForMember(dest => dest.IdPitch, opt => opt.MapFrom(src => src.IdPitch))
                 .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Customer != null ? src.Customer.DisplayName : string.Empty))
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Customer != null ? src.Customer.PhoneNumber : string.Empty))
                 .ForMember(dest => dest.PitchName, opt => opt.MapFrom(src => src.Pitch != null ? src.Pitch.Name : string.Empty))
@@ -65,7 +76,8 @@ namespace QuanLySanBong.Mapper
                 .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Duration))
                 .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.PaymentStatus.ToString())) // Chuyển Enum thành chuỗi
                 .ForMember(dest => dest.IsCanceled, opt => opt.MapFrom(src => src.IsCanceled)) // Thêm ánh xạ IsCanceled
-                .ForMember(dest => dest.TimeslotStatus, opt => opt.MapFrom(src => src.TimeslotStatus)); // Thêm ánh xạ TimeslotStatus
+                .ForMember(dest => dest.TimeslotStatus, opt => opt.MapFrom(src => src.TimeslotStatus)) // Thêm ánh xạ TimeslotStatus
+                .ForMember(dest => dest.ReceivedTime, opt => opt.MapFrom(src => src.ReceivedTime));
 
             // Ánh xạ từ BookingUpdateStatusDto sang BookingModel khi cập nhật trạng thái
             CreateMap<BookingUpdateStatusDto, BookingModel>()
@@ -77,19 +89,31 @@ namespace QuanLySanBong.Mapper
 
             CreateMap<BillModel, BillDto>()
                 .ForMember(dest => dest.IdBooking, opt => opt.MapFrom(src => src.IdBooking))
-                .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.Booking != null && src.Booking.Customer != null ? src.Booking.Customer.DisplayName : string.Empty))
-                .ForMember(dest => dest.PitchName, opt => opt.MapFrom(src => src.Booking != null && src.Booking.Pitch != null ? src.Booking.Pitch.Name : string.Empty))
-                .ForMember(dest => dest.BookingDate, opt => opt.MapFrom(src => src.Booking != null ? src.Booking.BookingDate : default))
-                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Booking != null ? src.Booking.Duration : 0))
+                .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src =>
+                    src.Booking != null && src.Booking.Customer != null && src.Booking.Customer.Account != null
+                        ? src.Booking.Customer.DisplayName
+                        : string.Empty))
+                .ForMember(dest => dest.PitchName, opt => opt.MapFrom(src =>
+                    src.Booking != null && src.Booking.Pitch != null
+                        ? src.Booking.Pitch.Name
+                        : string.Empty))
+                .ForMember(dest => dest.BookingDate, opt => opt.MapFrom(src =>
+                    src.Booking != null ? src.Booking.BookingDate : default))
+                .ForMember(dest => dest.Duration, opt => opt.MapFrom(src =>
+                    src.Booking != null ? src.Booking.Duration : 0))
                 .ForMember(dest => dest.BasePrice, opt => opt.MapFrom(src => src.BasePrice))
                 .ForMember(dest => dest.Discount, opt => opt.MapFrom(src => src.Discount))
                 .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => src.TotalPrice))
                 .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod.ToString()))
                 .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.PaymentStatus.ToString()))
                 .ForMember(dest => dest.PaidAt, opt => opt.MapFrom(src => src.PaidAt))
-                .ForMember(dest => dest.PaidBy, opt => opt.MapFrom(src => src.PaidBy != null ? src.PaidBy.Email : string.Empty))
+                .ForMember(dest => dest.PaidBy, opt => opt.MapFrom(src =>
+                    src.PaidBy != null && src.PaidBy.Staff != null
+                        ? src.PaidBy.Staff.DisplayName
+                        : (src.PaidBy != null ? src.PaidBy.Email : string.Empty)))
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
                 .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => src.UpdatedAt));
+
 
             CreateMap<BillCreateDto, BillModel>()
                 .ForMember(dest => dest.IdBooking, opt => opt.MapFrom(src => src.IdBooking))
@@ -105,6 +129,30 @@ namespace QuanLySanBong.Mapper
                 .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.PaymentStatus))
                 .ForMember(dest => dest.PaidAt, opt => opt.MapFrom(src => src.PaidAt))
                 .ForMember(dest => dest.IdPaidBy, opt => opt.MapFrom(src => src.PaidById));
+
+            CreateMap<BillModel, BillExportDto>()
+                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src =>
+                    src.Booking != null && src.Booking.Customer != null && src.Booking.Customer.Account != null
+                        ? src.Booking.Customer.DisplayName
+                        : string.Empty))
+                .ForMember(dest => dest.CustomerPhoneNumber, opt => opt.MapFrom(src =>
+                    src.Booking != null && src.Booking.Customer != null
+                        ? src.Booking.Customer.PhoneNumber
+                        : string.Empty))
+                .ForMember(dest => dest.PitchName, opt => opt.MapFrom(src =>
+                    src.Booking != null && src.Booking.Pitch != null
+                        ? src.Booking.Pitch.Name
+                        : string.Empty))
+                .ForMember(dest => dest.PitchTypeName, opt => opt.MapFrom(src =>
+                    src.Booking != null && src.Booking.Pitch != null && src.Booking.Pitch.PitchType != null
+                        ? src.Booking.Pitch.PitchType.Name
+                        : string.Empty))
+                .ForMember(dest => dest.BookingDate, opt => opt.MapFrom(src =>
+                    src.Booking != null
+                        ? src.Booking.BookingDate.ToString("dd/MM/yyyy HH:mm")
+                        : string.Empty))
+                .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.PaymentStatus.ToString()))
+                .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod.ToString()));
 
         }
     }

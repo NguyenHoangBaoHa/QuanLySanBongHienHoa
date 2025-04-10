@@ -112,6 +112,7 @@ namespace QuanLySanBong.Service.Booking
             }
 
             booking.IsReceived = isReceived;
+            booking.ReceivedTime = isReceived ? DateTime.UtcNow : null;
             booking.UpdateTimestamp();
 
             _unitOfWork.Bookings.UpdateBooking(booking);

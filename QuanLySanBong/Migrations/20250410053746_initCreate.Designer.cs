@@ -12,7 +12,7 @@ using QuanLySanBong.Data;
 namespace QuanLySanBong.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250406140621_initCreate")]
+    [Migration("20250410053746_initCreate")]
     partial class initCreate
     {
         /// <inheritdoc />
@@ -70,7 +70,7 @@ namespace QuanLySanBong.Migrations
                         {
                             Id = 1,
                             Email = "admin",
-                            Password = "$2a$11$NHBjGJKNGK.1F5vM9TulTewHGLLwmKyd.ShOdAKwUHTr8eYnDc1J.",
+                            Password = "$2a$11$o.lnH2CNV3OtLfMPCbUuOeto7PFFCyTu.8qBZ884vzmSDSkCB9rDS",
                             Role = "Admin"
                         });
                 });
@@ -154,6 +154,9 @@ namespace QuanLySanBong.Migrations
                     b.Property<int>("IdPitch")
                         .HasColumnType("int");
 
+                    b.Property<int?>("IdStaff")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsCanceled")
                         .HasColumnType("bit");
 
@@ -164,6 +167,11 @@ namespace QuanLySanBong.Migrations
 
                     b.Property<int>("PaymentStatus")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("ReceivedTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasComputedColumnSql("GETUTCDATE()");
 
                     b.Property<int>("TimeslotStatus")
                         .HasColumnType("int");
@@ -178,6 +186,8 @@ namespace QuanLySanBong.Migrations
                     b.HasIndex("IdCustomer");
 
                     b.HasIndex("IdPitch");
+
+                    b.HasIndex("IdStaff");
 
                     b.ToTable("Booking", (string)null);
                 });
@@ -390,9 +400,15 @@ namespace QuanLySanBong.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("QuanLySanBong.Entities.Staff.Model.StaffModel", "Staff")
+                        .WithMany()
+                        .HasForeignKey("IdStaff");
+
                     b.Navigation("Customer");
 
                     b.Navigation("Pitch");
+
+                    b.Navigation("Staff");
                 });
 
             modelBuilder.Entity("QuanLySanBong.Entities.Pitch.Model.PitchModel", b =>

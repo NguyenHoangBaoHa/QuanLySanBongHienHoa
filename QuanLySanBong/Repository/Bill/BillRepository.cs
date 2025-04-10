@@ -33,6 +33,11 @@ namespace QuanLySanBong.Repository.Bill
         {
             _context.Bills.Update(bill);
             return _context.SaveChangesAsync();
-        } 
+        }
+
+        public IQueryable<BillModel> GetQueryable()
+        {
+            return _context.Bills.AsQueryable();
+        }
     }
 }

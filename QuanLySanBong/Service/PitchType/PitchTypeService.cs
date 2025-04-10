@@ -113,7 +113,7 @@ namespace QuanLySanBong.Service.PitchType
             _unitOfWork.PitchTypeImages.RemoveRange(pitchType.Images);
 
             // Xóa loại sân (EF Core sẽ tự động xóa ảnh do `Cascade Delete`)
-            _unitOfWork.PitchTypes.DeleteAsync(pitchType);
+            await _unitOfWork.PitchTypes.DeleteAsync(pitchType);
 
             // Lưu thay đổi vào database
             await _unitOfWork.CompleteAsync();

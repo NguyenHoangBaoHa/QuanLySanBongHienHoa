@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using QuanLySanBong.Entities.Enums;
 using QuanLySanBong.Entities.Pitch.Dto;
 using QuanLySanBong.Entities.Pitch.Model;
@@ -17,9 +18,27 @@ namespace QuanLySanBong.Service.Pitch
             _mapper = mapper;
         }
 
-        public async Task<List<PitchDto>> GetAllAsync()
+        public async Task<List<PitchDto>> GetAllAsync() // <- Thêm lại
         {
             var pitches = await _unitOfWork.Pitches.GetAllAsync();
+
+            var pitchDtos = _mapper.Map<List<PitchDto>>(pitches);
+            foreach (var (dto, pitch) in pitchDtos.Zip(pitches))
+            {
+                dto.ListImagePath = pitch.PitchType.Images.Select(i => i.ImagePath).ToList();
+                dto.ImagePath = dto.ListImagePath.FirstOrDefault();
+            }
+            return pitchDtos;
+
+        }
+
+        public async Task<List<PitchDto>> GetAllAsync(int pitchTypeId)
+        {
+            var pitches = await _unitOfWork.Pitches
+                .GetQueryable()
+                .Where(p => p.IdPitchType == pitchTypeId)
+                .ToListAsync();
+
             return _mapper.Map<List<PitchDto>>(pitches);
         }
 

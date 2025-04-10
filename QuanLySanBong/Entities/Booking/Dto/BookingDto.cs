@@ -6,6 +6,7 @@ namespace QuanLySanBong.Entities.Booking.Dto
     public class BookingDto
     {
         public int Id { get; set; }
+        public int IdPitch { get; set; }
         public int IdCustomer { get; set; }
         public string DisplayName { get; set; }
         public string PhoneNumber { get; set; }
@@ -15,6 +16,7 @@ namespace QuanLySanBong.Entities.Booking.Dto
         public int Duration { get; set; } // Thời gian đặt sân
         public PaymentStatusEnum PaymentStatus { get; set; }
         public bool IsReceived { get; set; }
+        public DateTime? ReceivedTime { get; set; }
         public bool IsCanceled { get; set; } // Thêm thuộc tính IsCanceled
 
         public TimeslotStatus TimeslotStatus { get; set; }

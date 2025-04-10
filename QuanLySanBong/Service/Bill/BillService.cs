@@ -4,6 +4,7 @@ using QuanLySanBong.UnitOfWork;
 using System.Reflection.Metadata;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Microsoft.EntityFrameworkCore;
 
 namespace QuanLySanBong.Service.Bill
 {
@@ -20,7 +21,17 @@ namespace QuanLySanBong.Service.Bill
 
         public async Task<List<BillDto>> GetAllBillsAsync(int page, int pageSize)
         {
-            var bills = await _unitOfWork.Bills.GetAllAsync(page, pageSize);
+            var bills = await _unitOfWork.Bills
+                .GetQueryable()
+                .Include(b => b.Booking)
+                    .ThenInclude(bk => bk.Pitch)
+                        .ThenInclude(p => p.PitchType)
+                .Include(b => b.Booking)
+                    .ThenInclude(bk => bk.Customer)
+                .Include(b => b.Booking)
+                    .ThenInclude(a => a.Staff)
+            .ToListAsync();
+            //var bills = await _unitOfWork.Bills.GetAllAsync(page, pageSize);
             return _mapper.Map<List<BillDto>>(bills);
         }
 

@@ -54,5 +54,13 @@ namespace QuanLySanBong.Repository.Pitch
            _context.Pitches.Remove(pitch);
             await _context.SaveChangesAsync();
         }
+
+        public IQueryable<PitchModel> GetQueryable()
+        {
+            return _context.Pitches
+                .Include(p => p.PitchType)
+                    .ThenInclude(pt => pt.Images)
+                .AsNoTracking();
+        }
     }
 }
