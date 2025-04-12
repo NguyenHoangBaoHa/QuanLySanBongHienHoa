@@ -12,7 +12,7 @@ using QuanLySanBong.Data;
 namespace QuanLySanBong.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250410053746_initCreate")]
+    [Migration("20250411063205_initCreate")]
     partial class initCreate
     {
         /// <inheritdoc />
@@ -70,7 +70,7 @@ namespace QuanLySanBong.Migrations
                         {
                             Id = 1,
                             Email = "admin",
-                            Password = "$2a$11$o.lnH2CNV3OtLfMPCbUuOeto7PFFCyTu.8qBZ884vzmSDSkCB9rDS",
+                            Password = "$2a$11$7b2sKxz9XF0Cf6cCfSBcxeFftuVXpfQEw/mpO6.cwOsTM3mb6239.",
                             Role = "Admin"
                         });
                 });

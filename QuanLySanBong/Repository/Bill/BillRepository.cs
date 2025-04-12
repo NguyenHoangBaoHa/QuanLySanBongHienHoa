@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QuanLySanBong.Data;
+using QuanLySanBong.Entities.Bill.Dto;
 using QuanLySanBong.Entities.Bill.Model;
 
 namespace QuanLySanBong.Repository.Bill
@@ -28,6 +29,12 @@ namespace QuanLySanBong.Repository.Bill
                 .Include(b => b.PaidBy)
                 .FirstOrDefaultAsync(b => b.Id == id);
         }
+        public async Task<BillModel> CreateAsync(BillModel bill)
+        {
+            await _context.Bills.AddAsync(bill);
+            await _context.SaveChangesAsync();
+            return bill;
+        }
 
         public Task UpdateAsync(BillModel bill)
         {
@@ -38,6 +45,24 @@ namespace QuanLySanBong.Repository.Bill
         public IQueryable<BillModel> GetQueryable()
         {
             return _context.Bills.AsQueryable();
+        }
+
+        public async Task<List<BillModel>> GetBillsByCustomerIdAsync(int customerId)
+        {
+            return await _context.Bills
+                .Where(b => b.Booking.IdCustomer == customerId)
+                .Include(b => b.Booking)
+                .ToListAsync();
+        }
+
+        public async Task<BillModel?> GetBillByBookingIdAsync(int bookingId)
+        {
+            return await _context.Bills
+                .Include(b => b.Booking)
+                    .ThenInclude(bk => bk.Customer)
+                .Include(b => b.Booking.Pitch)
+                    .ThenInclude(p => p.PitchType)
+                .FirstOrDefaultAsync(b => b.IdBooking == bookingId);
         }
     }
 }

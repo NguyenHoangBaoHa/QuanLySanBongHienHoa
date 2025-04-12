@@ -34,7 +34,7 @@ const CustomerBookingDetail = () => {
     };
 
     fetchData();
-  }, [pitchId]);
+  }, [pitchId, date, time]);
 
   // Xử lý khi nhấn "Xác Nhận Đặt Sân"
   const handleConfirmBooking = async () => {
@@ -60,9 +60,15 @@ const CustomerBookingDetail = () => {
 
     try {
       const response = await BookingAPI.CreateBooking(bookingData, token);
-      console.log("✅ Booking Success:", response);
-      alert("Đặt sân thành công!");
-      navigate("/customer/bill");
+      const bookingId = response.id || response.bookingId; // Lấy bookingId từ phản hồi
+      if(!bookingId){
+        alert("Không lấy được Booking Id!");
+        return;
+      }
+
+      const path = `/customer/bill/booking/${bookingId}`;
+      console.log("✅ Đặt sân thành công, chuyển hướng đến:", path);
+      navigate(path);
     } catch (error) {
       console.error("❌ Lỗi đặt sân:", error.response?.data || error.message);
       alert(`Lỗi khi đặt sân: ${error.response?.data || "Vui lòng thử lại!"}`);

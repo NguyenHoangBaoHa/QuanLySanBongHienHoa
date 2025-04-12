@@ -27,7 +27,7 @@ namespace QuanLySanBong.Controllers
             {
                 var bills = await _service.GetAllBillsAsync(page, pageSize);
 
-                if(bills == null || !bills.Any())
+                if (bills == null || !bills.Any())
                 {
                     return NotFound("Không có hóa đơn nào.");
                 }
@@ -35,6 +35,7 @@ namespace QuanLySanBong.Controllers
                 var billDtos = bills.Select(bill => new BillDto
                 {
                     Id = bill.Id,
+                    IdBooking = bill.IdBooking,
                     DisplayName = bill.DisplayName,
                     PitchName = bill.PitchName,
                     PitchTypeName = bill.PitchTypeName,
@@ -43,8 +44,8 @@ namespace QuanLySanBong.Controllers
                     BasePrice = bill.BasePrice,
                     Discount = bill.Discount,
                     TotalPrice = bill.TotalPrice,
-                    PaymentMethod = bill.PaymentMethod.ToString(),
-                    PaymentStatus = bill.PaymentStatus.ToString(),
+                    PaymentMethod = bill.PaymentMethod,
+                    PaymentStatus = bill.PaymentStatus,
                     PaidAt = bill.PaidAt,
                     PaidBy = bill.PaidBy?.ToString(),
                     CreatedAt = bill.CreatedAt,
@@ -77,9 +78,37 @@ namespace QuanLySanBong.Controllers
             return Ok(bill);
         }
 
+        [HttpPost("create")]
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> CreateBill([FromBody] BillDto dto)
+        {
+            try
+            {
+                if (dto == null || dto.IdBooking <= 0)
+                {
+                    return BadRequest(new { Message = "Dữ liệu không hợp lệ." });
+                }
+
+                // Gọi service để tạo hóa đơn
+                var response = await _service.CreateBillFromBookingAsyns(dto);
+
+                if (response.Data == null)
+                {
+                    return BadRequest(new { Message = "Tạo hóa đơn thất bại." });
+                }
+
+                return Ok(response.Data);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Lỗi khi tạo hóa đơn: {ex.Message}", ex);
+                return StatusCode(500, "Đã xảy ra lỗi khi tạo hóa đơn.");
+            }
+        }
+
         // 🔹 Cập nhật trạng thái thanh toán (Admin & Staff)
         [HttpPut]
-        [Authorize(Roles = "Admin,Staff")]
+        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> UpdateBill([FromBody] BillUpdateDto billUpdateDto)
         {
             try
@@ -110,30 +139,54 @@ namespace QuanLySanBong.Controllers
             }
         }
 
-        [HttpGet("{billId}/html")]
-        [Authorize(Roles = "Admin,Staff")]
-        public async Task<IActionResult> GetbillHtml(int billId)
+        [HttpGet("customer/transactions")]
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> GetTransactionHistory()
         {
-            var billHtml = await _service.GenerateBillHtmlAsync(billId);
-            if (string.IsNullOrEmpty(billHtml))
+            try
             {
-                return NotFound(new { Message = "Bill not found" });
-            }
+                var customerIdClaim = User.Claims.FirstOrDefault(c => c.Type == "IdCusstomer");
+                if(customerIdClaim == null)
+                {
+                    return Unauthorized(new { Message = "Không tìm thấy thông tin khách hàng." });
+                }
 
-            return Content(billHtml, "text/html");
+                var customerId = int.Parse(customerIdClaim.Value);
+
+                var bills = await _service.GetBillsByCustomerIdAsync(customerId);
+
+                return Ok(bills);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Lỗi khi lấy lịch sử giao dịch: {ex.Message}", ex);
+                return StatusCode(500, "Đã xảy ra lỗi khi xử lý yêu cầu.");
+            }
         }
 
-        [HttpGet("{billId}/pdf")]
-        [Authorize(Roles = "Admin,Staff,Customer")]
-        public async Task<IActionResult> GetbillPdf(int billId)
+        [HttpGet("booking/{bookingId}")]
+        [Authorize(Roles = "Customer,Staff,Admin")]
+        public async Task<IActionResult> GetBillByBookingId(int bookingId)
         {
-            var billPdf = await _service.ExportBillPdfAsync(billId);
+            var bill = await _service.GetBillByBookingIdAsync(bookingId);
+            if (bill == null)
+            {
+                return NotFound(new { Message = "Không tìm thấy hóa đơn cho booking này." });
+            }
+            return Ok(bill);
+        }
+
+        [HttpGet("{id}/pdf")]
+        [Authorize(Roles = "Staff")]
+        public async Task<IActionResult> GetbillPdf(int id)
+        {
+            var billPdf = await _service.ExportBillPdfAsync(id);
             if (billPdf == null)
             {
                 return NotFound(new { Message = "Bill not found" });
             }
 
-            return File(billPdf, "application/pdf", "Bill.pdf");
+            return billPdf;
         }
     }
 }

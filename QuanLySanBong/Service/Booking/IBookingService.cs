@@ -12,5 +12,6 @@ namespace QuanLySanBong.Service.Booking
         Task<bool> UpdateReceivedStatusAsync(int bookingId, bool isReceived); //Cập nhật trạng thái nhận sân của Staff
         Task<bool> DeleteBookingAsync(int id); //Xóa Booking
         Task<bool> CancelBookingAsync(int customerId, int bookingId); //Hủy đặt sân
+        Task<IEnumerable<BookingDto>> GetReceivedBookingsAsync();
     }
 }

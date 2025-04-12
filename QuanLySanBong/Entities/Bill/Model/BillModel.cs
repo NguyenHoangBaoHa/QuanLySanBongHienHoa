@@ -45,6 +45,10 @@ namespace QuanLySanBong.Entities.Bill.Model
             }
 
             TotalPrice = finalPrice - Discount;
+            if (TotalPrice < 0)
+            {
+                TotalPrice = 0; // Đảm bảo không có giá âm
+            }
         }
 
         //Cập nhật tự động khi có thay đổi

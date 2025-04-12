@@ -127,6 +127,7 @@ namespace QuanLySanBong.Mapper
             CreateMap<BillUpdateDto, BillModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.PaymentStatus))
+                .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod))
                 .ForMember(dest => dest.PaidAt, opt => opt.MapFrom(src => src.PaidAt))
                 .ForMember(dest => dest.IdPaidBy, opt => opt.MapFrom(src => src.PaidById));
 

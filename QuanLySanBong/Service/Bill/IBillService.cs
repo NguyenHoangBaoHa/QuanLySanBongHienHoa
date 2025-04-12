@@ -1,4 +1,6 @@
-﻿using QuanLySanBong.Entities.Bill.Dto;
+﻿using Microsoft.AspNetCore.Mvc;
+using QuanLySanBong.Entities.Bill.Dto;
+using QuanLySanBong.Service.Interface;
 
 namespace QuanLySanBong.Service.Bill
 {
@@ -6,13 +8,12 @@ namespace QuanLySanBong.Service.Bill
     {
         Task<List<BillDto>> GetAllBillsAsync(int page, int pageSize);
         Task<BillDto> GetBillByIdAsync(int id);
+        Task<ServiceResponse<BillDto>> CreateBillFromBookingAsyns(BillDto dto);
         Task<BillDto> UpdateBillAsync(BillUpdateDto billUpdateDto);
         Task<BillDto> PayBillAsync(int billId, int paidById);
-
-        // 🔹 Xuất hóa đơn giấy (HTML cho Admin & Staff)
-        Task<string> GenerateBillHtmlAsync(int billId);
-
+        Task<List<BillDto>> GetBillsByCustomerIdAsync(int customerId);
+        Task<BillDto?> GetBillByBookingIdAsync(int bookingId);
         // 🔹 Xuất hóa đơn PDF (cho Customer)
-        Task<byte[]> ExportBillPdfAsync(int billId);
+        Task<FileContentResult> ExportBillPdfAsync(int id);
     }
 }

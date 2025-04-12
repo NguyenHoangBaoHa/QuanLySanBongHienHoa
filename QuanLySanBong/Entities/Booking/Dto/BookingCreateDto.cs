@@ -18,6 +18,6 @@ namespace QuanLySanBong.Entities.Booking.Dto
         [Range(30, 180, ErrorMessage = "Thời gian đặt sân phải từ 30 đến 180 phút.")]
         public int Duration { get; set; } // Thời gian đặt sân (tính theo phút)
 
-        public PaymentStatusEnum PaymentStatus { get; set; } = PaymentStatusEnum.ChuaThanhToan; // Mặc định là chưa thanh toán
+        public PaymentStatusEnum PaymentStatus { get; set; } = PaymentStatusEnum.Unpaid; // Mặc định là chưa thanh toán
     }
 }

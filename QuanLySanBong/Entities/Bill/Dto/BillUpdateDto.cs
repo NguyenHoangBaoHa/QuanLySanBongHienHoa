@@ -10,6 +10,7 @@ namespace QuanLySanBong.Entities.Bill.Dto
 
         [Required]
         public PaymentStatusEnum PaymentStatus { get; set; }
+        public PaymentMethodEnum PaymentMethod { get; set; }
         public DateTime? PaidAt { get; set; } = DateTime.UtcNow;
         public int? PaidById { get; set; }
     }

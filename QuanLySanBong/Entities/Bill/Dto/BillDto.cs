@@ -1,4 +1,6 @@
-﻿namespace QuanLySanBong.Entities.Bill.Dto
+﻿using QuanLySanBong.Entities.Enums;
+
+namespace QuanLySanBong.Entities.Bill.Dto
 {
     public class BillDto
     {
@@ -12,8 +14,8 @@
         public decimal BasePrice { get; set; }
         public decimal Discount { get; set; }
         public decimal TotalPrice { get; set; }
-        public string PaymentMethod { get; set; }
-        public string PaymentStatus { get; set; }
+        public PaymentMethodEnum PaymentMethod { get; set; }
+        public PaymentStatusEnum PaymentStatus { get; set; } = PaymentStatusEnum.Unpaid; // Mặc định là chưa thanh toán
         public DateTime? PaidAt { get; set; }
         public string PaidBy { get; set; }
         public DateTime CreatedAt { get; set; }  // ✅ Thêm vào

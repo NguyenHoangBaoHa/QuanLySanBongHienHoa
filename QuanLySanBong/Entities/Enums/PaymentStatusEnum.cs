@@ -2,7 +2,7 @@
 {
     public enum PaymentStatusEnum
     {
-        ChuaThanhToan, //0
-        DaThanhToan, //1
+        Unpaid = 0, //0
+        Paid = 1, //1
     }
 }

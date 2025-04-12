@@ -79,9 +79,11 @@ const CustomerSchedule = () => {
   const getSlotInfo = (date, time) => {
     return schedule.find(item => {
       const bookingTime = moment(item.bookingDate).format("YYYY-MM-DD HH:mm");
+      console.log("Thời gian: " + bookingTime);
       return bookingTime === `${date} ${time}`;
     });
   };
+
 
   const isPastTime = (date, time) => {
     const now = moment();

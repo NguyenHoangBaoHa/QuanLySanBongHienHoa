@@ -210,7 +210,7 @@ namespace QuanLySanBong.Migrations
             migrationBuilder.InsertData(
                 table: "Account",
                 columns: new[] { "Id", "Email", "IdCustomer", "IdStaff", "Password", "Role" },
-                values: new object[] { 1, "admin", null, null, "$2a$11$o.lnH2CNV3OtLfMPCbUuOeto7PFFCyTu.8qBZ884vzmSDSkCB9rDS", "Admin" });
+                values: new object[] { 1, "admin", null, null, "$2a$11$7b2sKxz9XF0Cf6cCfSBcxeFftuVXpfQEw/mpO6.cwOsTM3mb6239.", "Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Account_IdCustomer",

@@ -86,7 +86,7 @@ namespace QuanLySanBong.Service.Booking
                 IdPitch = bookingDto.IdPitch,
                 BookingDate = bookingDto.BookingDate,
                 Duration = bookingDto.Duration,
-                PaymentStatus = PaymentStatusEnum.ChuaThanhToan, // Mặc định chưa thanh toán
+                PaymentStatus = PaymentStatusEnum.Unpaid, // Mặc định chưa thanh toán
                 TimeslotStatus = TimeslotStatus.Booked,
                 IsReceived = false,
                 CreateAt = DateTime.UtcNow,
@@ -112,7 +112,7 @@ namespace QuanLySanBong.Service.Booking
             }
 
             booking.IsReceived = isReceived;
-            booking.ReceivedTime = isReceived ? DateTime.UtcNow : null;
+            booking.ReceivedTime = isReceived ? DateTime.UtcNow.AddHours(7) : null;
             booking.UpdateTimestamp();
 
             _unitOfWork.Bookings.UpdateBooking(booking);
@@ -167,6 +167,12 @@ namespace QuanLySanBong.Service.Booking
             await _unitOfWork.CompleteAsync();
 
             return true;
+        }
+
+        public Task<IEnumerable<BookingDto>> GetReceivedBookingsAsync()
+        {
+            var bookings = _unitOfWork.Bookings.GetReceivedBookingsAsync();
+            return bookings;
         }
     }
 }

@@ -188,6 +188,7 @@ E:\TestCode\QuanLySanBong\bin\Debug\net9.0\Azure.Core.dll
 E:\TestCode\QuanLySanBong\bin\Debug\net9.0\Azure.Identity.dll
 E:\TestCode\QuanLySanBong\bin\Debug\net9.0\BCrypt.Net-Next.dll
 E:\TestCode\QuanLySanBong\bin\Debug\net9.0\BouncyCastle.Cryptography.dll
+E:\TestCode\QuanLySanBong\bin\Debug\net9.0\DinkToPdf.dll
 E:\TestCode\QuanLySanBong\bin\Debug\net9.0\Humanizer.dll
 E:\TestCode\QuanLySanBong\bin\Debug\net9.0\itextsharp.dll
 E:\TestCode\QuanLySanBong\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

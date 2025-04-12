@@ -142,5 +142,31 @@ namespace QuanLySanBong.Repository.Booking
 
             return isBooked == null; // ✅ Trả về true nếu KHÔNG có bản ghi trùng
         }
+        public async Task<IEnumerable<BookingDto>> GetReceivedBookingsAsync()
+        {
+            var bookings = await _context.Bookings
+                .Where(b => b.IsReceived && b.ReceivedTime != null)
+                .Include(b => b.Customer)
+                .Include(b => b.Pitch)
+                .ThenInclude(p => p.PitchType)
+                .Select(b => new BookingDto
+                {
+                    Id = b.Id,
+                    IdPitch = b.IdPitch,
+                    DisplayName = b.Customer.DisplayName,
+                    PhoneNumber = b.Customer.PhoneNumber,
+                    PitchName = b.Pitch.Name,
+                    PitchTypeName = b.Pitch.PitchType.Name,
+                    BookingDate = b.BookingDate,
+                    Duration = b.Duration,
+                    PaymentStatus = b.PaymentStatus,
+                    TimeslotStatus = b.TimeslotStatus,
+                    IsReceived = b.IsReceived,
+                    ReceivedTime = b.ReceivedTime // 👈 Thêm dòng này
+                })
+                .ToListAsync();
+
+            return bookings;
+        }
     }
 }

@@ -227,4 +227,86 @@ const BookingAPI = {
   }
 };
 
-export { AccountAPI, PitchTypeAPI, PitchAPI, BookingAPI };
+const BillAPI = {
+  // ==== Admin / Staff ====
+
+  GetAllBills: async () => {
+    try {
+      const response = await api.get("/Bill");
+      return response.data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
+  },
+
+  GetBillDetail: async (id) => {
+    try {
+      const response = await api.get(`/Bill/${id}`);
+      return response.data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
+  },
+
+  UpdatePaymentStatus: async (id, status) => {
+    try {
+      const response = await api.put(`/Bill`, {
+        id: id,
+        paymentStatus: status,
+      });
+      return response.data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
+  },
+
+  ExportBillToPDF: async (id) => {
+    try {
+      const response = await api.get(`/Bill/${id}/pdf`, {
+        responseType: "blob",
+      });
+
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+
+      return { success: true };
+    } catch (error) {
+      throw handleApiError(error);
+    }
+  },
+
+  // ==== Customer ====
+
+  GetBillByBookingId: async (bookingId) => {
+    try {
+      const response = await api.get(`/Bill/booking/${bookingId}`);
+      return response.data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
+  },
+  CreateBill: async (billData) => {
+    try {
+      const response = await api.post("/Bill/createF", billData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
+  },
+
+  GetTransactionHistory: async () => {
+    try {
+      const response = await api.get(`/Bill/customer/transactions`);
+      return response.data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
+  },
+};
+
+export { AccountAPI, PitchTypeAPI, PitchAPI, BookingAPI, BillAPI };

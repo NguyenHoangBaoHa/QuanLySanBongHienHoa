@@ -158,5 +158,13 @@ namespace QuanLySanBong.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [HttpGet("received")]
+        [Authorize(Roles = "Staff")]
+        public async Task<IActionResult> GetReceivedBookings()
+        {
+            var bookings = await _service.GetReceivedBookingsAsync();
+            return Ok(bookings);
+        }
     }
 }

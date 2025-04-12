@@ -14,5 +14,6 @@ namespace QuanLySanBong.Repository.Booking
         void DeleteBooking(BookingModel booking); //Xóa Booking
         Task<bool> CancelBookingAsync(int bookingId); //Hủy đặt sân
         Task<bool> IsTimeSlotAvailable(int pitchId, DateTime bookingDate, int duration); //Kiểm tra trùng Booking
+        Task<IEnumerable<BookingDto>> GetReceivedBookingsAsync();
     }
 }
